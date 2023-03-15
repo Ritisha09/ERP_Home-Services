@@ -1,0 +1,76 @@
+.container {
+    position: relative;
+    width: 100vh;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(255, 255, 255, 0.993);
+    /* background: linear-gradient(
+      219deg,
+      rgb(0, 0, 0) 33%,
+      rgb(38, 179, 235) 100%
+    ); */
+    font-family: "Roboto", sans-serif;
+    gap: 60px;
+
+    
+  }
+  /* ======================================================== */
+  .card {
+    transform-style: preserve-3d;
+    position: relative;
+    padding: 25px;
+    /* padding-bottom: 5px; */
+    margin-bottom: 40px;
+    width: 500px;
+    height: 600px;
+    border-radius: 20px;
+    box-shadow: rgba(0, 0, 0, 0.35) 5px 15px 30px;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    justify-content: space-around;
+    gap: 10px;
+    background: linear-gradient(
+      25deg,
+      rgb(8, 150, 216) 0%,
+      rgb(0, 0, 0) 86%
+    );
+    transition: all 0.1s ease;
+  }
+  .sneaaker-img {
+    position: relative;
+    width: 90%;
+    transition: all 0.5s ease;
+  }
+  .title,
+  .card p {
+    width: 100%;
+    font-weight: bold;
+    color: rgb(220, 220, 220);
+  }
+  .sizes-box {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+    gap: 10px;
+  }
+  .sizes-box li {
+    list-style: none;
+    cursor: pointer;
+    font-weight: bold;
+    border-radius: 30px;
+    padding: 0.5rem 1.5rem;
+    gap: 10px;
+    background-color: rgb(220, 220, 220);
+    box-shadow: rgba(0, 0, 0, 0.25) 0px 54px 55px,
+      rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px,
+      rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px;
+  }
+  .sizes-box li:hover {
+    background-color: rgb(134, 134, 134);
+  }
+
+ 
