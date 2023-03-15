@@ -1,9 +1,9 @@
 import React from 'react'
 
-export const Inventory = () => {
+export const Complaints = () => {
   return (
     <div>
-          <div className="d-flex flex-column flex-lg-row h-lg-full bg-surface-secondary">
+        <div className="d-flex flex-column flex-lg-row h-lg-full bg-surface-secondary">
        
        <nav className="navbar show navbar-vertical h-lg-screen navbar-expand-lg px-0 py-3 navbar-light bg-white border-bottom border-bottom-lg-0 border-end-lg" id="navbarVertical">
            <div className="container-fluid">
@@ -47,11 +47,11 @@ export const Inventory = () => {
                        <li className="nav-item">
                            <a className="nav-link" href="/Inventory">
                                <i className="bi bi-chat"></i> Inventory
-                               <span className="badge bg-soft-primary text-primary rounded-pill d-inline-flex align-items-center ms-auto">3</span>
+                               <span className="badge bg-soft-primary text-primary rounded-pill d-inline-flex align-items-center ms-auto">6</span>
                            </a>
                        </li>
                        <li className="nav-item">
-                           <a className="nav-link" href="/Complaints">
+                           <a className="nav-link" href="#">
                                <i className="bi bi-bookmarks"></i> Complaints
                            </a>
                        </li>
@@ -85,7 +85,7 @@ export const Inventory = () => {
                    <div className="mb-npx">
                        <div className="row align-items-center">
                            <div className="col-sm-6 col-12 mb-4 mb-sm-0">
-                               <h1 className="h2 mb-0 ls-tight">Inventory</h1>
+                               <h1 className="h2 mb-0 ls-tight">Complaints Info</h1>
                            </div>
                            <div className="col-sm-6 col-12 text-sm-end">
                                    <div className="mx-n1">
@@ -93,7 +93,7 @@ export const Inventory = () => {
                                            <span className=" pe-2">
                                                <i className="bi bi-pencil"></i>
                                            </span>
-                                           <span>Add Components</span>
+                                           <span>Add Complaint</span>
                                        </a>
                                        
                                    </div>
@@ -113,9 +113,11 @@ export const Inventory = () => {
                            <table className="table table-hover table-nowrap">
                                <thead className="thead-light">
                                    <tr>
-                                       <th scope="col">Component Name</th>
-                                       <th scope="col">Count</th>
-                                       <th scope="col">Price</th>
+                                       <th scope="col">Complaint</th>
+                                       <th scope="col">Status</th>
+                                       <th scope="col">Date of Opening</th>
+                                       <th scope="col">Date of Closing</th>
+                                       <th scope="col">Bill Amount</th>
                                        <th></th>
                                    </tr>
                                </thead>
@@ -124,17 +126,25 @@ export const Inventory = () => {
                                        <td>
                                            <img alt="..." src="https://images.unsplash.com/photo-1502823403499-6ccfcf4fb453?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=3&w=256&h=256&q=80" className="avatar avatar-sm rounded-circle me-2" />
                                            <a className="text-heading font-semibold" href="#">
-                                               Component 1
+                                               Complaint 1
                                            </a>
                                        </td>
                                        <td>
-                                           60
+                                       <span className="badge badge-lg badge-dot">
+                                               <i className="bg-success"></i>Completed
+                                           </span>
                                        </td>
                                        <td>
                                            {/* <img alt="..." src="https://preview.webpixels.io/web/img/other/logos/logo-1.png" className="avatar avatar-xs rounded-circle me-2" /> */}
                                            <a className="text-heading font-semibold" href="#">
-                                              2000/-
+                                              12/01/2023
                                            </a>
+                                       </td>
+                                       <td>
+                                       14/01/2023
+                                       </td>
+                                       <td>
+                                           5000/-
                                        </td>
                                        <td className="text-end">
                                            <a href="#" className="btn btn-sm btn-neutral">View</a>
@@ -147,17 +157,25 @@ export const Inventory = () => {
                                        <td>
                                            <img alt="..." src="https://images.unsplash.com/photo-1502823403499-6ccfcf4fb453?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=3&w=256&h=256&q=80" className="avatar avatar-sm rounded-circle me-2" />
                                            <a className="text-heading font-semibold" href="#">
-                                               Component 2
+                                               Complaint 2
                                            </a>
                                        </td>
                                        <td>
-                                           45
+                                       <span className="badge badge-lg badge-dot">
+                                               <i className="bg-success"></i>Completed
+                                           </span>
                                        </td>
                                        <td>
                                            {/* <img alt="..." src="https://preview.webpixels.io/web/img/other/logos/logo-1.png" className="avatar avatar-xs rounded-circle me-2" /> */}
                                            <a className="text-heading font-semibold" href="#">
-                                              2500/-
+                                           21/02/2023
                                            </a>
+                                       </td>
+                                       <td>
+                                       23/02/2023
+                                       </td>
+                                       <td>
+                                           2500/-
                                        </td>
                                        <td className="text-end">
                                            <a href="#" className="btn btn-sm btn-neutral">View</a>
@@ -170,19 +188,27 @@ export const Inventory = () => {
                                        <td>
                                            <img alt="..." src="https://images.unsplash.com/photo-1502823403499-6ccfcf4fb453?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=3&w=256&h=256&q=80" className="avatar avatar-sm rounded-circle me-2" />
                                            <a className="text-heading font-semibold" href="#">
-                                               Component 3
+                                               Complaint 3
                                            </a>
                                        </td>
                                        <td>
-                                           23
+                                       
+                                           <span className="badge badge-lg badge-dot">
+                                               <i className="bg-warning"></i>Pending
+                                           </span>
                                        </td>
                                        <td>
                                            {/* <img alt="..." src="https://preview.webpixels.io/web/img/other/logos/logo-1.png" className="avatar avatar-xs rounded-circle me-2" /> */}
                                            <a className="text-heading font-semibold" href="#">
-                                              4230/-
+                                           26/02/2023
                                            </a>
                                        </td>
-        
+                                       <td>
+                                       26/02/2023
+                                       </td>
+                                       <td>
+                                           1500/-
+                                       </td>
                                        <td className="text-end">
                                            <a href="#" className="btn btn-sm btn-neutral">View</a>
                                            <button type="button" className="btn btn-sm btn-square btn-neutral text-danger-hover">
