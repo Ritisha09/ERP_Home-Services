@@ -33,7 +33,12 @@ const LoginForm = () => {
   };
 
   return (
+    <div className="page">
+    
     <div className="cover">
+      <div className="alt-login">
+        <div className="skylink"></div>
+      </div>
       <h1>Login</h1>
       <input type="text" placeholder="username" />
       <input type="password" placeholder="password" />
@@ -41,10 +46,10 @@ const LoginForm = () => {
       <div className="login-btn" onClick={popup}>
         Login
       </div>
+      
+      
 
-      <p className="text">Or Login using</p>
-
-      <div className="alt-login">
+      {/* <div className="alt-login">
         <div className="facebook"></div>
         <div className="google">
           <GoogleLogin
@@ -59,12 +64,13 @@ const LoginForm = () => {
             theme="dark" // alternative is light, which is white
           />
         </div>
-      </div>
+      </div> */}
 
       <div className={popupStyle}>
         <h3>Login Failed</h3>
         <p>Username or password incorrect</p>
       </div>
+    </div>
     </div>
   );
 };
