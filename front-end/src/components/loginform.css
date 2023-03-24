@@ -68,6 +68,7 @@ input {
     border: none;
     background-color: rgb(229, 226, 226);
     width: 80%;
+    height: 1%;
     border-radius: 0.25em;
     text-align: center;
     padding: 2em;

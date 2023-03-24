@@ -1,11 +1,8 @@
 import React from 'react'
-
 export const Employee_details = () => {
   return (
     <div>
-        
     <div className="d-flex flex-column flex-lg-row h-lg-full bg-surface-secondary">
-       
         <nav className="navbar show navbar-vertical h-lg-screen navbar-expand-lg px-0 py-3 navbar-light bg-white border-bottom border-bottom-lg-0 border-end-lg" id="navbarVertical">
             <div className="container-fluid">
                 <button className="navbar-toggler ms-n2" type="button" data-bs-toggle="collapse" data-bs-target="#sidebarCollapse" aria-controls="sidebarCollapse" aria-expanded="false" aria-label="Toggle navigation">
@@ -14,7 +11,6 @@ export const Employee_details = () => {
                 <a className="navbar-brand " href="#">
                     <img src="../icons/skylink.jpeg" alt='Company Logo' width = {70} height = {65} />
                 </a>
-
 
                 <div className="navbar-user d-lg-none">
                     <div className="dropdown">
@@ -215,13 +211,7 @@ export const Employee_details = () => {
                                                 <i className="bi bi-trash"></i>
                                             </button>
                                         </td>
-                                    </tr>
-                                    
-                            
-                                   
-             
-                                    
-                                    
+                                    </tr>  
                                 </tbody>
                             </table>
                         </div>
