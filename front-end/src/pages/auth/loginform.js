@@ -20,6 +20,12 @@ const LoginForm = () => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
 
+  const [errorMessage, setErrorMessage]  = useState("");
+  
+  const[usernameError, setUsernameError] = useState("");
+  const[passwordError, setPasswordError] = useState("");
+
+
   const popup = () => {
     showPopup("login-popup");
     setTimeout(() => showPopup("hide"), 3000);
@@ -35,13 +41,25 @@ const LoginForm = () => {
     console.log(e);
   };
 
-    const handleUsernameChange = (event) => {
+  const handleUsernameChange = (event) => {
     const value= event.target.value;
+    setErrorMessage("");
+    if(value.length <= 4){
+      setUsernameError("Username should be atleat 4 characters long");
+    }else{
+      setUsernameError("");
+    }
     setUsername(value);
   };
 
   const handlePasswordChange = (event) => {
     const value= event.target.value;
+    setErrorMessage("");
+    if(value.length < 8){
+      setPasswordError("Password must be 8 characters long");
+    }else{
+      setPasswordError("");
+    }
     setPassword(value);
   };
 
@@ -60,8 +78,22 @@ const LoginForm = () => {
 
       const data = await response.json();
       console.log(data); // Do something with the response
+
+      // edge case
+      if(response.status === 400 && data.error ===  "**Missing username or password**"){
+        setErrorMessage(data.error);
+      }else if(response.status === 400 && data.error === "**Invalid username or password**"){
+        setErrorMessage(data.error);
+      }else if(response.status === 401 && data.error === "**Invalid username or password**"){
+        setErrorMessage(data.error);
+      }else if(response.status === 200){
+        setErrorMessage(data.message);
+      }else{
+        setErrorMessage("");
+      }
+
     } catch (error) {
-      console.log('ero');
+      console.log('error');
     }
   };
 
@@ -77,7 +109,10 @@ const LoginForm = () => {
       
       <h2>Login</h2>
       <input type="text" placeholder="Username" value = {username} onChange = {handleUsernameChange}/>
+      <p className = "error">{usernameError}</p>
       <input type="password" placeholder="Password" value = {password} onChange = {handlePasswordChange}/>
+      <p className = "error">{passwordError}</p>
+      <p style={{ color: 'brown' }}>{errorMessage}</p>
 
       
       <button className="login-btn" onClick={popup}>

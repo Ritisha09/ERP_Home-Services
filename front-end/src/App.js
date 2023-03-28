@@ -20,8 +20,6 @@ function App() {
     <Inventory /> */}
     {/* <Signup/> */}
       <Routes>
-
-
         <Route exact path="/" element={<LoginForm />} /> 
         <Route exact path="/signUp" element={<Signup />} /> 
         <Route exact path="/dashboard" element={<Dashboard />} /> 
