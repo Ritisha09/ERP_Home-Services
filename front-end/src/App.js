@@ -27,8 +27,7 @@ function App() {
         <Route exact path="/Inventory" element={<Inventory />} />  
         <Route exact path="/Complaints" element={<Complaints />} />       
       </Routes>
-    </BrowserRouter>
-  
+    </BrowserRouter>  
   );
 
 }
