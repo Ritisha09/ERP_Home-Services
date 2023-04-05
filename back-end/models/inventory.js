@@ -2,7 +2,7 @@ const mongoose = require('mongoose');
 
 const inventSchema = new mongoose.Schema(
     {
-        inventId: {
+        id: {
             type: String,
             required: true ,
         },
@@ -11,11 +11,11 @@ const inventSchema = new mongoose.Schema(
             required: true,
         },
         quantity: {
-            type: Integer,
+            type: Number,
             required: false,
         },
         price: {
-            type: Integer,
+            type: Number,
             required: true,
         },
     }

@@ -5,6 +5,7 @@ const connectDB = require("./config/connectDB");
 const userRoutes = require("././routes/user");
 const empRoutes = require("././routes/employee");
 const custRoutes = require("././routes/customer");
+const inventRoutes = require("././routes/inventory");
 
 const app = express();
 
@@ -22,5 +23,6 @@ app.get("/", (req, res) => {
 app.use("/", userRoutes);
 app.use("/", empRoutes);
 app.use("/", custRoutes);
+app.use("/", inventRoutes);
 
 app.listen(PORT, console.log(`Server started at ${PORT}`));
