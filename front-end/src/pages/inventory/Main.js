@@ -18,7 +18,7 @@ const main = () => {
                                         </span>
                                         <span>Edit</span>
                                     </a>
-                                    <a href="#" className="btn d-inline-flex btn-sm btn-primary mx-1">
+                                    <a href="/Inventform" className="btn d-inline-flex btn-sm btn-primary mx-1">
                                         <span className=" pe-2">
                                             <i className="bi bi-plus"></i>
                                         </span>

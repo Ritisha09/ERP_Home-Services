@@ -44,7 +44,7 @@ const SidebarLeft = () => {
                         <li className="nav-item">
                             <a className="nav-link" href="/Inventory">
                                 <i className="bi bi-tools"></i> Inventory
-                                <span className="badge bg-soft-primary text-primary rounded-pill d-inline-flex align-items-center ms-auto">3</span>
+                                {/* <span className="badge bg-soft-primary text-primary rounded-pill d-inline-flex align-items-center ms-auto">3</span> */}
                             </a>
                         </li>
                         <li className="nav-item">

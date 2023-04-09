@@ -13,7 +13,7 @@ const Main = () => {
                         </div>
                         <div className="col-sm-6 col-12 text-sm-end">
                                 <div className="mx-n1">
-                                    <a href="#" className="btn d-inline-flex btn-sm btn-neutral border-base mx-1">
+                                    <a href="/Eform" className="btn d-inline-flex btn-sm btn-primary mx-1">
                                         <span className=" pe-2">
                                             <i className="bi bi-pencil"></i>
                                         </span>
