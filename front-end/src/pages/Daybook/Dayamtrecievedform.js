@@ -1,8 +1,10 @@
-import React from 'react'
+import React, {useStae, useEffect} from 'react'
 import SidebarLeft from "../../components/SidebarLeft"
 import "./Dayform.css"
 
 function Dayamtrecievedform() {
+
+  const [error, setError] = useState("");
   return (
     <div>
         <div className="d-flex flex-column flex-lg-row h-lg-full bg-surface-secondary">
