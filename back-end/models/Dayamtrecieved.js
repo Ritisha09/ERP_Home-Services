@@ -8,7 +8,7 @@ const DayamtrecievedSchema = new mongoose.Schema(
 
         },
         date:{
-            type:String,
+            type: String,
             required: true,
 
         },
