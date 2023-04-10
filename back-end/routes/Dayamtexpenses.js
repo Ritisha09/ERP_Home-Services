@@ -14,10 +14,10 @@ app.post('/add-Dayamtexpenses' , async(req,res) => {
     // getting variables from frontend
     const {id,date,amtexp,paidto,reason,folionum} = req.body;
 
-    DayamtExpenses = DayamtExpenses({id,date,amtexp,paidto,reason,folionum});
+    let dayamtExpenses = DayamtExpenses({id,date,amtexp,paidto,reason,folionum});
 
     try{
-        await DayamtExpenses.save();
+        await dayamtExpenses.save();
         res.status(201).json({message: "Transaction added successfully!!"});
     }catch(error){
         console.error(error);

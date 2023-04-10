@@ -16,14 +16,14 @@ app.use(cors());
 app.post('/add-Dayamtrecieved', async(req, res)=>{
     const {id,date,amtrec,moneyrecfrom,reason,foliono}=req.body;
 
-    let Dayamtrecieved= await Dayamtrecieved.findOne({date});
+    // let Dayamtrecieved= await Dayamtrecieved.findOne({date});
 
-    if(Dayamtrecieved){
-        return res.status(400).json({error:"Date changed"})
-    }
-    Dayamtrecieved = Dayamtrecieved({id,date,amtrec,moneyrecfrom,reason,foliono});
+    // if(Dayamtrecieved){
+    //     return res.status(400).json({error:"Date changed"})
+    // }
+    let dayamtrecieved = Dayamtrecieved({id,date,amtrec,moneyrecfrom,reason,foliono});
     try{
-        await Dayamtrecieved.save();
+        await dayamtrecieved.save();
         res.status(201).json({message: "added successfully!!"});
     }catch(error){
         console.error(error);
