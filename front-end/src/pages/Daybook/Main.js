@@ -1,4 +1,5 @@
 import React from 'react'
+import "./Dayform.css";
 
 function Main() {
   return (
@@ -35,6 +36,13 @@ function Main() {
         </header>
         <main className="py-6 bg-surface-secondary">
             <div className="container-fluid">
+            <div class="date-card">
+            <div class="day">21</div>
+            <div>
+                <div class="month">September</div>
+                <div class="year">2017</div>
+            </div>
+            </div>
             <div className="row g-6 mb-6">
                         <div className="col-xl-3 col-sm-6 col-12">
                             <div className="card shadow border-0">
@@ -42,7 +50,7 @@ function Main() {
                                     <div className="row">
                                         <div className="col">
                                             <span className="h6 font-semibold text-muted text-sm d-block mb-2">Opening Balance</span>
-                                            <span className="h3 font-bold mb-0">Rs.75090</span>
+                                            <span className="h3 font-bold mb-0">Rs.1000</span>
                                         </div>
                                         <div className="col-auto">
                                             <div className="icon icon-shape bg-tertiary text-white text-lg rounded-circle">
@@ -60,7 +68,7 @@ function Main() {
                                     <div className="row">
                                         <div className="col">
                                             <span className="h6 font-semibold text-muted text-sm d-block mb-2">Closing Balance</span>
-                                            <span className="h3 font-bold mb-0">215</span>
+                                            <span className="h3 font-bold mb-0">Rs.4000</span>
                                         </div>
                                         <div className="col-auto">
                                             <div className="icon icon-shape bg-primary text-white text-lg rounded-circle">
@@ -78,7 +86,7 @@ function Main() {
                                     <div className="row">
                                         <div className="col">
                                             <span className="h6 font-semibold text-muted text-sm d-block mb-2">Total amount for the day</span>
-                                            <span className="h3 font-bold mb-0">1400</span>
+                                            <span className="h3 font-bold mb-0">Rs. 5500</span>
                                         </div>
                                         <div className="col-auto">
                                             <div className="icon icon-shape bg-info text-white text-lg rounded-circle">
@@ -96,7 +104,7 @@ function Main() {
                                     <div className="row">
                                         <div className="col">
                                             <span className="h6 font-semibold text-muted text-sm d-block mb-2">No. of Transactions Done</span>
-                                            <span className="h3 font-bold mb-0">95%</span>
+                                            <span className="h3 font-bold mb-0">3</span>
                                         </div>
                                         <div className="col-auto">
                                             <div className="icon icon-shape bg-warning text-white text-lg rounded-circle">
@@ -116,38 +124,36 @@ function Main() {
                         <table className="table table-hover table-nowrap">
                             <thead className="thead-light">
                                 <tr>
-                                    <th scope="col">Name</th>
-                                    <th scope="col">Date of Joining</th>
-                                    <th scope="col">Address</th>
-                                    <th scope="col">Contact</th>
-                                    <th scope="col">Department</th>
+                                    <th scope="col"><b>Amount Recieved/Paid</b></th>
+                                    <th scope="col"><b>Recieved from/Paid to</b></th>
+                                    <th scope="col"><b>Reason</b></th>
+                                    <th scope="col"><b>Amount</b></th>
+                                    <th scope="col"><b>Folio Number</b></th>
                                     <th></th>
                                 </tr>
                             </thead>
                             <tbody>
                                 <tr>
                                     <td>
-                                        <img alt="..." src="https://images.unsplash.com/photo-1502823403499-6ccfcf4fb453?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=3&w=256&h=256&q=80" className="avatar avatar-sm rounded-circle me-2" />
-                                        <a className="text-heading font-semibold" href="#">
-                                            Robert Fox
-                                        </a>
-                                    </td>
-                                    <td>
-                                        Feb 15, 2021
-                                    </td>
-                                    <td>
-                                        {/* <img alt="..." src="https://preview.webpixels.io/web/img/other/logos/logo-1.png" className="avatar avatar-xs rounded-circle me-2" /> */}
-                                        <a className="text-heading font-semibold" href="#">
-                                            Shipra Path
-                                        </a>
-                                    </td>
-                                    <td>
-                                        9349449****
-                                    </td>
-                                    <td>
-                                        <span className="badge badge-lg badge-dot">
-                                            <i className="bg-success"></i>Technical
+                                    <span className="badge badge-lg badge-dot">
+                                            <i className="bg-success"></i>Recieved
                                         </span>
+                                    </td>
+                                    <td>
+                                    <a className="text-heading font-semibold" href="#">
+                                            Sakshi Kashyap
+                                        </a>
+                                    </td>
+                                    <td>
+                                        <a className="text-heading font-semibold" href="#">
+                                            Reason*****
+                                        </a>
+                                    </td>
+                                    <td>
+                                        2000/-
+                                    </td>
+                                    <td>
+                                        143
                                     </td>
                                     <td className="text-end">
                                         <a href="#" className="btn btn-sm btn-neutral">View</a>
@@ -158,27 +164,25 @@ function Main() {
                                 </tr>
                                 <tr>
                                     <td>
-                                        <img alt="..." src="https://images.unsplash.com/photo-1502823403499-6ccfcf4fb453?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=3&w=256&h=256&q=80" className="avatar avatar-sm rounded-circle me-2" />
-                                        <a className="text-heading font-semibold" href="#">
-                                            Robert Fox
+                                    <span className="badge badge-lg badge-dot">
+                                               <i className="bg-warning"></i>Paid
+                                           </span>
+                                    </td>
+                                    <td>
+                                    <a className="text-heading font-semibold" href="#">
+                                            K.Bhanu Prakash Reddy
                                         </a>
                                     </td>
                                     <td>
-                                        Feb 15, 2021
-                                    </td>
-                                    <td>
-                                        {/* <img alt="..." src="https://preview.webpixels.io/web/img/other/logos/logo-1.png" className="avatar avatar-xs rounded-circle me-2" /> */}
                                         <a className="text-heading font-semibold" href="#">
-                                            Shipra Path
+                                            Reason*****
                                         </a>
                                     </td>
                                     <td>
-                                        9349449****
+                                        1500/-
                                     </td>
                                     <td>
-                                        <span className="badge badge-lg badge-dot">
-                                            <i className="bg-success"></i>Technical
-                                        </span>
+                                        225
                                     </td>
                                     <td className="text-end">
                                         <a href="#" className="btn btn-sm btn-neutral">View</a>
@@ -189,27 +193,25 @@ function Main() {
                                 </tr>
                                 <tr>
                                     <td>
-                                        <img alt="..." src="https://images.unsplash.com/photo-1502823403499-6ccfcf4fb453?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=3&w=256&h=256&q=80" className="avatar avatar-sm rounded-circle me-2" />
-                                        <a className="text-heading font-semibold" href="#">
-                                            Robert Fox
-                                        </a>
-                                    </td>
-                                    <td>
-                                        Feb 15, 2021
-                                    </td>
-                                    <td>
-                                        {/* <img alt="..." src="https://preview.webpixels.io/web/img/other/logos/logo-1.png" className="avatar avatar-xs rounded-circle me-2" /> */}
-                                        <a className="text-heading font-semibold" href="#">
-                                            Shipra Path
-                                        </a>
-                                    </td>
-                                    <td>
-                                        9349449****
-                                    </td>
-                                    <td>
-                                        <span className="badge badge-lg badge-dot">
-                                            <i className="bg-warning"></i>Management
+                                    <span className="badge badge-lg badge-dot">
+                                            <i className="bg-success"></i>Recieved
                                         </span>
+                                    </td>
+                                    <td>
+                                    <a className="text-heading font-semibold" href="#">
+                                            Ritisha Mathur
+                                        </a>
+                                    </td>
+                                    <td>
+                                        <a className="text-heading font-semibold" href="#">
+                                            Reason*****
+                                        </a>
+                                    </td>
+                                    <td>
+                                        1000/-
+                                    </td>
+                                    <td>
+                                        007
                                     </td>
                                     <td className="text-end">
                                         <a href="#" className="btn btn-sm btn-neutral">View</a>
@@ -217,7 +219,7 @@ function Main() {
                                             <i className="bi bi-trash"></i>
                                         </button>
                                     </td>
-                                </tr>  
+                                </tr>
                             </tbody>
                         </table>
                     </div>

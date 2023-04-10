@@ -1,0 +1,19 @@
+.date-card{
+    border:5px solid #2ab6b6;
+    width:200px;
+    padding:10px;
+    display:flex;
+    align-items:center;
+  }
+  
+  .date-card .day{
+    font-size:48px;
+    margin:0px 10px;
+    color:#2ab6b6;
+  }
+  
+  .date-card .month{
+    font-weight:bold;
+  }
+  
+  
