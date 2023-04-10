@@ -88,6 +88,8 @@ const LoginForm = () => {
         setErrorMessage(data.error);
       }else if(response.status === 200){
         setErrorMessage(data.message);
+        // if authenticated redirect to dashboard
+        window.location.href = '/dashboard';
       }else{
         setErrorMessage("");
       }
