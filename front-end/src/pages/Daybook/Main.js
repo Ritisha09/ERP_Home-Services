@@ -1,5 +1,6 @@
 import React from 'react'
 import "./Dayform.css";
+import SearchBar from '../../components/SearchBar'
 
 function Main() {
   return (
@@ -10,6 +11,7 @@ function Main() {
                     <div className="row align-items-center">
                         <div className="col-sm-6 col-12 mb-4 mb-sm-0">
                             <h1 className="h2 mb-0 ls-tight">Day Book Details</h1>
+                            <SearchBar />
                         </div>
                         <div className="col-sm-6 col-12 text-sm-end">
                                 <div className="mx-n1">

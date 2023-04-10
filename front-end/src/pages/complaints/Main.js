@@ -1,4 +1,5 @@
 import React from 'react'
+import SearchBar from '../../components/SearchBar'
 
 const main = () => {
     
@@ -10,6 +11,7 @@ const main = () => {
                         <div className="row align-items-center">
                             <div className="col-sm-6 col-12 mb-4 mb-sm-0">
                                 <h1 className="h2 mb-0 ls-tight">Complaints</h1>
+                                <SearchBar />
                             </div>
                             <div className="col-sm-6 col-12 text-sm-end">
                                 <div className="mx-n1">

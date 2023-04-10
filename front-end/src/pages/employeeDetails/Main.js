@@ -1,5 +1,5 @@
 import React from 'react'
-
+import SearchBar from '../../components/SearchBar'
 
 const Main = () => {
   return (
@@ -10,6 +10,7 @@ const Main = () => {
                     <div className="row align-items-center">
                         <div className="col-sm-6 col-12 mb-4 mb-sm-0">
                             <h1 className="h2 mb-0 ls-tight">Employees Details</h1>
+                            <SearchBar />
                         </div>
                         <div className="col-sm-6 col-12 text-sm-end">
                                 <div className="mx-n1">
