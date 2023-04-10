@@ -1,8 +1,47 @@
-import React from 'react'
+import React, {useState} from 'react'
 import SidebarLeft from "../../components/SidebarLeft"
 import "./Dayform.css"
 
 function Dayamtrecievedform() {
+
+  const [error, setError] = useState("");
+
+  const submitHandler = async (e) => {
+    e.preventDefault();
+    console.log('2');
+
+    const id = "1";
+    const date = document.getElementById('date').value;
+    const amtrec = document.getElementById('amtrec').value;
+    const moneyrecfrom = document.getElementById('moneyrf').value;
+    const reason = document.getElementById('reason').value;
+    const foliono = document.getElementById('folionum').value;
+    try {
+      const response = await fetch('http://localhost:5000/add-Dayamtrecieved', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({id,date,amtrec,moneyrecfrom,reason,foliono})
+      });
+
+      const data = await response.json();
+      console.log(data); // Do something with the response
+
+      if(response.status === 400 && data.error === "Item already exists."){
+        // setIsRegistered(true);
+        setError(data.error);
+      }
+      // edge case
+      e.target.reset();
+      setError(data.error);
+    } catch (error) {
+      console.log('error');
+    }
+  };
+
+
+
   return (
     <div>
         <div className="d-flex flex-column flex-lg-row h-lg-full bg-surface-secondary">
@@ -22,9 +61,9 @@ function Dayamtrecievedform() {
             </div>
         </header>
 
-          <form className="neumorphic-form">
-            <label for="date-input">Enter a date:</label>
-            <input type="date" id="date-input" name="date-input" required/>
+          <form className="neumorphic-form" onSubmit = {submitHandler}>
+            <label for="date">Enter a date:</label>
+            <input type="date" id="date" name="date" required/>
             <label for="amtrec">Amount Recieved:</label>
             <input type="number" id="amtrec" name="amtrec" required/>
             <label for="moneyrf">Money Recieved From:</label>
@@ -36,6 +75,8 @@ function Dayamtrecievedform() {
 
 
             <button type="submit" value='submit' >Submit</button>
+            <p style={{ color: 'brown' }}>{error}</p>
+
         </form>
           
           </div>
