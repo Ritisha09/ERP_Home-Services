@@ -13,6 +13,10 @@ import Complaints from "./pages/complaints/Complaints";
 import Signup from "./pages/auth/SignupForm";
 import Inventform from "./pages/inventory/Inventform";
 import Eform from "./pages/employeeDetails/Eform";
+import DT from "./pages/Daily_Technician_Record/DT";
+import Daybook from "./pages/Daybook/Daybook";
+import Dayamtrecievedform from "./pages/Daybook/Dayamtrecievedform";
+import Dayamtexpensesform from "./pages/Daybook/Dayamtexpensesform";
 
 function App() {
   return (
@@ -32,6 +36,12 @@ function App() {
         <Route exact path="/Compform" element={<Compform />} />         
         <Route exact path="/Inventform" element={<Inventform />} />         
         <Route exact path="/Eform" element={<Eform />} />         
+        <Route exact path="/DT" element={<DT />} />         
+        <Route exact path="/Daybook" element={<Daybook />} />  
+        <Route exact path="/Dayamtrecievedform" element={<Dayamtrecievedform />} />  
+        <Route exact path="/Dayamtexpensesform" element={<Dayamtexpensesform />} />  
+
+            
       </Routes>
     </BrowserRouter>  
   );
