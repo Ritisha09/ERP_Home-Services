@@ -1,7 +1,6 @@
 import React from 'react'
 
-const main = () => {
-    
+function Main() {
   return (
     <div>
             <header className="bg-surface-primary border-bottom pt-6">
@@ -9,7 +8,7 @@ const main = () => {
                     <div className="mb-npx">
                         <div className="row align-items-center">
                             <div className="col-sm-6 col-12 mb-4 mb-sm-0">
-                                <h1 className="h2 mb-0 ls-tight">Complaints</h1>
+                                <h1 className="h2 mb-0 ls-tight">Daily Technician Record</h1>
                             </div>
                             <div className="col-sm-6 col-12 text-sm-end">
                                 <div className="mx-n1">
@@ -23,7 +22,7 @@ const main = () => {
                                         <span className=" pe-2">
                                             <i className="bi bi-plus"></i>
                                         </span>
-                                        <span>Add Complaint</span>
+                                        <span>Add Daily Technician Record</span>
                                     </a>
                                 </div>
                             </div>
@@ -161,4 +160,4 @@ const main = () => {
   )
 }
 
-export default main;
+export default Main

@@ -1,5 +1,5 @@
 import React from 'react'
-
+import skylink from "../icons/skylink.jpeg"
 const SidebarLeft = () => {
   return (
     <div>
@@ -9,7 +9,7 @@ const SidebarLeft = () => {
                     <span className="navbar-toggler-icon"></span>
                 </button>
                 <a className="navbar-brand " href="#">
-                    <img src="../icons/skylink.jpeg" alt='Company Logo' width = {70} height = {65} />
+                    <img src={skylink} alt='Company Logo' width = {70} height = {65} justify-content="center"/>
                 </a>
                                             
                 <div className="navbar-user">
@@ -53,12 +53,12 @@ const SidebarLeft = () => {
                             </a>
                         </li>
                         <li className="nav-item">
-                            <a className="nav-link" href="#">
+                            <a className="nav-link" href="/DT">
                             <i className="bi bi-card-list"></i> Daily Technician Record
                             </a>
                         </li>
                         <li className="nav-item">
-                            <a className="nav-link" href="#">
+                            <a className="nav-link" href="/Daybook">
                             <i className="bi bi-book"></i> Day Book
                             </a>
                         </li>
@@ -68,7 +68,7 @@ const SidebarLeft = () => {
                     <div className="mt-auto"></div>
                     <ul className="navbar-nav">
                         <li className="nav-item">
-                            <a className="nav-link" href="#">
+                            <a className="nav-link" href="/Account">
                                 <i className="bi bi-person-square"></i> Account
                             </a>
                         </li>

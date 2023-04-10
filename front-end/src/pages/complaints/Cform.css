@@ -35,6 +35,9 @@
     margin-top: 10px;
     margin-bottom: 20px;
   }
+input[for="search"]{
+  padding:5px;
+}
 
   button {
     background-color: #f2f2f2;

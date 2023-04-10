@@ -1,8 +1,12 @@
-import React from 'react'
+import React, { useState } from 'react'
 import SidebarLeft from "../../components/SidebarLeft"
 import './Cform.css'
 
+
+
 function Compform() {
+  const [searchTerm, setSearchTerm] = useState('');
+
   return (
     <div>
         <div className="d-flex flex-column flex-lg-row h-lg-full bg-surface-secondary">
@@ -15,13 +19,17 @@ function Compform() {
                         <div className="col-sm-6 col-12 mb-4 mb-sm-0">
                             <h1 className="h2 mb-0 ls-tight">Complaints</h1>
                         </div>
-                        
+                        <div>
+      <input for="search" type="text" placeholder="Search..." value={searchTerm} onChange={e => setSearchTerm(e.target.value)} />
+      <button type="button" onClick={() => setSearchTerm('')}>Clear</button>
+    </div>
                     </div>
                     
                 </div>
             </div>
         </header>
 
+       
           <form className="neumorphic-form">
             <label for="date-input">Enter a date:</label>
             <input type="date" id="date-input" name="date-input" required/>
