@@ -33,11 +33,11 @@ function Main() {
         <div className="profile-info">
           <h1>Sakshi Kashyap</h1>
           <h2>Web Developer</h2>
-          <p>Hi, I'm John. </p>
+          
           <ul>
-            <li><strong>Email:</strong> johndoe@example.com</li>
+            <li><strong>Email:</strong> sk19sakshikashyap@gmail.com</li>
             <li><strong>Phone:</strong> (123) 456-7890</li>
-            <li><strong>Location:</strong> New York City</li>
+            <li><strong>Location:</strong> India</li>
           </ul>
         </div>
       </div>
