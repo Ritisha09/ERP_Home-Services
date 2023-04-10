@@ -25,7 +25,9 @@ const DayamtrecievedSchema = new mongoose.Schema(
         reason:{
             type:String,
             required: true,
-
+        }
+    }
+)
 const Dayamtrecieved = mongoose.model("Dayamtrecieved", DayamtrecievedSchema);
 
 module.exports = Dayamtrecieved;
