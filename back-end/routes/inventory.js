@@ -30,4 +30,21 @@ app.post('/add-inventory' , async(req,res) => {
     }
 });
 
+app.get('/get-inventory' , async (req,res) => {
+    // getting variables from frontend
+
+    let inventory = await Inventory.find();
+
+    if(inventory===null){
+        return res.status(400).json({error: "Inverntory is Empty"});
+    }
+    try{
+        res.json(inventory);
+        // res.status(201).json({message: "Inventory displayed!!"});
+    }catch(error){
+        console.error(error);
+        res.status(500).json({error: "Internal server error"});
+    }
+});
+
 module.exports = app;

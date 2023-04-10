@@ -30,10 +30,11 @@ function Inventform() {
       if(response.status === 400 && data.error === "Item already exists."){
         // setIsRegistered(true);
         setError(data.error);
+      }else{
+        setError("");
       }
       // edge case
       e.target.reset();
-      setError(data.error);
     } catch (error) {
       console.log('error');
     }
