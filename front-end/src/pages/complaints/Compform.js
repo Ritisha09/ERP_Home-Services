@@ -73,6 +73,15 @@ function Compform() {
               <option value="Invalid">Invalid</option>
             </select>
 
+            <label for="call">Source of Call/Info:</label>
+            <select name="call" id="call">
+              <option value="Google">Google</option>
+              <option value="Whatsapp Group">Whatsapp Group</option>
+              <option value="Data Calling">Data Calling</option>
+              <option value="Just Dial">Just Dial</option>
+              <option value="Self">Self</option>
+            </select>
+
             <label for="ccdate">Complaint Closing date:</label>
             <input type="date" id="ccdate" name="ccdate" />
             <button type="submit" value='submit' >Submit</button>

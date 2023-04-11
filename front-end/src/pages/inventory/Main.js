@@ -1,7 +1,11 @@
 import React, {useState, useEffect} from 'react';
 import axios from  "axios";
+import { Bar } from 'react-chartjs-2';
 // import InventoryChart from './InventoryChart';
 import SearchBar from '../../components/SearchBar'
+
+
+
 
 // const main = () => {
 function Main() {
@@ -34,7 +38,7 @@ function Main() {
         fetchInventory();
     }, []);
 
-    
+
         // Graph Generate code
     
 
@@ -77,7 +81,7 @@ function Main() {
             <main className="py-6 bg-surface-secondary">
                <div className="container-fluid">
                    <div className="card shadow border-0 mb-7">
-                       
+        
                        <div className="table-responsive">
                            <table className="table table-hover table-nowrap">
                                <thead className="thead-light">
@@ -92,7 +96,6 @@ function Main() {
                                 {inventoryData.map((item,index) => (
                                     <tr key = {index}>
                                     <td>
-                                        <img alt="..." src="https://images.unsplash.com/photo-1502823403499-6ccfcf4fb453?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=3&w=256&h=256&q=80" className="avatar avatar-sm rounded-circle me-2" />
                                         <a className="text-heading font-semibold" href="#">
                                             {item.name}
                                         </a>
@@ -101,7 +104,6 @@ function Main() {
                                         {item.quantity}
                                     </td>
                                     <td>
-                                        {/* <img alt="..." src="https://preview.webpixels.io/web/img/other/logos/logo-1.png" className="avatar avatar-xs rounded-circle me-2" /> */}
                                         <a className="text-heading font-semibold" href="#">
                                            {item.price}/-
                                         </a>

@@ -24,7 +24,8 @@
   input[type="date"],
   select[name="nature_of_problem"],
   select[name="eng_names"],
-  select[name="cstatus"]  {
+  select[name="cstatus"],  
+    select[name="call"]  {
     width: 100%;
     text-align: left;
     padding: 10px;
