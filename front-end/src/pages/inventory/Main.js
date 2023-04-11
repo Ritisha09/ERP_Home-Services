@@ -13,7 +13,7 @@ function Main() {
             console.log(response.data);
             setInventoryData(response.data);
         }catch(error){
-
+            console.log(error);
         }
     }; 
 

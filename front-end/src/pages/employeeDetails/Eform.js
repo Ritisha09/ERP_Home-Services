@@ -1,8 +1,58 @@
-import React from 'react'
+import React, {useState} from 'react'
 import SidebarLeft from "../../components/SidebarLeft"
 import "./Eform.css"
 
 function Eform() {
+
+  const [error, setError] = useState("");
+
+  const submitHandler = async (e) => {
+    e.preventDefault();
+    console.log('2');
+
+    const id = "1";
+    const name = document.getElementById('name').value;
+    const designation = document.getElementById('designation').value;
+    const phone = document.getElementById('mobile').value;
+    const email = document.getElementById('email').value;
+    const streetaddress = document.getElementById('street-address').value;
+    const area = document.getElementById('area').value;
+    const zipCode = document.getElementById('zip').value;
+    const bankName = document.getElementById('bankname').value;
+    const accountNo = document.getElementById('accountno').value;
+    const accountholderName = document.getElementById('accname').value;
+    const IFSCcode = document.getElementById('ifsc').value;
+    const aadharNo = document.getElementById('file').value;
+    
+    
+    
+    
+    
+    try {
+      const response = await fetch('http://localhost:5000/add-employee', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({id, name, phone, streetaddress, email, area, zipCode, aadharNo, bankName, accountNo, accountholderName, IFSCcode, designation})
+      });
+
+      const data = await response.json();
+      console.log(data); // Do something with the response
+
+      if(response.status === 400 && data.error === "Employee already exists."){
+        // setIsRegistered(true);
+        setError(data.error);
+      }else{
+        setError("");
+      }
+      // edge case
+      e.target.reset();
+    } catch (error) {
+      console.log('error');
+    }
+  };
+
   return (
     <div>
         <div className="d-flex flex-column flex-lg-row h-lg-full bg-surface-secondary">
@@ -22,11 +72,11 @@ function Eform() {
             </div>
         </header>
 
-          <form className="neumorphic-form">
+          <form className="neumorphic-form" onSubmit = {submitHandler}>
             <label for="name">Name of Employee:</label>
             <input type="text" id="name" name="name"  required />
             <label for="designation">Designation:</label>
-            <input type="text" id="name" name="name"  required />
+            <input type="text" id="designation" name="name"  required />
             <label for="mobile">Mobile Number:</label>
             <input type="tel" id="mobile" name="mobile" required/>
             <label for="email">Email:</label>
@@ -41,8 +91,11 @@ function Eform() {
             <label for="zip">Zip Code:</label>
             <input type="text" id="zip" name="zip" required/>
 
-            <label for="file">Aadhar or Any Government Proof:</label>
-            <input type="file" id="file" name="file" accept=".pdf,.doc,.docx,.txt" required/>
+            {/* <label for="file">Aadhar or Any Government Proof:</label>
+            <input type="file" id="file" name="file" accept=".pdf,.doc,.docx,.txt" required/> */}
+
+            <label for="file">Aadhar Number</label>
+            <input type="number" id="file" name="file"  required/>
 
             <label for="bankdetails">Bank Details:</label>
             <label for="bankname">Bank Name:</label>

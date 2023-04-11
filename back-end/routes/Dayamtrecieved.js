@@ -34,5 +34,19 @@ app.post('/add-Dayamtrecieved', async(req, res)=>{
 }
 );
 
+app.get('/get-Dayamtrecieved', async(req,res) =>{
+   let dayamtrecieved = await Dayamtrecieved.find();
+
+   if(dayamtrecieved === null){
+    return res.status(400).json({error: "No amount recieved"});
+   }
+   try{
+    res.json(dayamtrecieved);
+   }catch(error){
+    console.error(error);
+    res.status(500).json({error: "Internal server error"});
+   }
+});
+
 module.exports = app;
 
