@@ -1,5 +1,6 @@
 import React, {useState, useEffect} from 'react';
 import axios from  "axios";
+// import InventoryChart from './InventoryChart';
 import SearchBar from '../../components/SearchBar'
 
 // const main = () => {
@@ -13,13 +14,34 @@ function Main() {
             console.log(response.data);
             setInventoryData(response.data);
         }catch(error){
+            console.error("Failed to fetch inventory data:", error);
+
             console.log(error);
         }
     }; 
+    async function deleteInventory(itemId) {
+        try {
+            await axios.post(`http://localhost:5000/delete-inventory/?itemId=${itemId}`);
+            console.log(`Item with ID ${itemId} deleted successfully`);
+            // Fetch updated inventory data after successful delete
+            setInventoryData(inventoryData.filter(item => item._id !== itemId));
+        } catch (error) {
+            console.error('Error deleting item:', error);
+        }
+    }
 
     useEffect(() => {
         fetchInventory();
-    }, [])
+    }, []);
+
+    
+        // Graph Generate code
+    
+
+  // Create data for chart
+
+    //graph end code
+    
 
   return (
     <div>
@@ -54,7 +76,6 @@ function Main() {
             </header>
             <main className="py-6 bg-surface-secondary">
                <div className="container-fluid">
-                   
                    <div className="card shadow border-0 mb-7">
                        
                        <div className="table-responsive">
@@ -87,7 +108,7 @@ function Main() {
                                     </td>
                                     <td className="text-end">
                                         <a href="#" className="btn btn-sm btn-neutral">View</a>
-                                        <button type="button" className="btn btn-sm btn-square btn-neutral text-danger-hover">
+                                        <button type="button" className="btn btn-sm btn-square btn-neutral text-danger-hover" onClick={() => deleteInventory(item._id)}>
                                             <i className="bi bi-trash"></i>
                                         </button>
                                     </td>

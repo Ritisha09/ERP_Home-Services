@@ -46,5 +46,26 @@ app.get('/get-inventory' , async (req,res) => {
         res.status(500).json({error: "Internal server error"});
     }
 });
+app.post('/delete-inventory', async (req, res) => {
+    console.log(req.query)
+    const itemId = req.query.itemId;
+    console.log(itemId)
+  try {
+    // Check if item exists in inventory
+    const item = await Inventory.findOne({_id: itemId});
+    console.log(item);
+    if (!item) {
+      return res.status(404).json({error: 'Item not found'});
+    }
+
+    // Delete item from inventory
+    await Inventory.deleteOne({_id: itemId});
+    // await inventory.save();
+    res.status(200).json({message: 'Item deleted successfully'});
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({error: 'Internal server error'});
+  }
+});
 
 module.exports = app;

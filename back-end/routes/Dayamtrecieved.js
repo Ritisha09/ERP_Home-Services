@@ -18,12 +18,12 @@ app.post('/add-Dayamtrecieved', async(req, res)=>{
 
     // let Dayamtrecieved= await Dayamtrecieved.findOne({date});
 
-    let Dayamtrecieved= await Dayamtrecieved.findOne({date});
+    let dayamtrecieved= await Dayamtrecieved.findOne({date});
 
-    if(Dayamtrecieved){
+    if(dayamtrecieved){
         return res.status(400).json({error:"Date changed"})
     }
-    Dayamtrecieved = Dayamtrecieved({id,date,amtrec,moneyrecfrom,reason,foliono});
+    dayamtrecieved = Dayamtrecieved({id,date,amtrec,moneyrecfrom,reason,foliono});
     try{
         await dayamtrecieved.save();
         res.status(201).json({message: "added successfully!!"});

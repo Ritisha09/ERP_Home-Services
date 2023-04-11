@@ -1,4 +1,5 @@
 import React from 'react'
+import Ichart from '../inventory/Ichart';
 import SearchBar from '../../components/SearchBar'
 
 const main = () => {
@@ -109,6 +110,7 @@ const main = () => {
                             </div>
                         </div>
                     </div>
+                    <Ichart/>
                 </div>
             </main>
     </div>
