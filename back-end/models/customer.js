@@ -14,10 +14,18 @@ const custSchema = new mongoose.Schema(
             type: String,
             required: true,
         },
-        address: {
+        streetaddress: {
             type: String,
             required: true,
         },
+        area: {
+            type: String,
+            required: true,
+        },
+        zipcode: {
+            type: Number,
+            required: true,
+        }
     }
 )
 

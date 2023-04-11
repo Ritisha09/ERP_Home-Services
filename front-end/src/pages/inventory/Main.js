@@ -1,6 +1,7 @@
 import React, {useState, useEffect} from 'react';
 import axios from  "axios";
 // import InventoryChart from './InventoryChart';
+import SearchBar from '../../components/SearchBar'
 
 // const main = () => {
 function Main() {
@@ -15,6 +16,7 @@ function Main() {
         }catch(error){
             console.error("Failed to fetch inventory data:", error);
 
+            console.log(error);
         }
     }; 
     async function deleteInventory(itemId) {
@@ -49,6 +51,7 @@ function Main() {
                         <div className="row align-items-center">
                             <div className="col-sm-6 col-12 mb-4 mb-sm-0">
                                 <h1 className="h2 mb-0 ls-tight">Inventory</h1>
+                                <SearchBar />
                             </div>
                             <div className="col-sm-6 col-12 text-sm-end">
                                 <div className="mx-n1">

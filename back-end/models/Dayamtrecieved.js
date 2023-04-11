@@ -8,7 +8,7 @@ const DayamtrecievedSchema = new mongoose.Schema(
 
         },
         date:{
-            type:Date,
+            type: String,
             required: true,
 
         },
@@ -25,9 +25,17 @@ const DayamtrecievedSchema = new mongoose.Schema(
         reason:{
             type:String,
             required: true,
+
+        },
+        foliono:{
+            type:Number,
+            required: true,
+
         }
     }
-)
-const Dayamtrecieved = mongoose.model("Dayamtrecieved", DayamtrecievedSchema);
 
-module.exports = Dayamtrecieved;
+)
+
+const Dayamtrecieved = mongoose.model('Dayamtrecieved',DayamtrecievedSchema);
+
+module.exports=Dayamtrecieved;

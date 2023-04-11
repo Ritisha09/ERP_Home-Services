@@ -5,7 +5,7 @@ import  Employee  from "./pages/employeeDetails/Employee";
 import Inventory from "./pages/inventory/Inventory";
 // import { Complaints } from "./components/Complaints";
 import Compform from "./pages/complaints/Compform"
-
+import SearchBar from "./components/SearchBar";
 import SidebarLeft from "./components/SidebarLeft";
 import Dashboard from "./pages/dashboard/Dashboard";
 // import Dashboard from "./components/Dashboard";
