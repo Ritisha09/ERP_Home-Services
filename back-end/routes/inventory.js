@@ -36,7 +36,7 @@ app.get('/get-inventory' , async (req,res) => {
     let inventory = await Inventory.find();
 
     if(inventory===null){
-        return res.status(400).json({error: "Inverntory is Empty"});
+        return res.status(400).json({error: "Inventory is Empty"});
     }
     try{
         res.json(inventory);
