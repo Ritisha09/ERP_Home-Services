@@ -1,6 +1,8 @@
 import React, {useState} from 'react'
 import SidebarLeft from "../../components/SidebarLeft"
 import "./Iform.css"
+
+
 function Inventform() {
 
   const [error, setError] = useState("");

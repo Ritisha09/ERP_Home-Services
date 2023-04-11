@@ -12,14 +12,14 @@ app.use(cors());
 // route to add in front end to call this API
 app.post('/add-customer' , async(req,res) => {
     // getting variables from frontend
-    const {id,name,phone,address} = req.body;
+    const {id,name,phone,streetaddress,area,zipcode} = req.body;
 
     let customer = await Customer.findOne({name,phone});
     if(customer){
         return res.status(400).json({error: "Customer already exists."});
     }
 
-    customer = Customer({id,name,phone,address});
+    customer = Customer({id,name,phone,streetaddress,area,zipcode});
 
     try{
         await customer.save();
