@@ -1,4 +1,5 @@
 import React from 'react'
+import Ichart from '../inventory/Ichart';
 
 const main = () => {
   return (
@@ -107,6 +108,7 @@ const main = () => {
                             </div>
                         </div>
                     </div>
+                    <Ichart/>
                 </div>
             </main>
     </div>

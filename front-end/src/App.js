@@ -41,7 +41,7 @@ function App() {
         <Route exact path="/Daybook" element={<Daybook />} />  
         <Route exact path="/Dayamtrecievedform" element={<Dayamtrecievedform />} />  
         <Route exact path="/Dayamtexpensesform" element={<Dayamtexpensesform />} />  
-        <Route exact path="/Account" element={<Account />} />  
+        <Route exact path="/Account" element={<Account />} />   
 
             
       </Routes>

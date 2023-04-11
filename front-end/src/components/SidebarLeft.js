@@ -1,5 +1,7 @@
 import React from 'react'
-import skylink from "../icons/skylink.jpeg"
+import skylink from "../icons/skylink1.jpeg"
+import "./dashboard.css";
+
 const SidebarLeft = () => {
   return (
     <div>
@@ -9,7 +11,7 @@ const SidebarLeft = () => {
                     <span className="navbar-toggler-icon"></span>
                 </button>
                 <a className="navbar-brand " href="#">
-                    <img src={skylink} alt='Company Logo' width = {70} height = {65} justify-content="center"/>
+                    <img src={skylink} alt='Company Logo' width={150} height={100} />
                 </a>
                                             
                 <div className="navbar-user">
