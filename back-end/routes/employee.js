@@ -68,6 +68,23 @@ app.post('/add-employee' , async (req, res) => {
       res.status(500).json({ error: "Internal server error" });
     }
   });
+
+  app.get('/get-employee' , async (req,res) => {
+    // getting variables from frontend
+
+    let employee = await Employee.find();
+
+    if(employee===null){
+        return res.status(400).json({error: "Employee is Empty"});
+    }
+    try{
+        res.json(employee);
+        // res.status(201).json({message: "Inventory displayed!!"});
+    }catch(error){
+        console.error(error);
+        res.status(500).json({error: "Internal server error"});
+    }
+});
   
 
 module.exports = app;
