@@ -1,11 +1,97 @@
-import React from 'react'
+import React, {useState, useEffect} from 'react'
 import SidebarLeft from "../../components/SidebarLeft"
 import './Cform.css'
+import axios from  "axios";
 
 
 
 function Compform() {
 
+  const [custError, setCustError] = useState("");
+  // const [compError, setCompError] = useState("");
+
+  // To get names of technicians
+  const [technicianData, setTechnicianData] = useState([]);
+
+  async function fetchEmployee(){
+    try{
+      const response = await axios.get('http://localhost:5000/get-employee_technician');
+      console.log(response.data);
+      setTechnicianData(response.data);
+    }catch(error){
+      console.log(error);
+    }
+  }; 
+
+  useEffect(() => {
+    fetchEmployee();
+  }, [])
+
+
+  const submitHandler = async (e) => {
+    e.preventDefault();
+    console.log('2');
+
+
+    // customer data
+    const custId = "1";
+    const name = document.getElementById('name').value;
+    // const designation = document.getElementById('designation').value;
+    const phone = document.getElementById('mobile').value;
+    // const email = document.getElementById('email').value;
+    const streetaddress = document.getElementById('street-address').value;
+    const area = document.getElementById('area').value;
+    const zipCode = document.getElementById('zip').value;
+
+    // complaint data
+    const compId = "1";
+    const serviceType = document.getElementById('nature_of_problem').value;
+    const status = document.getElementById('cstatus').value;
+    const dateOpening = document.getElementById('date-input').value;
+    const dateClosing = document.getElementById('ccdate').value;
+    const empId = document.getElementById('eng_names').value;
+    // const custId = document.getElementById('eng_names').value;
+
+
+    try {
+      // To post customer data 
+      const responseCust = await fetch('http://localhost:5000/add-customer', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({custId,name,phone,streetaddress,area,zipCode})
+      });
+
+      const dataCust = await responseCust.json();
+      console.log(dataCust); // Do something with the response
+
+      // To post complain data
+      const responseComp = await fetch('http://localhost:5000/add-complain', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({custId, compId, serviceType, empId, status, dateOpening, dateClosing})
+      });
+
+      const dataComp = await responseComp.json();
+      console.log(dataComp); // Do something with the response
+
+      if(responseCust.status === 400 && dataCust.error === "Customer already exists."){
+        // setIsRegistered(true);
+        setCustError(dataCust.error);
+
+      }else{
+        setCustError("");
+      }
+      // edge case
+      e.target.reset();
+
+    } catch (error) {
+      console.log('error');
+    }
+  };
 
   return (
     <div>
@@ -26,7 +112,7 @@ function Compform() {
         </header>
 
        
-          <form className="neumorphic-form">
+          <form className="neumorphic-form" onSubmit = {submitHandler}>
             <label for="date-input">Enter a date:</label>
             <input type="date" id="date-input" name="date-input" required/>
             <label for="name">Name of Customer:</label>
@@ -45,10 +131,13 @@ function Compform() {
 
             <label for="eng_names">Engineer Assigned to Complaint:</label>
             <select name="eng_names" id="eng_names">
-                <option value="Banwari Ji"> Banwari Ji</option>
+              {technicianData.map((item,index) =>(
+                <option value={item.name}>{item.name}</option>
+              ))}
+              {/* <option value="Banwari Ji"> Banwari Ji</option>
               <option value="Ramkanvar">Ramkanvar</option>
               <option value="Prahalad">Prahalad</option>
-              <option value="Ramavatar">Ramavatar</option>
+              <option value="Ramavatar">Ramavatar</option> */}
             </select>
 
             <label for="problem">Nature of Problem:</label>
