@@ -2,7 +2,7 @@ const express = require('express');
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
 const bcrypt = require('bcrypt');
-const Customer = require('../models/customer');
+const Complaint = require('../models/complaints');
 const cors = require('cors');
 
 const app = express();
@@ -10,19 +10,19 @@ app.use(bodyParser.json());
 app.use(cors());
 
 // route to add in front end to call this API
-app.post('/add-customer' , async(req,res) => {
+app.post('/add-complain' , async(req,res) => {
     // getting variables from frontend
-    const {custId,name,phone,streetaddress,area,zipCode} = req.body;
+    const {custId, compId, serviceType, empId, status, dateOpening, dateClosing} = req.body;
 
     // let customer = await Customer.findOne({name,phone});
     // if(customer){
     //     return res.status(400).json({error: "Customer already exists."});
     // }
 
-    let customer = Customer({custId,name,phone,streetaddress,area,zipCode});
+    let complain = Complaint({custId, compId, serviceType, empId, status, dateOpening, dateClosing});
 
     try{
-        await customer.save();
+        await complain.save();
         res.status(201).json({message: "Customer added successfully!!"});
     }catch(error){
         console.error(error);
@@ -30,16 +30,16 @@ app.post('/add-customer' , async(req,res) => {
     }
 });
 
-app.get('/get-customer' , async (req,res) => {
+app.get('/get-complain' , async (req,res) => {
     // getting variables from frontend
 
-    let customer = await Customer.find();
+    let complain = await Complaint.find();
 
-    if(customer ===null){
+    if(complain===null){
         return res.status(400).json({error: "Employee is Empty"});
     }
     try{
-        res.json(customer);
+        res.json(complain);
         // res.status(201).json({message: "Inventory displayed!!"});
     }catch(error){
         console.error(error);
