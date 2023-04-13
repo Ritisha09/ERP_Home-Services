@@ -99,7 +99,7 @@ function Main(){
                                             5000/-
                                         </td>
                                         <td className="text-end">
-                                            <a href="#" className="btn btn-sm btn-neutral">View</a>
+                                            <a href="#" className="btn btn-sm btn-neutral">Update</a>
                                             <button type="button" className="btn btn-sm btn-square btn-neutral text-danger-hover">
                                                 <i className="bi bi-trash"></i>
                                             </button>
