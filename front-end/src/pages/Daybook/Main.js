@@ -6,40 +6,6 @@ function Main() {
   const [recievedData, setRecievedData] = useState([]);
   const [expensesData, setExpensesData] = useState([]);
 
-//   async function fetchRecievedData() {
-//     try {
-//       const response = await axios.get(
-//         "http://localhost:5000/get-Dayamtrecieved"
-//       );
-//       console.log(response.data);
-//       setRecievedData(response.data);
-//     } catch (error) {
-//       console.log(error);
-//     }
-//   }
-
-//   async function fetchExpensesData() {
-//     try {
-//       const response = await axios.get(
-//         "http://localhost:5000/get-Dayamtexpenses"
-//       );
-//       console.log(response.data);
-//       setExpensesData(response.data);
-//     } catch (error) {
-//       console.log(error);
-//     }
-//   }
-
-//   useEffect(() => {
-//     // fetchRecievedData();
-//     fetchExpensesData();
-//   }, []);
-
-//   useEffect(() => {
-//     fetchRecievedData();
-//     // fetchExpensesData();
-//   }, []);
-
 async function fetchData() {
     try {
       const receivedResponse = await axios.get(
@@ -57,10 +23,17 @@ async function fetchData() {
       console.log(error);
     }
   }
+
+    const currentDate = new Date();
+    const [day, setDay] = useState(currentDate.getDate());
+    const [month, setMonth] = useState(currentDate.toLocaleString("en-us", { month: "long" }));
+    const [year, setYear] = useState(currentDate.getFullYear());
+
   
   useEffect(() => {
     fetchData();
   }, []);
+
 
   return (
     <div>
@@ -99,11 +72,11 @@ async function fetchData() {
       </header>
       <main className="py-6 bg-surface-secondary">
         <div className="container-fluid">
-          <div class="date-card">
-            <div class="day">21</div>
+          <div className="date-card">
+            <div className="day">{day}</div>
             <div>
-              <div class="month">September</div>
-              <div class="year">2017</div>
+              <div className="month">{month}</div>
+              <div className="year">{year}</div>
             </div>
           </div>
           <div className="row g-6 mb-6">

@@ -1,8 +1,5 @@
 import React, {useState, useEffect} from 'react';
 import axios from  "axios";
-import { Bar } from 'react-chartjs-2';
-// import InventoryChart from './InventoryChart';
-import SearchBar from '../../components/SearchBar'
 
 
 
@@ -11,6 +8,8 @@ import SearchBar from '../../components/SearchBar'
 function Main() {
 
     const [inventoryData, setInventoryData] = useState([]);
+    const [searchTerm, setSearchTerm] = useState('');
+
 
     async function fetchInventory(){
         try{
@@ -23,6 +22,7 @@ function Main() {
             console.log(error);
         }
     }; 
+
     async function deleteInventory(itemId) {
         try {
             await axios.post(`http://localhost:5000/delete-inventory/?itemId=${itemId}`);
@@ -36,26 +36,46 @@ function Main() {
 
     useEffect(() => {
         fetchInventory();
-    }, []);
-
-
-        // Graph Generate code
+    }, []);   
     
+    const handleSearch = event => {
+        setSearchTerm(event.target.value);
+      };
+      const handleSearchSubmit = event => {
+        event.preventDefault();
+        const filteredItems = inventoryData.filter((item) =>
+         item.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+         item.quantity.toString().toLowerCase().includes(searchTerm.toLowerCase()) ||
+         item.price.toString().toLowerCase().includes(searchTerm.toLowerCase())
 
-  // Create data for chart
+  );
+        setInventoryData(filteredItems);
+        console.log(inventoryData);
+      };
 
-    //graph end code
-    
+
+
 
   return (
     <div>
+       
             <header className="bg-surface-primary border-bottom pt-6">
                 <div className="container-fluid">
                     <div className="mb-npx">
                         <div className="row align-items-center">
                             <div className="col-sm-6 col-12 mb-4 mb-sm-0">
                                 <h1 className="h2 mb-0 ls-tight">Inventory</h1>
-                                <SearchBar />
+                                <form onSubmit={handleSearchSubmit}>
+                                    <input
+                                        type="text"
+                                        placeholder="Search Inventory"
+                                        value={searchTerm}
+                                        onChange={handleSearch}
+                                    />
+                                    <button type="submit">Search</button>
+                                </form>
+
+                                {/* <SearchBar searchTerm={searchTerm} handleSearch={handleSearch} /> */}
                             </div>
                             <div className="col-sm-6 col-12 text-sm-end">
                                 <div className="mx-n1">
@@ -81,7 +101,7 @@ function Main() {
             <main className="py-6 bg-surface-secondary">
                <div className="container-fluid">
                    <div className="card shadow border-0 mb-7">
-        
+                   
                        <div className="table-responsive">
                            <table className="table table-hover table-nowrap">
                                <thead className="thead-light">
@@ -124,6 +144,7 @@ function Main() {
                    </div>
                </div>
            </main>
+           
     </div>
   )
 }

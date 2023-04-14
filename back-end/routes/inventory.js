@@ -46,6 +46,7 @@ app.get('/get-inventory' , async (req,res) => {
         res.status(500).json({error: "Internal server error"});
     }
 });
+
 app.post('/delete-inventory', async (req, res) => {
     console.log(req.query)
     const itemId = req.query.itemId;
