@@ -9,7 +9,7 @@ import { Link } from "react-router-dom";
 function Main() {
   const [inventoryData, setInventoryData] = useState([]);
 
-  const [inventory, setInventory] = useState({
+  const [item, setitem] = useState({
     itemName: "",
     quantity: "",
     price: "",
@@ -23,7 +23,7 @@ function Main() {
   const [error, setError] = useState(null);
 
   const handleInputChange = (event) =>{
-    setInventory({ ...inventory, [event.target.name]: event.target.value});
+    setitem({ ...item, [event.target.name]: event.target.value});
 
   }
   // OnClick update button
@@ -31,7 +31,7 @@ function Main() {
     console.log('clicked!!');
     setShow(true);
     setSelectedId(item._id);
-    setInventory({ ...inventory, itemName: item.name, quantity: item.quantity, price: item.price });
+    setitem({ ...item, itemName: item.name, quantity: item.quantity, price: item.price });
   }
 
   async function fetchInventory() {
@@ -66,13 +66,10 @@ function Main() {
     console.log("u");
 
     // const id = "1";
-    const name = document.getElementById("name").value;
-    const quantity = document.getElementById("quantity").value;
-    const price = document.getElementById("price").value;
     try {
       const response = await axios.post(
         `http://localhost:5000/update-inventory?itemId=${selecedId}`,
-        inventory
+        item
       );
 
       const data = response.data;
@@ -83,7 +80,7 @@ function Main() {
         setError(data.error);
       } else {
         setError("");
-        
+
         // reloading the same page
         window.location.reload();
       }
@@ -201,7 +198,7 @@ function Main() {
         <Modal
           show={show}
           onClose={() => setShow(false)}
-          height={410}
+          height={380}
           width={450}
           // itemName={item.name}
           // quantity={item.quantity}
@@ -216,7 +213,7 @@ function Main() {
               type="text"
               id="name"
               name="itemName"
-              value = {inventory.itemName}
+              value = {item.itemName}
               onChange = {(event) =>handleInputChange(event)}
               required
             />
@@ -228,7 +225,7 @@ function Main() {
               type="number"
               id="quantity"
               name="quantity"
-              value={inventory.quantity}
+              value={item.quantity}
               onChange = {(event) =>handleInputChange(event)}
               required
             />
@@ -240,7 +237,7 @@ function Main() {
               type="number"
               id="price"
               name="price"
-              value = {inventory.price}
+              value = {item.price}
               onChange = {(event) =>handleInputChange(event)}
               required
             />

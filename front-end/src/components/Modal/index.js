@@ -16,7 +16,7 @@ const Modal = ({ show, onClose, children, height, width }) => {
           <div className="rightleft"></div>
           <label className="close">close</label>
         </div>
-        {children}
+        {children}     
       </div>
     </div>
   );

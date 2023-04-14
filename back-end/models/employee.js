@@ -13,6 +13,10 @@ const empSchema = new mongoose.Schema(
             type: String,
             required: true,
         },
+        dateJoining:{
+            type: String,
+            required: true,
+        },
         streetaddress: {
             type: String,
             required: true,

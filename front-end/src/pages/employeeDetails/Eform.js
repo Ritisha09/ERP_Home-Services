@@ -2,6 +2,7 @@ import React, {useState} from 'react'
 import SidebarLeft from "../../components/SidebarLeft"
 import "./Eform.css"
 
+
 function Eform() {
 
   const [error, setError] = useState("");
@@ -22,7 +23,8 @@ function Eform() {
     const accountNo = document.getElementById('accountno').value;
     const accountholderName = document.getElementById('accname').value;
     const IFSCcode = document.getElementById('ifsc').value;
-    const aadharNo = document.getElementById('file').value;
+    const aadharNo = document.getElementById('file').value; 
+    const dateJoining = document.getElementById('date-joining').value;
     
     
     
@@ -34,7 +36,7 @@ function Eform() {
         headers: {
           'Content-Type': 'application/json'
         },
-        body: JSON.stringify({id, name, phone, streetaddress, email, area, zipCode, aadharNo, bankName, accountNo, accountholderName, IFSCcode, designation})
+        body: JSON.stringify({id, name, phone, dateJoining, streetaddress, email, area, zipCode, aadharNo, bankName, accountNo, accountholderName, IFSCcode, designation})
       });
 
       const data = await response.json();
@@ -76,11 +78,13 @@ function Eform() {
             <label for="name">Name of Employee:</label>
             <input type="text" id="name" name="name"  required />
             <label for="designation">Designation:</label>
-            <input type="text" id="designation" name="name"  required />
+            <input type="text" id="designation" name="designation"  required />
             <label for="mobile">Mobile Number:</label>
             <input type="tel" id="mobile" name="mobile" required/>
             <label for="email">Email:</label>
             <input type="email" id="email" name="email" required/>
+            <label for="date-input">Joining Date:</label>
+            <input type="date" id="date-joining" name="date-joining" required/>
 
             <label for="street-address">Street Address:</label>
             <input type="text" id="street-address" name="street-address" required/>
