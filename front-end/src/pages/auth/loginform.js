@@ -110,9 +110,9 @@ const LoginForm = () => {
       </div>
       
       <h2>Login</h2>
-      <input type="text" placeholder="Username" value = {username} onChange = {handleUsernameChange}/>
+      <input type="text1" placeholder="Username" value = {username} onChange = {handleUsernameChange}/>
       <p className = "error">{usernameError}</p>
-      <input type="password" placeholder="Password" value = {password} onChange = {handlePasswordChange}/>
+      <input type="password1" placeholder="Password" value = {password} onChange = {handlePasswordChange}/>
       <p className = "error">{passwordError}</p>
       <p style={{ color: 'brown' }}>{errorMessage}</p>
 

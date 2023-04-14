@@ -64,7 +64,8 @@
     background-image: url("../../icons/skylink.jpeg");
 }
 
-input {
+input[type='text1'],
+input[type='password1'] {
     border: none;
     background-color: rgb(229, 226, 226);
     width: 80%;
