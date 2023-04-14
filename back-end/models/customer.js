@@ -2,7 +2,7 @@ const mongoose = require('mongoose');
 
 const custSchema = new mongoose.Schema(
     {
-        id: {
+        custId: {
             type: String,
             required: true ,
         },
@@ -22,7 +22,7 @@ const custSchema = new mongoose.Schema(
             type: String,
             required: true,
         },
-        zipcode: {
+        zipCode: {
             type: Number,
             required: true,
         }

@@ -31,15 +31,15 @@ const LoginForm = () => {
     setTimeout(() => showPopup("hide"), 3000);
   };
 
-  const onSuccess = (e) => {
-    alert("User signed in");
-    console.log(e);
-  };
+  // const onSuccess = (e) => {
+  //   alert("User signed in");
+  //   console.log(e);
+  // };
 
-  const onFailure = (e) => {
-    alert("User sign in Failed");
-    console.log(e);
-  };
+  // const onFailure = (e) => {
+  //   alert("User sign in Failed");
+  //   console.log(e);
+  // };
 
   const handleUsernameChange = (event) => {
     const value= event.target.value;
