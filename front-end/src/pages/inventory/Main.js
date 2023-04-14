@@ -2,12 +2,11 @@ import React, {useState, useEffect} from 'react';
 import axios from  "axios";
 
 
-
-
 // const main = () => {
 function Main() {
 
     const [inventoryData, setInventoryData] = useState([]);
+    const [originalInventoryData, setOriginalInventoryData] = useState([]);
     const [searchTerm, setSearchTerm] = useState('');
 
 
@@ -16,6 +15,7 @@ function Main() {
             const response = await axios.get('http://localhost:5000/get-inventory');
             console.log(response.data);
             setInventoryData(response.data);
+            setOriginalInventoryData(response.data);
         }catch(error){
             console.error("Failed to fetch inventory data:", error);
 
@@ -29,6 +29,7 @@ function Main() {
             console.log(`Item with ID ${itemId} deleted successfully`);
             // Fetch updated inventory data after successful delete
             setInventoryData(inventoryData.filter(item => item._id !== itemId));
+            setOriginalInventoryData(originalInventoryData.filter(item => item._id !== itemId));
         } catch (error) {
             console.error('Error deleting item:', error);
         }
@@ -43,15 +44,21 @@ function Main() {
       };
       const handleSearchSubmit = event => {
         event.preventDefault();
-        const filteredItems = inventoryData.filter((item) =>
+        const filteredItems = originalInventoryData.filter((item) =>
          item.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
          item.quantity.toString().toLowerCase().includes(searchTerm.toLowerCase()) ||
          item.price.toString().toLowerCase().includes(searchTerm.toLowerCase())
 
   );
         setInventoryData(filteredItems);
-        console.log(inventoryData);
       };
+
+      const handleRefresh = () => {
+        // Reset filtered data and clear search term
+        setInventoryData(originalInventoryData);
+        setSearchTerm("");
+      };
+
 
 
 
@@ -65,17 +72,18 @@ function Main() {
                         <div className="row align-items-center">
                             <div className="col-sm-6 col-12 mb-4 mb-sm-0">
                                 <h1 className="h2 mb-0 ls-tight">Inventory</h1>
-                                <form onSubmit={handleSearchSubmit}>
+                                <form onSubmit={handleSearchSubmit} style={{ display: "flex" }} >
                                     <input
                                         type="text"
                                         placeholder="Search Inventory"
                                         value={searchTerm}
                                         onChange={handleSearch}
+                                        style={{ marginRight: "10px" }}
                                     />
-                                    <button type="submit">Search</button>
+                                    <button  className="btn btn-sm btn-square btn-neutral text-hover "style={{ borderRadius: "8px", marginLeft: "5px",marginTop:'12px', padding: "20px 30px", fontSize: "15px" }} type="submit">Search</button>
+                                    <button  className="btn btn-sm btn-square btn-neutral text-hover "style={{ borderRadius: "8px", marginLeft: "5px",marginTop:'12px', padding: "20px 10px", fontSize: "15px" }} onClick={handleRefresh} type="button"><i class="bi bi-arrow-clockwise"></i></button>
+                                    
                                 </form>
-
-                                {/* <SearchBar searchTerm={searchTerm} handleSearch={handleSearch} /> */}
                             </div>
                             <div className="col-sm-6 col-12 text-sm-end">
                                 <div className="mx-n1">
