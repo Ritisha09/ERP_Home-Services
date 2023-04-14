@@ -1,34 +1,33 @@
 const mongoose = require('mongoose');
 
-const custSchema = new mongoose.Schema(
+const DayamtexpensesSchema = new mongoose.Schema(
     {
-        custId: {
-            type: String,
-            required: true ,
-        },
-        name: {
+        id: {
             type: String,
             required: true,
         },
-        phone: {
+        date: {
             type: String,
             required: true,
         },
-        streetaddress: {
+        amtexp: {
+            type: Number,
+            required: true,
+        },
+        paidto: {
             type: String,
             required: true,
         },
-        area: {
+        reason: {
             type: String,
             required: true,
         },
-        zipCode: {
+        folionum: {
             type: Number,
             required: true,
         }
-    }
-)
 
-const Customer = mongoose.model('customer', custSchema);
+})
+const DayamtExpenses = mongoose.model('Dayamtexpenses', DayamtexpensesSchema);
 
-module.exports = Customer;
+module.exports = DayamtExpenses;

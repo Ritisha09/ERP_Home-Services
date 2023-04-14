@@ -31,15 +31,15 @@ const LoginForm = () => {
     setTimeout(() => showPopup("hide"), 3000);
   };
 
-  const onSuccess = (e) => {
-    alert("User signed in");
-    console.log(e);
-  };
+  // const onSuccess = (e) => {
+  //   alert("User signed in");
+  //   console.log(e);
+  // };
 
-  const onFailure = (e) => {
-    alert("User sign in Failed");
-    console.log(e);
-  };
+  // const onFailure = (e) => {
+  //   alert("User sign in Failed");
+  //   console.log(e);
+  // };
 
   const handleUsernameChange = (event) => {
     const value= event.target.value;
@@ -88,6 +88,8 @@ const LoginForm = () => {
         setErrorMessage(data.error);
       }else if(response.status === 200){
         setErrorMessage(data.message);
+        // if authenticated redirect to dashboard
+        window.location.href = '/dashboard';
       }else{
         setErrorMessage("");
       }

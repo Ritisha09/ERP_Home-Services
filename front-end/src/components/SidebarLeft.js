@@ -1,4 +1,6 @@
 import React from 'react'
+import skylink from "../icons/skylink1.jpeg"
+import "./dashboard.css";
 
 const SidebarLeft = () => {
   return (
@@ -9,7 +11,7 @@ const SidebarLeft = () => {
                     <span className="navbar-toggler-icon"></span>
                 </button>
                 <a className="navbar-brand " href="#">
-                    <img src="../icons/skylink.jpeg" alt='Company Logo' width = {70} height = {65} />
+                    <img src={skylink} alt='Company Logo' width={150} height={100} />
                 </a>
                                             
                 <div className="navbar-user">
@@ -42,9 +44,9 @@ const SidebarLeft = () => {
                             </a>
                         </li>
                         <li className="nav-item">
-                            <a className="nav-link" href="/Inventory">
+                            <a className="nav-link" href="/inventory">
                                 <i className="bi bi-tools"></i> Inventory
-                                <span className="badge bg-soft-primary text-primary rounded-pill d-inline-flex align-items-center ms-auto">3</span>
+                                {/* <span className="badge bg-soft-primary text-primary rounded-pill d-inline-flex align-items-center ms-auto">3</span> */}
                             </a>
                         </li>
                         <li className="nav-item">
@@ -53,12 +55,12 @@ const SidebarLeft = () => {
                             </a>
                         </li>
                         <li className="nav-item">
-                            <a className="nav-link" href="#">
+                            <a className="nav-link" href="/DT">
                             <i className="bi bi-card-list"></i> Daily Technician Record
                             </a>
                         </li>
                         <li className="nav-item">
-                            <a className="nav-link" href="#">
+                            <a className="nav-link" href="/Daybook">
                             <i className="bi bi-book"></i> Day Book
                             </a>
                         </li>
@@ -68,7 +70,7 @@ const SidebarLeft = () => {
                     <div className="mt-auto"></div>
                     <ul className="navbar-nav">
                         <li className="nav-item">
-                            <a className="nav-link" href="#">
+                            <a className="nav-link" href="/Account">
                                 <i className="bi bi-person-square"></i> Account
                             </a>
                         </li>
