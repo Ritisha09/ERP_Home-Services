@@ -46,6 +46,7 @@ app.get('/get-inventory' , async (req,res) => {
         res.status(500).json({error: "Internal server error"});
     }
 });
+
 app.post('/delete-inventory', async (req, res) => {
     console.log(req.query)
     const itemId = req.query.itemId;
@@ -67,5 +68,31 @@ app.post('/delete-inventory', async (req, res) => {
     res.status(500).json({error: 'Internal server error'});
   }
 });
+
+app.post('/update-inventory', async (req, res) => {
+    const itemId = req.query.itemId;
+    const {itemName,quantity,price} = req.body;
+
+  try {
+
+    // Check if item exists in inventory
+    const item = await Inventory.findOne({_id: itemId});
+    console.log(item);
+    if (!item) {
+      return res.status(404).json({error: 'Item not found'});
+    }
+    item.name = itemName;
+    item.quantity = quantity;
+    item.price = price;
+
+    await item.save();
+    res.status(200).json({message: 'Item updated successfully'});
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({error: 'Internal server error'});
+  }
+});
+
+
 
 module.exports = app;

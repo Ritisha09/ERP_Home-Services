@@ -3,13 +3,36 @@ import axios from "axios";
 // import InventoryChart from './InventoryChart';
 import SearchBar from "../../components/SearchBar";
 import Modal from "../../components/Modal";
+import { Link } from "react-router-dom";
 
 // const main = () => {
 function Main() {
   const [inventoryData, setInventoryData] = useState([]);
 
+  const [inventory, setInventory] = useState({
+    itemName: "",
+    quantity: "",
+    price: "",
+  })
+
+
+
   // Modal show
   const [show, setShow] = useState(false);
+  const [selecedId, setSelectedId] = useState(null);
+  const [error, setError] = useState(null);
+
+  const handleInputChange = (event) =>{
+    setInventory({ ...inventory, [event.target.name]: event.target.value});
+
+  }
+  // OnClick update button
+  function handleClick(item) {
+    console.log('clicked!!');
+    setShow(true);
+    setSelectedId(item._id);
+    setInventory({ ...inventory, itemName: item.name, quantity: item.quantity, price: item.price });
+  }
 
   async function fetchInventory() {
     try {
@@ -22,10 +45,12 @@ function Main() {
       console.log(error);
     }
   }
+
+  //
   async function deleteInventory(itemId) {
     try {
       await axios.post(
-        `http://localhost:5000/delete-inventory/?itemId=${itemId}`
+        `http://localhost:5000/delete-inventory?itemId=${itemId}`
       );
       console.log(`Item with ID ${itemId} deleted successfully`);
       // Fetch updated inventory data after successful delete
@@ -34,6 +59,39 @@ function Main() {
       console.error("Error deleting item:", error);
     }
   }
+
+  // Update
+  const submitHandler = async (e) => {
+    e.preventDefault();
+    console.log("u");
+
+    // const id = "1";
+    const name = document.getElementById("name").value;
+    const quantity = document.getElementById("quantity").value;
+    const price = document.getElementById("price").value;
+    try {
+      const response = await axios.post(
+        `http://localhost:5000/update-inventory?itemId=${selecedId}`,
+        inventory
+      );
+
+      const data = response.data;
+      console.log(data); // Do something with the response
+
+      if (response.status === 400 && data.error === "Item already exists.") {
+        // setIsRegistered(true);
+        setError(data.error);
+      } else {
+        setError("");
+        
+        // reloading the same page
+        window.location.reload();
+      }
+      // edge case
+    } catch (error) {
+      console.log("error");
+    }
+  };
 
   useEffect(() => {
     fetchInventory();
@@ -121,7 +179,7 @@ function Main() {
                         <button
                           type="button"
                           className="btn btn-sm btn-square btn-neutral text-danger-hover"
-                          onClick={() => setShow(true)}
+                          onClick={() => handleClick(item)}
                         >
                           <i className="bi bi-pencil"></i>
                         </button>
@@ -140,18 +198,60 @@ function Main() {
             </div>
           </div>
         </div>
+        <Modal
+          show={show}
+          onClose={() => setShow(false)}
+          height={410}
+          width={450}
+          // itemName={item.name}
+          // quantity={item.quantity}
+          // price={item.price}
+        >
+          <form className="modal_form" onSubmit={submitHandler}>
+            <label className="modal_label" for="name">
+              Component Name:
+            </label>
+            <input
+              className="modal_input"
+              type="text"
+              id="name"
+              name="itemName"
+              value = {inventory.itemName}
+              onChange = {(event) =>handleInputChange(event)}
+              required
+            />
+            <label className="modal_label" for="quantity">
+              Quantity:
+            </label>
+            <input
+              className="modal_input"
+              type="number"
+              id="quantity"
+              name="quantity"
+              value={inventory.quantity}
+              onChange = {(event) =>handleInputChange(event)}
+              required
+            />
+            <label className="modal_label" for="price">
+              Price of Each:
+            </label>
+            <input
+              className="modal_input"
+              type="number"
+              id="price"
+              name="price"
+              value = {inventory.price}
+              onChange = {(event) =>handleInputChange(event)}
+              required
+            />
+            <div className="button">
+              <button className="modal_button" type="submit" value="submit">
+                Submit
+              </button>
+            </div>
+          </form>
+        </Modal>
       </main>
-      <Modal
-        show={show}
-        onClose={() => setShow(false)}
-        height={420}
-        width={280}
-      >
-        <div>
-          <h1> Menu </h1>
-          
-        </div>
-      </Modal>
     </div>
   );
 }

@@ -4,7 +4,7 @@
     bottom: 0;
     left: 0;
     right: 0;
-    background-color: rgba(0,0,0, 0.7);
+    background-color: rgba(0, 0, 0, 0.387);
     display: flex;
     justify-content: center;
     align-items: center;
@@ -12,12 +12,12 @@
     position: fixed;
   }
   
-  .modal {
+  .modals {
     /* width: 400px;
     width: 300px; */
     height: 50%;
     /* height: 700px; */
-    background: #b8d3eb;
+    background: rgba(0, 0, 0, 0.329/2);
     border-radius: 15px;
     display: flex;
     justify-content: center;
@@ -28,8 +28,6 @@
     color: #fff;
     /* background: linear-gradient(180deg, rgba(100,92,187,1) 15%, rgba(131,124,213,1) 60%); */
   }
-  
-  
   
   .routes {
     height: 500px;
@@ -57,7 +55,7 @@
     width: 25px;
     position: absolute;
     margin-top: 24px;
-    background-color: #fff;
+    background-color: #080303;
     border-radius: 2px;
     transform: rotate(45deg);
     transition: all 0.3s ease-in;
@@ -68,7 +66,7 @@
     width: 25px;
     position: absolute;
     margin-top: 24px;
-    background-color: #fff;
+    background-color: #080303;
     border-radius: 2px;
     transform: rotate(-45deg);
     transition: all 0.3s ease-in;

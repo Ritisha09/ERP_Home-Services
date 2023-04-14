@@ -8,7 +8,7 @@ const Modal = ({ show, onClose, children, height, width }) => {
 
   return (
     <div className="modalWrapper">
-      <div className="modal" style={{height: height, width: width}}>
+      <div className="modals" style={{height: height, width: width}}>
         {/* <button onClick={onClose} className={`${styles.btnClose} btn-close`} /> */}
         {/* <button onClick={onClose} className="btnClose"/> */}
         <div className="close-container" onClick={onClose}>
