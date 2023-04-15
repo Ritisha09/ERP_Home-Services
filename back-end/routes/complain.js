@@ -75,5 +75,27 @@ app.post('/update-complain', async (req, res) => {
   }
   });
 
+  app.post('/delete-complain', async (req, res) => {
+    console.log(req.query)
+    const itemId = req.query.itemId;
+    console.log(itemId)
+  try {
+    // Check if item exists in inventory
+    const item = await Complaint.findOne({_id: itemId});
+    console.log(item);
+    if (!item) {
+      return res.status(404).json({error: 'Item not found'});
+    }
+
+    // Delete item from inventory
+    await Complaint.deleteOne({_id: itemId});
+    // await inventory.save();
+    res.status(200).json({message: 'Complaint deleted successfully'});
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({error: 'Internal server error'});
+  }
+});
+
 
 module.exports = app;
