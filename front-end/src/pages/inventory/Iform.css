@@ -50,7 +50,7 @@
   .modal_form{
     background-color: #eaedf3;
     padding: 20px 30px;
-    border-radius: 20px;
+    /* border-radius: 20px; */
 
     width: 60%;
     margin-top: 20px;

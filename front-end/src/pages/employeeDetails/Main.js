@@ -1,113 +1,273 @@
-import React,{useState, useEffect} from 'react'
-import SearchBar from '../../components/SearchBar'
+import React, { useState, useEffect } from "react";
+import SearchBar from "../../components/SearchBar";
 import axios from "axios";
+import Modal from "../../components/Modal";
 
-function Main(){
+function Main() {
+  const [error, setError] = useState(null);
+  const [employeeData, setEmployeeData] = useState([]);
 
-    const [employeeData, setEmployeeData] = useState([]);
+  const [employee, setEmployee] = useState({
+    empName: "",
+    phone: "",
+    dateJoining: "",
+    streetaddress: "",
+    email: "",
+    area: "",
+    zipCode: "",
+    aadharNo: "",
+    bankName: "",
+    accountNo: "",
+    accountholderName: "",
+    IFSCcode: "",
+    designation: "",
+  });
 
-    async function fetchEmployee(){
-        try{
-            const response = await axios.get('http://localhost:5000/get-employee');
-            console.log(response.data);
-            setEmployeeData(response.data);
-        }catch(error){
-            console.log(error);
-        }
-    }; 
+  // Modal show
+  const [show, setShow] = useState(false);
+  const [selecedId, setSelectedId] = useState(null);
 
-    useEffect(() => {
-        fetchEmployee();
-    }, [])
+  const handleInputChange = (event) => {
+    setEmployee({ ...employee, [event.target.name]: event.target.value });
+  };
+
+  // OnClick update button
+  function handleClick(employee) {
+    console.log("clicked!!");
+    setShow(true);
+    setSelectedId(employee._id);
+    setEmployee({
+      ...employee,
+      empName: employee.name,
+      phone: employee.phone,
+      dateJoining: employee.dateJoining,
+      streetaddress: employee.streetaddress,
+      email: employee.email,
+      area: employee.area,
+      zipCode: employee.zipCode,
+      aadharNo: employee.aadharNo,
+      bankName: employee.bankName,
+      accountNo: employee.accountNo,
+      accountholderName: employee.accountholderName,
+      IFSCcode: employee.IFSCcode,
+      designation: employee.designation,
+    });
+  }
+
+  async function fetchEmployee() {
+    try {
+      const response = await axios.get("http://localhost:5000/get-employee");
+      console.log(response.data);
+      setEmployeeData(response.data);
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
+  const submitHandler = async (e) => {
+    e.preventDefault();
+    console.log("emp");
+
+    // const id = "1";
+    try {
+      const response = await axios.post(
+        `http://localhost:5000/update-employee?empId=${selecedId}`,
+        employee
+      );
+
+      const data = response.data;
+      console.log(data); // Do something with the response
+
+      if (response.status === 400 && data.error === "Item already exists.") {
+        // setIsRegistered(true);
+        setError(data.error);
+      } else {
+        setError("");
+
+        // reloading the same page
+        window.location.reload();
+      }
+      // edge case
+    } catch (error) {
+      console.log("error");
+    }
+  };
+
+  useEffect(() => {
+    fetchEmployee();
+  }, []);
 
   return (
     <div>
-        <header className="bg-surface-primary border-bottom pt-6">
-            <div className="container-fluid">
-                <div className="mb-npx">
-                    <div className="row align-items-center">
-                        <div className="col-sm-6 col-12 mb-4 mb-sm-0">
-                            <h1 className="h2 mb-0 ls-tight">Employees Details</h1>
-                            <SearchBar />
-                        </div>
-                        <div className="col-sm-6 col-12 text-sm-end">
-                                <div className="mx-n1">
-                                    <a href="/Eform" className="btn d-inline-flex btn-sm btn-primary mx-1">
-                                        <span className=" pe-2">
-                                            <i className="bi bi-pencil"></i>
-                                        </span>
-                                        <span>Add Employee</span>
-                                    </a>
-                                    
-                                </div>
-                            </div>
-                        
-                    </div>
-                    
+      <header className="bg-surface-primary border-bottom pt-6">
+        <div className="container-fluid">
+          <div className="mb-npx">
+            <div className="row align-items-center">
+              <div className="col-sm-6 col-12 mb-4 mb-sm-0">
+                <h1 className="h2 mb-0 ls-tight">Employees Details</h1>
+                <SearchBar />
+              </div>
+              <div className="col-sm-6 col-12 text-sm-end">
+                <div className="mx-n1">
+                  <a
+                    href="/Eform"
+                    className="btn d-inline-flex btn-sm btn-primary mx-1"
+                  >
+                    <span className=" pe-2">
+                      <i className="bi bi-pencil"></i>
+                    </span>
+                    <span>Add Employee</span>
+                  </a>
                 </div>
+              </div>
             </div>
-        </header>
-        <main className="py-6 bg-surface-secondary">
-            <div className="container-fluid">
-                
-                <div className="card shadow border-0 mb-7">
-                    
-                    <div className="table-responsive">
-                        <table className="table table-hover table-nowrap">
-                            <thead className="thead-light">
-                                <tr>
-                                    <th scope="col">Name</th>
-                                    <th scope="col">Date of Joining</th>
-                                    <th scope="col">Address</th>
-                                    <th scope="col">Contact</th>
-                                    <th scope="col">Department</th>
-                                    <th></th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                {employeeData.map((item, index) =>(
-                                    <tr>
-                                    <td>
-                                        <img alt="..." src="https://images.unsplash.com/photo-1502823403499-6ccfcf4fb453?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=3&w=256&h=256&q=80" className="avatar avatar-sm rounded-circle me-2" />
-                                        <a className="text-heading font-semibold" href="#">
-                                            {item.name}
-                                        </a>
-                                    </td>
-                                    <td>
-                                        Feb 15, 2021
-                                    </td>
-                                    <td>
-                                        {/* <img alt="..." src="https://preview.webpixels.io/web/img/other/logos/logo-1.png" className="avatar avatar-xs rounded-circle me-2" /> */}
-                                        <a className="text-heading font-semibold" href="#">
-                                            {item.streetaddress} {item.area}  {item.zipCode}
-                                        </a>
-                                    </td>
-                                    <td>
-                                        {item.phone}
-                                    </td>
-                                    <td>
-                                        <span className="badge badge-lg badge-dot">
-                                            { (item.designation === "technician") ? <i className="bg-success"></i> : <i className="bg-warning"></i> }
-                                            {item.designation}
-                                        </span>
-                                    </td>
-                                    <td className="text-end">
-                                        <a href="#" className="btn btn-sm btn-neutral">View</a>
-                                        <button type="button" className="btn btn-sm btn-square btn-neutral text-danger-hover">
-                                            <i className="bi bi-trash"></i>
-                                        </button>
-                                    </td>
-                                </tr>
-                                ))}
-                            </tbody>
-                        </table>
-                    </div>
-                    
-                </div>
+          </div>
+        </div>
+      </header>
+      <main className="py-6 bg-surface-secondary">
+        <div className="container-fluid">
+          <div className="card shadow border-0 mb-7">
+            <div className="table-responsive">
+              <table className="table table-hover table-nowrap">
+                <thead className="thead-light">
+                  <tr>
+                    <th scope="col">Name</th>
+                    <th scope="col">Date of Joining</th>
+                    <th scope="col">Address</th>
+                    <th scope="col">Contact</th>
+                    <th scope="col">Department</th>
+                    <th></th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {employeeData.map((employee, index) => (
+                    <tr>
+                      <td>
+                        <img
+                          alt="..."
+                          src="https://images.unsplash.com/photo-1502823403499-6ccfcf4fb453?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=3&w=256&h=256&q=80"
+                          className="avatar avatar-sm rounded-circle me-2"
+                        />
+                        <a className="text-heading font-semibold" href="#">
+                          {employee.name}
+                        </a>
+                      </td>
+                      <td>{employee.dateJoining}</td>
+                      <td>
+                        {/* <img alt="..." src="https://preview.webpixels.io/web/img/other/logos/logo-1.png" className="avatar avatar-xs rounded-circle me-2" /> */}
+                        <a className="text-heading font-semibold" href="#">
+                          {employee.streetaddress} {employee.area}{" "}
+                          {employee.zipCode}
+                        </a>
+                      </td>
+                      <td>{employee.phone}</td>
+                      <td>
+                        <span className="badge badge-lg badge-dot">
+                          {employee.designation === "technician" ? (
+                            <i className="bg-success"></i>
+                          ) : (
+                            <i className="bg-warning"></i>
+                          )}
+                          {employee.designation}
+                        </span>
+                      </td>
+                      <td className="text-end">
+                        <button
+                          type="button"
+                          className="btn btn-sm btn-square btn-neutral text-danger-hover"
+                          onClick={() => handleClick(employee)}
+                        >
+                          <i className="bi bi-pencil"></i>
+                        </button>
+                        <button
+                          type="button"
+                          className="btn btn-sm btn-square btn-neutral text-danger-hover"
+                        >
+                          <i className="bi bi-trash"></i>
+                        </button>
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
             </div>
-        </main>
+          </div>
+        </div>
+        <Modal
+          show={show}
+          onClose={() => setShow(false)}
+          height={500}
+          width={550}
+        >
+          <form className="modal_form" onSubmit={submitHandler}>
+            <label className="modal_label" for="name">Name of Employee:</label>
+            <input className="modal_input" type="text" id="name" name="empName" value={employee.empName}
+                onChange={(event) => handleInputChange(event)} required
+            />
+            <label className="modal_label" for="designation">Designation:</label>
+            <input className="modal_input" type="text" id="designation" name="designation" value={employee.designation}
+                onChange={(event) => handleInputChange(event)} required
+            />
+            <label className="modal_label" for="phone">Mobile Number:</label>
+            <input className="modal_input" type="tel" id="phone" name="phone" value={employee.phone}
+                onChange={(event) => handleInputChange(event)} required
+            />
+            <label className="modal_label" for="email">Email:</label>
+            <input className="modal_input" type="email" id="email" name="email" value={employee.email}
+                onChange={(event) => handleInputChange(event)} required
+            />``
+            <label className="modal_label" for="date-input">Joining Date:</label>
+            <input className="modal_input" type="date" id="date-joining" name="date-joining" value={employee.dateJoining}
+                onChange={(event) => handleInputChange(event)} required
+            />
+            <label className="modal_label" for="street-address">Street Address:</label>
+            <input className="modal_input" type="text" id="street-address" name="streetaddress" value={employee.streetaddress}
+                onChange={(event) => handleInputChange(event)} required
+            />
+            <label className="modal_label" for="area">Area:</label>
+            <input className="modal_input" type="text" id="area" name="area" value={employee.area}
+                onChange={(event) => handleInputChange(event)} required
+            />
+            <label className="modal_label" for="zip">Zip Code:</label>
+            <input className="modal_input" type="text" id="zip" name="zipCode" value={employee.zipCode}
+                onChange={(event) => handleInputChange(event)} required
+            />
+
+            <label className="modal_label" for="file">Aadhar Number</label>
+            <input className="modal_input" type="number" id="file" name="aadharNo" value={employee.aadharNo}
+                onChange={(event) => handleInputChange(event)} required
+            />
+
+            <label className="modal_label" for="bankdetails">Bank Details:</label>
+            <label className="modal_label" for="bankname">Bank Name:</label>
+            <input className="modal_input" type="text" id="bankname" name="bankName" value={employee.bankName}
+                onChange={(event) => handleInputChange(event)} required
+            />
+
+            <label className="modal_label" for="accountno">Account Number:</label>
+            <input className="modal_input" type="text" id="accountno" name="accountno" value={employee.accountNo}
+                onChange={(event) => handleInputChange(event)} required
+            />
+
+            <label className="modal_label" for="accname">Account Holder Name:</label>
+            <input className="modal_input" type="text" id="accname" name="accountholderName" value={employee.accountholderName}
+                onChange={(event) => handleInputChange(event)} required
+            />
+
+            <label className="modal_label" for="ifsc">IFSC Code:</label>
+            <input className="modal_input" type="text" id="ifsc" name="IFSCcode" value={employee.IFSCcode}
+                onChange={(event) => handleInputChange(event)} required
+            />
+            <div className="button">
+              <button className="modal_button" type="submit" value="submit">
+                Submit
+              </button>
+            </div>
+          </form>
+        </Modal>
+      </main>
     </div>
-  )
+  );
 }
 
-export default Main
+export default Main;
