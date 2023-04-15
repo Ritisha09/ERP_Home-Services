@@ -15,8 +15,6 @@ import Inventform from "./pages/inventory/Inventform";
 import Eform from "./pages/employeeDetails/Eform";
 import DT from "./pages/Daily_Technician_Record/DT";
 import Daybook from "./pages/Daybook/Daybook";
-import Dayamtrecievedform from "./pages/Daybook/Dayamtrecievedform";
-import Dayamtexpensesform from "./pages/Daybook/Dayamtexpensesform";
 import Account from "./pages/Account/Account";
 import Daybookform from "./pages/Daybook/Daybookform";
 
@@ -40,8 +38,6 @@ function App() {
         <Route exact path="/Eform" element={<Eform />} />         
         <Route exact path="/DT" element={<DT />} />         
         <Route exact path="/Daybook" element={<Daybook />} />  
-        <Route exact path="/Dayamtrecievedform" element={<Dayamtrecievedform />} />  
-        <Route exact path="/Dayamtexpensesform" element={<Dayamtexpensesform />} />  
         <Route exact path="/Account" element={<Account />} />   
         <Route exact path="/daybookform" element={<Daybookform />} />  
 
