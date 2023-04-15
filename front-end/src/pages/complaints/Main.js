@@ -1,23 +1,60 @@
 import React, {useState, useEffect} from 'react'
-import SearchBar from '../../components/SearchBar'
 import axios from "axios";
 
 function Main(){
     const [complainData, setComplainData] = useState([]);
+    const [originalComplainData, setOriginalComplainData] = useState([]);
+    const [searchTerm, setSearchTerm] = useState('');
 
     async function fetchComplain(){
         try{
             const response = await axios.get('http://localhost:5000/get-complain');
             console.log(response.data);
             setComplainData(response.data);
+            setOriginalComplainData(response.data);
+
         }catch(error){
             console.log(error);
         }
     }; 
 
+    async function deleteComplain(itemId) {
+        try {
+            await axios.post(`http://localhost:5000/delete-complain/?itemId=${itemId}`);
+            console.log(`Item with ID ${itemId} deleted successfully`);
+            // Fetch updated inventory data after successful delete
+            setComplainData(complainData.filter(item => item._id !== itemId));
+            setOriginalComplainData(originalComplainData.filter(item => item._id !== itemId));
+        } catch (error) {
+            console.error('Error deleting item:', error);
+        }
+    }
+
     useEffect(() => {
         fetchComplain();
     }, [])
+
+
+    const handleSearch = event => {
+        setSearchTerm(event.target.value);
+      };
+      const handleSearchSubmit = event => {
+        event.preventDefault();
+        const filteredItems = originalComplainData.filter((item) =>
+         item.status.toLowerCase().includes(searchTerm.toLowerCase()) ||
+         item.serviceType.toLowerCase().includes(searchTerm.toLowerCase()) 
+        //  item.dateOpening.toLowerCase().includes(searchTerm.toLowerCase())||
+        //  item.dateClosing.toLowerCase().includes(searchTerm.toLowerCase())
+
+  );
+        setComplainData(filteredItems);
+      };
+
+      const handleRefresh = () => {
+        // Reset filtered data and clear search term
+        setComplainData(originalComplainData);
+        setSearchTerm("");
+      };
 
   return (
     <div>
@@ -27,7 +64,18 @@ function Main(){
                         <div className="row align-items-center">
                             <div className="col-sm-6 col-12 mb-4 mb-sm-0">
                                 <h1 className="h2 mb-0 ls-tight">Complaints</h1>
-                                <SearchBar />
+                                <form onSubmit={handleSearchSubmit} style={{ display: "flex" }} >
+                                    <input
+                                        type="text"
+                                        placeholder="Search Complains"
+                                        value={searchTerm}
+                                        onChange={handleSearch}
+                                        style={{ marginRight: "10px" }}
+                                    />
+                                    <button  className="btn btn-sm btn-square btn-neutral text-hover "style={{ borderRadius: "8px", marginLeft: "5px",marginTop:'12px', padding: "20px 30px", fontSize: "15px" }} type="submit">Search</button>
+                                    <button  className="btn btn-sm btn-square btn-neutral text-hover "style={{ borderRadius: "8px", marginLeft: "5px",marginTop:'12px', padding: "20px 10px", fontSize: "15px" }} onClick={handleRefresh} type="button"><i class="bi bi-arrow-clockwise"></i></button>
+                                    
+                                </form>
                             </div>
                             <div className="col-sm-6 col-12 text-sm-end">
                                 <div className="mx-n1">
@@ -100,7 +148,7 @@ function Main(){
                                         </td>
                                         <td className="text-end">
                                             <a href="#" className="btn btn-sm btn-neutral">View</a>
-                                            <button type="button" className="btn btn-sm btn-square btn-neutral text-danger-hover">
+                                            <button type="button" className="btn btn-sm btn-square btn-neutral text-danger-hover" onClick={() => deleteComplain(item._id)}>
                                                 <i className="bi bi-trash"></i>
                                             </button>
                                         </td>

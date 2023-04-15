@@ -1,25 +1,66 @@
 import React,{useState, useEffect} from 'react'
-import SearchBar from '../../components/SearchBar'
 import axios from "axios";
 
 function Main(){
 
     const [employeeData, setEmployeeData] = useState([]);
+    const [originalEmployeeData, setOriginalEmployeeData] = useState([]);
+    const [searchTerm, setSearchTerm] = useState('');
 
     async function fetchEmployee(){
         try{
             const response = await axios.get('http://localhost:5000/get-employee');
             console.log(response.data);
             setEmployeeData(response.data);
+            setOriginalEmployeeData(response.data);
+
         }catch(error){
             console.log(error);
         }
     }; 
 
+    async function deleteEmployee(itemId) {
+        try {
+            await axios.post(`http://localhost:5000/delete-employee/?itemId=${itemId}`);
+            console.log(`Item with ID ${itemId} deleted successfully`);
+            // Fetch updated inventory data after successful delete
+            setEmployeeData(employeeData.filter(item => item._id !== itemId));
+            setOriginalEmployeeData(originalEmployeeData.filter(item => item._id !== itemId));
+        } catch (error) {
+            console.error('Error deleting item:', error);
+        }
+    }
+
     useEffect(() => {
         fetchEmployee();
     }, [])
+    const handleSearch = event => {
+        setSearchTerm(event.target.value);
+      };
+      const handleSearchSubmit = event => {
+        event.preventDefault();
+        const filteredItems = originalEmployeeData.filter((item) =>
+         item.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+         item.bankName.toLowerCase().includes(searchTerm.toLowerCase()) ||
+         item.accountholderName.toLowerCase().includes(searchTerm.toLowerCase()) ||
+         item.designation.toLowerCase().includes(searchTerm.toLowerCase()) ||
+         item.streetaddress.toLowerCase().includes(searchTerm.toLowerCase()) ||
+         item.area.toLowerCase().includes(searchTerm.toLowerCase()) ||
+         item.email.toLowerCase().includes(searchTerm.toLowerCase()) ||
+         item.phone.toString().toLowerCase().includes(searchTerm.toLowerCase()) ||
+         item.zipCode.toString().toLowerCase().includes(searchTerm.toLowerCase()) ||
+         item.aadharNo.toString().toLowerCase().includes(searchTerm.toLowerCase()) ||
+         item.accountNo.toString().toLowerCase().includes(searchTerm.toLowerCase()) 
 
+  );
+        setEmployeeData(filteredItems);
+      };
+
+      const handleRefresh = () => {
+        // Reset filtered data and clear search term
+        setEmployeeData(originalEmployeeData);
+        setSearchTerm("");
+      };
   return (
     <div>
         <header className="bg-surface-primary border-bottom pt-6">
@@ -28,7 +69,18 @@ function Main(){
                     <div className="row align-items-center">
                         <div className="col-sm-6 col-12 mb-4 mb-sm-0">
                             <h1 className="h2 mb-0 ls-tight">Employees Details</h1>
-                            <SearchBar />
+                            <form onSubmit={handleSearchSubmit} style={{ display: "flex" }} >
+                                    <input
+                                        type="text"
+                                        placeholder="Search Employee"
+                                        value={searchTerm}
+                                        onChange={handleSearch}
+                                        style={{ marginRight: "10px" }}
+                                    />
+                                    <button  className="btn btn-sm btn-square btn-neutral text-hover "style={{ borderRadius: "8px", marginLeft: "5px",marginTop:'12px', padding: "20px 30px", fontSize: "15px" }} type="submit">Search</button>
+                                    <button  className="btn btn-sm btn-square btn-neutral text-hover "style={{ borderRadius: "8px", marginLeft: "5px",marginTop:'12px', padding: "20px 10px", fontSize: "15px" }} onClick={handleRefresh} type="button"><i class="bi bi-arrow-clockwise"></i></button>
+                                    
+                                </form>
                         </div>
                         <div className="col-sm-6 col-12 text-sm-end">
                                 <div className="mx-n1">
@@ -77,7 +129,6 @@ function Main(){
                                         Feb 15, 2021
                                     </td>
                                     <td>
-                                        {/* <img alt="..." src="https://preview.webpixels.io/web/img/other/logos/logo-1.png" className="avatar avatar-xs rounded-circle me-2" /> */}
                                         <a className="text-heading font-semibold" href="#">
                                             {item.streetaddress} {item.area}  {item.zipCode}
                                         </a>
@@ -93,7 +144,7 @@ function Main(){
                                     </td>
                                     <td className="text-end">
                                         <a href="#" className="btn btn-sm btn-neutral">View</a>
-                                        <button type="button" className="btn btn-sm btn-square btn-neutral text-danger-hover">
+                                        <button type="button" className="btn btn-sm btn-square btn-neutral text-danger-hover" onClick={() => deleteEmployee(item._id)}>
                                             <i className="bi bi-trash"></i>
                                         </button>
                                     </td>

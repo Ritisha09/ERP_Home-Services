@@ -5,6 +5,7 @@ const bcrypt = require('bcrypt');
 const Employee = require('../models/employee');
 const cors = require('cors');
 
+
 const app = express();
 app.use(bodyParser.json());
 app.use(cors());
@@ -43,6 +44,7 @@ app.post('/add-employee' , async (req, res) => {
       await newEmployee.save();
   
       res.status(201).json({ message: "Employee added successfully!!" });
+      
     } catch (error) {
       console.error(error);
       res.status(500).json({ error: "Internal server error" });
@@ -84,6 +86,28 @@ app.get('/get-employee_technician' , async (req,res) => {
       console.error(error);
       res.status(500).json({error: "Internal server error"});
   }
+});
+
+app.post('/delete-employee', async (req, res) => {
+  console.log(req.query)
+  const itemId = req.query.itemId;
+  console.log(itemId)
+try {
+  // Check if item exists in inventory
+  const item = await Employee.findOne({_id: itemId});
+  console.log(item);
+  if (!item) {
+    return res.status(404).json({error: 'Item not found'});
+  }
+
+  // Delete item from inventory
+  await Employee.deleteOne({_id: itemId});
+  // await inventory.save();
+  res.status(200).json({message: 'Employee deleted successfully'});
+} catch (error) {
+  console.error(error);
+  res.status(500).json({error: 'Internal server error'});
+}
 });
   
 
