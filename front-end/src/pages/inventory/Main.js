@@ -1,7 +1,5 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-// import InventoryChart from './InventoryChart';
-import SearchBar from "../../components/SearchBar";
 import Modal from "../../components/Modal";
 import { Link } from "react-router-dom";
 
@@ -15,7 +13,8 @@ function Main() {
     price: "",
   })
 
-
+  const [originalInventoryData, setOriginalInventoryData] = useState([]);
+  const [searchTerm, setSearchTerm] = useState("");
 
   // Modal show
   const [show, setShow] = useState(false);
@@ -39,6 +38,7 @@ function Main() {
       const response = await axios.get("http://localhost:5000/get-inventory");
       console.log(response.data);
       setInventoryData(response.data);
+      setOriginalInventoryData(response.data);
     } catch (error) {
       console.error("Failed to fetch inventory data:", error);
 
@@ -46,7 +46,6 @@ function Main() {
     }
   }
 
-  //
   async function deleteInventory(itemId) {
     try {
       await axios.post(
@@ -55,6 +54,9 @@ function Main() {
       console.log(`Item with ID ${itemId} deleted successfully`);
       // Fetch updated inventory data after successful delete
       setInventoryData(inventoryData.filter((item) => item._id !== itemId));
+      setOriginalInventoryData(
+        originalInventoryData.filter((item) => item._id !== itemId)
+      );
     } catch (error) {
       console.error("Error deleting item:", error);
     }
@@ -94,11 +96,28 @@ function Main() {
     fetchInventory();
   }, []);
 
-  // Graph Generate code
+  const handleSearch = (event) => {
+    setSearchTerm(event.target.value);
+  };
+  const handleSearchSubmit = (event) => {
+    event.preventDefault();
+    const filteredItems = originalInventoryData.filter(
+      (item) =>
+        item.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        item.quantity
+          .toString()
+          .toLowerCase()
+          .includes(searchTerm.toLowerCase()) ||
+        item.price.toString().toLowerCase().includes(searchTerm.toLowerCase())
+    );
+    setInventoryData(filteredItems);
+  };
 
-  // Create data for chart
-
-  //graph end code
+  const handleRefresh = () => {
+    // Reset filtered data and clear search term
+    setInventoryData(originalInventoryData);
+    setSearchTerm("");
+  };
 
   return (
     <div>
@@ -108,7 +127,42 @@ function Main() {
             <div className="row align-items-center">
               <div className="col-sm-6 col-12 mb-4 mb-sm-0">
                 <h1 className="h2 mb-0 ls-tight">Inventory</h1>
-                <SearchBar />
+                <form onSubmit={handleSearchSubmit} style={{ display: "flex" }}>
+                  <input
+                    type="text"
+                    placeholder="Search Inventory"
+                    value={searchTerm}
+                    onChange={handleSearch}
+                    style={{ marginRight: "10px" }}
+                  />
+                  <button
+                    className="btn btn-sm btn-square btn-neutral text-hover "
+                    style={{
+                      borderRadius: "8px",
+                      marginLeft: "5px",
+                      marginTop: "12px",
+                      padding: "20px 30px",
+                      fontSize: "15px",
+                    }}
+                    type="submit"
+                  >
+                    Search
+                  </button>
+                  <button
+                    className="btn btn-sm btn-square btn-neutral text-hover "
+                    style={{
+                      borderRadius: "8px",
+                      marginLeft: "5px",
+                      marginTop: "12px",
+                      padding: "20px 10px",
+                      fontSize: "15px",
+                    }}
+                    onClick={handleRefresh}
+                    type="button"
+                  >
+                    <i class="bi bi-arrow-clockwise"></i>
+                  </button>
+                </form>
               </div>
               <div className="col-sm-6 col-12 text-sm-end">
                 <div className="mx-n1">
@@ -153,18 +207,12 @@ function Main() {
                   {inventoryData.map((item, index) => (
                     <tr key={index}>
                       <td>
-                        <img
-                          alt="..."
-                          src="https://images.unsplash.com/photo-1502823403499-6ccfcf4fb453?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=3&w=256&h=256&q=80"
-                          className="avatar avatar-sm rounded-circle me-2"
-                        />
                         <a className="text-heading font-semibold" href="#">
                           {item.name}
                         </a>
                       </td>
                       <td>{item.quantity}</td>
                       <td>
-                        {/* <img alt="..." src="https://preview.webpixels.io/web/img/other/logos/logo-1.png" className="avatar avatar-xs rounded-circle me-2" /> */}
                         <a className="text-heading font-semibold" href="#">
                           {item.price}/-
                         </a>
@@ -172,7 +220,7 @@ function Main() {
                       <td className="text-end">
                         {/* <a href="#" className="btn btn-sm btn-neutral">
                                             
-                                        </a>  */}
+                        </a>  */}
                         <button
                           type="button"
                           className="btn btn-sm btn-square btn-neutral text-danger-hover"

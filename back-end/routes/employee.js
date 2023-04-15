@@ -5,6 +5,7 @@ const bcrypt = require('bcrypt');
 const Employee = require('../models/employee');
 const cors = require('cors');
 
+
 const app = express();
 app.use(bodyParser.json());
 app.use(cors());
@@ -14,7 +15,7 @@ app.use(cors());
 app.post('/add-employee' , async (req, res) => {
     try {
       // getting variables from frontend
-      const { id, name, phone,dateJoining,streetaddress, email, area, zipCode, aadharNo, bankName, accountNo, accountholderName, IFSCcode, designation } = req.body;
+      const { id, name, phone, streetaddress, email, area, zipCode, aadharNo, bankName, accountNo, accountholderName, IFSCcode, designation } = req.body;
   
       // Check if employee with the same ID already exists
       const existingEmployee = await Employee.findOne({ name, phone });
@@ -27,7 +28,6 @@ app.post('/add-employee' , async (req, res) => {
         id,
         name,
         phone,
-        dateJoining,
         streetaddress,
         email,
         area,
@@ -44,6 +44,7 @@ app.post('/add-employee' , async (req, res) => {
       await newEmployee.save();
   
       res.status(201).json({ message: "Employee added successfully!!" });
+      
     } catch (error) {
       console.error(error);
       res.status(500).json({ error: "Internal server error" });
@@ -87,7 +88,6 @@ app.get('/get-employee_technician' , async (req,res) => {
   }
 });
 
-// update Employee Details
 app.post('/update-employee', async (req, res) => {
   const empId = req.query.empId;
   const {empName,phone,dateJoining,streetaddress, email, area, zipCode, aadharNo, bankName, accountNo, accountholderName, IFSCcode, designation} = req.body;
@@ -121,5 +121,28 @@ try {
   res.status(500).json({error: 'Internal server error'});
 }
 });
+
+app.post('/delete-employee', async (req, res) => {
+  console.log(req.query)
+  const itemId = req.query.itemId;
+  console.log(itemId)
+try {
+  // Check if item exists in inventory
+  const item = await Employee.findOne({_id: itemId});
+  console.log(item);
+  if (!item) {
+    return res.status(404).json({error: 'Item not found'});
+  }
+
+  // Delete item from inventory
+  await Employee.deleteOne({_id: itemId});
+  // await inventory.save();
+  res.status(200).json({message: 'Employee deleted successfully'});
+} catch (error) {
+  console.error(error);
+  res.status(500).json({error: 'Internal server error'});
+}
+});
+  
 
 module.exports = app;
