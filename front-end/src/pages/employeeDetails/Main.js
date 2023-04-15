@@ -250,6 +250,7 @@ function Main() {
                       </td>
                       <td>{employee.dateJoining}</td>
                       <td>
+                        {/* <img alt="..." src="https://preview.webpixels.io/web/img/other/logos/logo-1.png" className="avatar avatar-xs rounded-circle me-2" /> */}
                         <a className="text-heading font-semibold" href="#">
                           {employee.streetaddress} {employee.area}{" "}
                           {employee.zipCode}

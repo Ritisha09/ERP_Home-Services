@@ -10,7 +10,7 @@ function Main() {
   const [complainData, setComplainData] = useState([]);
   const [originalComplainData, setOriginalComplainData] = useState([]);
   const [searchTerm, setSearchTerm] = useState("");
-
+  
   const [complain, setComplain] = useState({
     phone: "",
     serviceType: "",
@@ -21,28 +21,28 @@ function Main() {
     bill: "",
   });
 
-  // Modal show
-  const [show, setShow] = useState(false);
-  const [selecedId, setSelectedId] = useState(null);
+    // Modal show
+    const [show, setShow] = useState(false);
+    const [selecedId, setSelectedId] = useState(null);
 
-  const handleInputChange = (event) => {
-    setComplain({ ...complain, [event.target.name]: event.target.value });
-  };
+    const handleInputChange = (event) => {
+        setComplain({ ...complain, [event.target.name]: event.target.value });
+    };
 
-  // OnClick update button
+      // OnClick update button
   function handleClick(complain) {
     console.log("clicked!!");
     setShow(true);
     setSelectedId(complain._id);
     setComplain({
       ...complain,
-      phone: complain.phone,
-      serviceType: complain.serviceType,
-      status: complain.status,
-      empId: complain.empId,
-      dateOpening: complain.dateOpening,
-      dateClosing: complain.dateClosing,
-      bill: complain.bill,
+        phone: complain.phone,
+        serviceType: complain.serviceType,
+        status: complain.status,
+        empId: complain.empId,
+        dateOpening: complain.dateOpening,
+        dateClosing: complain.dateClosing,
+        bill: complain.bill,
     });
 
     console.log(complain.dateOpening);
@@ -63,7 +63,7 @@ function Main() {
       console.log(data); // Do something with the response
 
       if (
-        response.status === 400 &&
+        response.status === 400 && 
         data.error === "Complain already exists."
       ) {
         // setIsRegistered(true);
@@ -251,6 +251,11 @@ function Main() {
                             <i className="bg-secondary"></i>
                           )}
                           {complain.status}
+                        </span>
+                      </td>
+                      <td>
+                        <span className="badge badge-lg badge-dot">
+                          {complain.empId}
                         </span>
                       </td>
                       <td className="text-heading font-semibold">

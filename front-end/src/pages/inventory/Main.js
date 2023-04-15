@@ -11,7 +11,7 @@ function Main() {
     itemName: "",
     quantity: "",
     price: "",
-  });
+  })
 
   const [originalInventoryData, setOriginalInventoryData] = useState([]);
   const [searchTerm, setSearchTerm] = useState("");
@@ -21,17 +21,17 @@ function Main() {
   const [selecedId, setSelectedId] = useState(null);
   const [error, setError] = useState(null);
 
-  const handleInputChange = (event) => {
-    setitem({ ...item, [event.target.name]: event.target.value });
-  };
+  const handleInputChange = (event) =>{
+    setitem({ ...item, [event.target.name]: event.target.value});
 
-   // OnClick update button
-   function handleClick(item) {
-        console.log('clicked!!');
-        setShow(true);
-        setSelectedId(item._id);
-        setitem({ ...item, itemName: item.name, quantity: item.quantity, price: item.price });
-   }
+  }
+  // OnClick update button
+  function handleClick(item) {
+    console.log('clicked!!');
+    setShow(true);
+    setSelectedId(item._id);
+    setitem({ ...item, itemName: item.name, quantity: item.quantity, price: item.price });
+  }
 
   async function fetchInventory() {
     try {
@@ -49,7 +49,7 @@ function Main() {
   async function deleteInventory(itemId) {
     try {
       await axios.post(
-        `http://localhost:5000/delete-inventory/?itemId=${itemId}`
+        `http://localhost:5000/delete-inventory?itemId=${itemId}`
       );
       console.log(`Item with ID ${itemId} deleted successfully`);
       // Fetch updated inventory data after successful delete
@@ -219,9 +219,9 @@ function Main() {
                       </td>
                       <td className="text-end">
                         {/* <a href="#" className="btn btn-sm btn-neutral">
-                          View
-                        </a> */}
-                         <button
+                                            
+                        </a>  */}
+                        <button
                           type="button"
                           className="btn btn-sm btn-square btn-neutral text-danger-hover"
                           onClick={() => handleClick(item)}
