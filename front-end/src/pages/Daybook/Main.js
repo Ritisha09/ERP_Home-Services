@@ -357,7 +357,7 @@ function Main() {
             <label className="modal_label" for="action">Recieved from/Paid to:</label>
             <select className="modal_select" name="action" id="action" value={record.action} onChange={(event) => handleInputChange(event)}>
               <option value="Recieved">Recieved</option>
-              <option value="Paod">Paid</option>
+              <option value="Paid">Paid</option>
             </select>
             <label className="modal_label" for="source_destination">Recieved form/Paid to:</label>
             <input className="modal_input" type="text" id="source_destination" name="source_destination" value={record.source_destination} 

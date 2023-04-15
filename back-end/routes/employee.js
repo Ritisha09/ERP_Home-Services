@@ -15,7 +15,7 @@ app.use(cors());
 app.post('/add-employee' , async (req, res) => {
     try {
       // getting variables from frontend
-      const { id, name, phone, streetaddress, email, area, zipCode, aadharNo, bankName, accountNo, accountholderName, IFSCcode, designation } = req.body;
+      const { id, name, phone, dateJoining, streetaddress, email, area, zipCode, aadharNo, bankName, accountNo, accountholderName, IFSCcode, designation } = req.body;
   
       // Check if employee with the same ID already exists
       const existingEmployee = await Employee.findOne({ name, phone });
@@ -28,6 +28,7 @@ app.post('/add-employee' , async (req, res) => {
         id,
         name,
         phone,
+        dateJoining,
         streetaddress,
         email,
         area,

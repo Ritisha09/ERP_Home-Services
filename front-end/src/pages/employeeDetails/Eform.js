@@ -13,8 +13,8 @@ function Eform() {
 
     const id = "1";
     const name = document.getElementById('name').value;
-    const designation = document.getElementById('designation').value;
     const phone = document.getElementById('mobile').value;
+    const dateJoining = document.getElementById('date-joining').value;
     const email = document.getElementById('email').value;
     const streetaddress = document.getElementById('street-address').value;
     const area = document.getElementById('area').value;
@@ -24,10 +24,7 @@ function Eform() {
     const accountholderName = document.getElementById('accname').value;
     const IFSCcode = document.getElementById('ifsc').value;
     const aadharNo = document.getElementById('file').value; 
-    const dateJoining = document.getElementById('date-joining').value;
-    
-    
-    
+    const designation = document.getElementById('designation').value;
     
     
     try {
@@ -36,7 +33,7 @@ function Eform() {
         headers: {
           'Content-Type': 'application/json'
         },
-        body: JSON.stringify({id, name, phone, dateJoining, streetaddress, email, area, zipCode, aadharNo, bankName, accountNo, accountholderName, IFSCcode, designation})
+        body: JSON.stringify({id, name,phone, dateJoining, streetaddress, email, area, zipCode, aadharNo, bankName, accountNo, accountholderName, IFSCcode, designation})
       });
 
       const data = await response.json();
