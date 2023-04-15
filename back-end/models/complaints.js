@@ -10,6 +10,10 @@ const complaintSchema = new mongoose.Schema(
         //     type: String,
         //     required: true,
         // },
+        phone: {
+            type: Number,
+            required: true,
+        },
         serviceType: {
             type: String,
             required: true,
@@ -27,17 +31,17 @@ const complaintSchema = new mongoose.Schema(
             required: true,
         },
         dateOpening: {
-            type: Date,
+            type: String,
             required: true,
         },
         dateClosing: {
-            type: Date,
+            type: String,
             required: false,
         },
-        // bill: {
-        //     type: String,
-        //     required: false,
-        // }
+        bill: {
+            type: String,
+            required: false,
+        }
     }
 )
 

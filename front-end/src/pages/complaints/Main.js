@@ -1,127 +1,271 @@
-import React, {useState, useEffect} from 'react'
-import SearchBar from '../../components/SearchBar'
+import React, { useState, useEffect } from "react";
+import SearchBar from "../../components/SearchBar";
 import axios from "axios";
+import Modal from "../../components/Modal";
 
-function Main(){
-    const [complainData, setComplainData] = useState([]);
+function Main() {
+  const [error, setError] = useState(null);
+  const [complainData, setComplainData] = useState([]);
 
-    async function fetchComplain(){
-        try{
-            const response = await axios.get('http://localhost:5000/get-complain');
-            console.log(response.data);
-            setComplainData(response.data);
-        }catch(error){
-            console.log(error);
-        }
-    }; 
+  const [complain, setComplain] = useState({
+    phone: "",
+    serviceType: "",
+    status: "",
+    empId: "",
+    dateOpening: "",
+    dateClosing: "",
+    bill: "",
+  });
 
-    useEffect(() => {
-        fetchComplain();
-    }, [])
+    // Modal show
+    const [show, setShow] = useState(false);
+    const [selecedId, setSelectedId] = useState(null);
+
+    const handleInputChange = (event) => {
+        setComplain({ ...complain, [event.target.name]: event.target.value });
+    };
+
+      // OnClick update button
+  function handleClick(complain) {
+    console.log("clicked!!");
+    setShow(true);
+    setSelectedId(complain._id);
+    setComplain({
+      ...complain,
+        phone: complain.phone,
+        serviceType: complain.serviceType,
+        status: complain.status,
+        empId: complain.empId,
+        dateOpening: complain.dateOpening,
+        dateClosing: complain.dateClosing,
+        bill: complain.bill,
+      
+    });
+
+    console.log(complain.dateOpening);
+  }
+
+  async function fetchComplain() {
+    try {
+      const response = await axios.get("http://localhost:5000/get-complain");
+      console.log(response.data);
+      setComplainData(response.data);
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
+  const submitHandler = async (e) => {
+    e.preventDefault();
+    console.log("complain");
+
+    // const id = "1";
+    try {
+      const response = await axios.post(
+        `http://localhost:5000/update-complain?compId=${selecedId}`,
+        complain
+      );
+
+      const data = response.data;
+      console.log(data); // Do something with the response
+
+      if (response.status === 400 && data.error === "Complain already exists.") {
+        // setIsRegistered(true);
+        setError(data.error);
+      } else {
+        setError("");
+
+        // reloading the same page
+        window.location.reload();
+      }
+      // edge case
+    } catch (error) {
+      console.log("error");
+    }
+  };
+
+  useEffect(() => {
+    fetchComplain();
+  }, []);
 
   return (
     <div>
-            <header className="bg-surface-primary border-bottom pt-6">
-                <div className="container-fluid">
-                    <div className="mb-npx">
-                        <div className="row align-items-center">
-                            <div className="col-sm-6 col-12 mb-4 mb-sm-0">
-                                <h1 className="h2 mb-0 ls-tight">Complaints</h1>
-                                <SearchBar />
-                            </div>
-                            <div className="col-sm-6 col-12 text-sm-end">
-                                <div className="mx-n1">
-                                    <a href="#" className="btn d-inline-flex btn-sm btn-neutral border-base mx-1">
-                                        <span className=" pe-2">
-                                            <i className="bi bi-pencil"></i>
-                                        </span>
-                                        <span>Edit</span>
-                                    </a>
-                                    <a href="/Compform" className="btn d-inline-flex btn-sm btn-primary mx-1">
-                                        <span className=" pe-2">
-                                            <i className="bi bi-plus"></i>
-                                        </span>
-                                        <span>Add Complaint</span>
-                                    </a>
-                                </div>
-                            </div>
-                        </div> 
-                        
-                    </div>
+      <header className="bg-surface-primary border-bottom pt-6">
+        <div className="container-fluid">
+          <div className="mb-npx">
+            <div className="row align-items-center">
+              <div className="col-sm-6 col-12 mb-4 mb-sm-0">
+                <h1 className="h2 mb-0 ls-tight">Complaints</h1>
+                <SearchBar />
+              </div>
+              <div className="col-sm-6 col-12 text-sm-end">
+                <div className="mx-n1">
+                  <a
+                    href="#"
+                    className="btn d-inline-flex btn-sm btn-neutral border-base mx-1"
+                  >
+                    <span className=" pe-2">
+                      <i className="bi bi-pencil"></i>
+                    </span>
+                    <span>Edit</span>
+                  </a>
+                  <a
+                    href="/Compform"
+                    className="btn d-inline-flex btn-sm btn-primary mx-1"
+                  >
+                    <span className=" pe-2">
+                      <i className="bi bi-plus"></i>
+                    </span>
+                    <span>Add Complaint</span>
+                  </a>
                 </div>
-            </header>
-            <main className="py-6 bg-surface-secondary">
-               <div className="container-fluid">
-                   
-                   <div className="card shadow border-0 mb-7">
-                       
-                       <div className="table-responsive">
-                           <table className="table table-hover table-nowrap">
-                               <thead className="thead-light">
-                                   <tr>
-                                       <th scope="col">Complaint ID</th>
-                                       <th scope="col">About </th>
-                                       <th scope="col">Status</th>
-                                       <th scope="col">Date of Opening</th>
-                                       <th scope="col">Date of Closing</th>
-                                       <th scope="col">Bill Amount</th>
-                                       <th></th>
-                                   </tr>
-                               </thead>
-                               <tbody>
-                                    {complainData.map((item,index) => (
-                                        <tr>
-                                        <td>
-                                            {/* <img alt="..." src="https://images.unsplash.com/photo-1502823403499-6ccfcf4fb453?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=3&w=256&h=256&q=80" className="avatar avatar-sm rounded-circle me-2" /> */}
-                                            <a className="text-heading font-semibold" href="#">
-                                                {item.compId}
-                                            </a>
-                                        </td>
-                                        <td>
-                                            <span className="badge badge-lg badge-dot">
-                                                {item.serviceType}
-                                            </span>
-                                        </td>
-                                        <td>
-                                            <span className="badge badge-lg badge-dot">
-                                                {(item.status === "Completed")? <i className="bg-success"></i>:(item.status === "Under Progress")? <i className="bg-warning"></i>:<i className="bg-secondary"></i>}
-                                                    {item.status}
-                                            </span>
-                                        </td>
-                                        <td className="text-heading font-semibold">
-                                            {/* <img alt="..." src="https://preview.webpixels.io/web/img/other/logos/logo-1.png" className="avatar avatar-xs rounded-circle me-2" /> */}
-                                            {/* <a className="text-heading font-semibold" href="#"> */}
-                                               {item.dateOpening.substring(0, 10)}
-                                            {/* </a> */}
-                                        </td>
-                                        {(item.dateClosing === null)? <td></td>: <td className="text-heading font-semibold"> {item.dateClosing.substring(0, 10)} </td>}
-                                        <td>
-                                            5000/-
-                                        </td>
-                                        <td className="text-end">
-                                            <a href="#" className="btn btn-sm btn-neutral">Update</a>
-                                            <button type="button" className="btn btn-sm btn-square btn-neutral text-danger-hover">
-                                                <i className="bi bi-trash"></i>
-                                            </button>
-                                        </td>
-                                    </tr>
-                                    ))}
-                                  
-                                   
-                           
-                                  
+              </div>
+            </div>
+          </div>
+        </div>
+      </header>
+      <main className="py-6 bg-surface-secondary">
+        <div className="container-fluid">
+          <div className="card shadow border-0 mb-7">
+            <div className="table-responsive">
+              <table className="table table-hover table-nowrap">
+                <thead className="thead-light">
+                  <tr>
+                    <th scope="col">Mobile No</th>
+                    <th scope="col">Complaint ID</th>
+                    <th scope="col">About </th>
+                    <th scope="col">Status</th>
+                    <th scope="col">Engineer Assigned</th>
+                    <th scope="col">Date of Opening</th>
+                    <th scope="col">Date of Closing</th>
+                    <th scope="col">Bill Amount</th>
+                    <th></th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {complainData.map((complain, index) => (
+                    <tr>
+                      <td>
+                        {/* <img alt="..." src="https://images.unsplash.com/photo-1502823403499-6ccfcf4fb453?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=3&w=256&h=256&q=80" className="avatar avatar-sm rounded-circle me-2" /> */}
+                        <a className="text-heading font-semibold" href="#">
+                          {complain.phone}
+                        </a>
+                      </td>
+                      <td>
+                        {/* <img alt="..." src="https://images.unsplash.com/photo-1502823403499-6ccfcf4fb453?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=3&w=256&h=256&q=80" className="avatar avatar-sm rounded-circle me-2" /> */}
+                        <a className="text-heading font-semibold" href="#">
+                          {complain.compId}
+                        </a>
+                      </td>
+                      <td>
+                        <span className="badge badge-lg badge-dot">
+                          {complain.serviceType}
+                        </span>
+                      </td>
+                      <td>
+                        <span className="badge badge-lg badge-dot">
+                          {complain.status === "Completed" ? (
+                            <i className="bg-success"></i>
+                          ) : complain.status === "Under Progress" ? (
+                            <i className="bg-warning"></i>
+                          ) : (
+                            <i className="bg-secondary"></i>
+                          )}
+                          {complain.status}
+                        </span>
+                      </td>
+                      <td>
+                        <span className="badge badge-lg badge-dot">
+                          {complain.empId}
+                        </span>
+                      </td>
+                      <td className="text-heading font-semibold">
+                        {/* <img alt="..." src="https://preview.webpixels.io/web/img/other/logos/logo-1.png" className="avatar avatar-xs rounded-circle me-2" /> */}
+                        {/* <a className="text-heading font-semibold" href="#"> */}
+                        {complain.dateOpening}
+                        {/* </a> */}
+                      </td>
+                      {complain.dateClosing === null ? (
+                        <td></td>
+                      ) : (
+                        <td className="text-heading font-semibold">
+                          {complain.dateClosing}
+                        </td>
+                      )}
+                      <td>{complain.bill}</td>
+                      <td className="text-end">
+                        <button
+                          type="button"
+                          className="btn btn-sm btn-square btn-neutral text-danger-hover"
+                          onClick={() => handleClick(complain)}
+                        >
+                          <i className="bi bi-pencil"></i>
+                        </button>
+                        <button
+                          type="button"
+                          className="btn btn-sm btn-square btn-neutral text-danger-hover"
+                        >
+                          <i className="bi bi-trash"></i>
+                        </button>
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+        <Modal
+          show={show}
+          onClose={() => setShow(false)}
+          height={500}
+          width={550}
+        >
+          <form className="modal_form" onSubmit={submitHandler}>
+            <label className="modal_label" for="phone">Mobile:</label>
+            <input className="modal_input" type="text" id="phone" name="phone" value={complain.phone} required
+            />
+            <label className="modal_label" for="date">Enter a Date:</label>
+            <input className="modal_input" type="date" id="dateOpening" name="dateOpening" value={complain.dateOpening}
+                onChange={(event) => handleInputChange(event)} 
+            />
+            <label className="modal_label" for="serviceType">Nature of Problem:</label>
+            <select className="modal_select" name="serviceType" id="serviceType" value={complain.serviceType} onChange={(event) => handleInputChange(event)}>
+              <option value="Chimney Service">Chimney Service</option>
+              <option value="A.C. Service">A.C. Service</option>
+              <option value="Plumber">Plumber</option>
+              <option value="Fridge Double Door">Fridge Double Door</option>
+              <option value="Geyser">Geyser</option>
+              <option value="Fully Automatic Washing Machine">Fully Automatic Washing Machine</option>
+              <option value="Front Loading Washing Machine">Front Loading Washing Machine</option>
+            </select>
+            <label className="modal_label" for="status">Status of Complaint</label>
+            <select className="modal_select" name="status" id="status"  value={complain.status} onChange={(event) => handleInputChange(event)} >
+              <option value="Completed">Completed</option>
+              <option value="Under Progress">Under Progress</option>
+              <option value="Invalid">Invalid</option>
+            </select>
+           
+            <label className="modal_label" for="dateClosing">Complaint Closing date:</label>
+            <input className="modal_input" type="date" id="dateClosing" name="dateClosing" value={complain.dateClosing}
+                onChange={(event) => handleInputChange(event)} 
+            />
+
+            <label className="modal_label" for="bill">Bill Amount:</label>
+            <input className="modal_input" type="text" id="bill" name="bill" value={complain.bill}
+                onChange={(event) => handleInputChange(event)} required
+            />
             
-                                   
-                                   
-                               </tbody>
-                           </table>
-                       </div>
-                       
-                   </div>
-               </div>
-           </main>
+            <div className="button">
+              <button className="modal_button" type="submit" value="submit">
+                Submit
+              </button>
+            </div>
+          </form>
+        </Modal>
+      </main>
     </div>
-  )
+  );
 }
 
 export default Main;
