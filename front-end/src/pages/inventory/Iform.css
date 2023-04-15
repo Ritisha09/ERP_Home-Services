@@ -45,3 +45,52 @@
   button:hover {
     background-color: #e6e6e6;
   }
+
+  
+  .modal_form{
+    background-color: #eaedf3;
+    padding: 20px 30px;
+    /* border-radius: 20px; */
+
+    width: 60%;
+    margin-top: 20px;
+    margin-left: 40px;
+  }
+
+  .button{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .modal_button {
+    background-color: #efebeb;
+    
+    border-radius: 20px;
+    padding: 10px 20px;
+    box-shadow: 5px 5px 15px #cfcfcf, 
+                -5px -5px 15px #ffffff;
+    width: 100px;
+    cursor: pointer;
+  }
+
+  .modal_button:hover{
+    background-color: #d5d0d0;
+  }
+
+  .modal_label {
+    display: block;
+    color: black;
+    margin-bottom: 0px;
+  
+  }
+
+  .modal_input{
+    width: 100%;
+    text-align: left;
+    padding: 10px;
+    border-radius: 10px;
+    border: none;
+    height: 30px;
+  }

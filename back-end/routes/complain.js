@@ -47,6 +47,34 @@ app.get('/get-complain' , async (req,res) => {
     }
 });
 
+app.post('/update-complain', async (req, res) => {
+  const compId = req.query.compId;
+  const {phone, serviceType, status, empId,dateOpening, dateClosing, bill} = req.body;
+
+try {
+  // Check if item exists in inventory
+  const complain = await Complaint.findOne({_id: compId});
+  console.log(complain);
+
+  if (!complain) {
+    return res.status(404).json({error: 'Complain not found'});
+  }
+  complain.phone = phone;
+  complain.serviceType = serviceType;
+  complain.empId = empId;
+  complain.status = status;
+  complain.dateOpening = dateOpening;
+  complain.dateClosing = dateClosing;
+  complain.bill = bill;
+
+  await complain.save();
+  res.status(200).json({message: 'Complain updated successfully'});
+} catch (error) {
+  console.error(error);
+  res.status(500).json({error: 'Internal server error'});
+}
+});
+
 app.post('/delete-complain', async (req, res) => {
     console.log(req.query)
     const itemId = req.query.itemId;

@@ -88,6 +88,40 @@ app.get('/get-employee_technician' , async (req,res) => {
   }
 });
 
+app.post('/update-employee', async (req, res) => {
+  const empId = req.query.empId;
+  const {empName,phone,dateJoining,streetaddress, email, area, zipCode, aadharNo, bankName, accountNo, accountholderName, IFSCcode, designation} = req.body;
+
+try {
+  // Check if item exists in inventory
+  const employee = await Employee.findOne({_id: empId});
+  console.log(employee);
+
+  if (!employee) {
+    return res.status(404).json({error: 'Employee not found'});
+  }
+  employee.name = empName;
+  employee.phone = phone;
+  employee.dateJoining = dateJoining;
+  employee.streetaddress = streetaddress;
+  employee.email = email;
+  employee.area = area;
+  employee.zipCode = zipCode;
+  employee.aadharNo = aadharNo;
+  employee.bankName = bankName;
+  employee.accountNo = accountNo;
+  employee.accountholderName = accountholderName;
+  employee.IFSCcode = IFSCcode;
+  employee.designation = designation;
+
+  await employee.save();
+  res.status(200).json({message: 'Employee updated successfully'});
+} catch (error) {
+  console.error(error);
+  res.status(500).json({error: 'Internal server error'});
+}
+});
+
 app.post('/delete-employee', async (req, res) => {
   console.log(req.query)
   const itemId = req.query.itemId;
