@@ -278,6 +278,7 @@ function Main() {
                         <button
                           type="button"
                           className="btn btn-sm btn-square btn-neutral text-danger-hover"
+                          onClick={() => deleteEmployee(employee._id)}
                         >
                           <i className="bi bi-trash"></i>
                         </button>
