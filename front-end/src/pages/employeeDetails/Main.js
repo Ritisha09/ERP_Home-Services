@@ -215,7 +215,7 @@ function Main() {
             <label className="modal_label" for="email">Email:</label>
             <input className="modal_input" type="email" id="email" name="email" value={employee.email}
                 onChange={(event) => handleInputChange(event)} required
-            />
+            />``
             <label className="modal_label" for="date-input">Joining Date:</label>
             <input className="modal_input" type="date" id="date-joining" name="date-joining" value={employee.dateJoining}
                 onChange={(event) => handleInputChange(event)} required
