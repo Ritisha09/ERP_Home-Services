@@ -1,3 +1,57 @@
+.neumorphic-form {
+  background-color: #f2f2f2;
+  padding: 20px;
+  border-radius: 20px;
+  box-shadow: 10px 10px 30px #cfcfcf, 
+              -10px -10px 30px #ffffff;
+
+  width: 60%;
+  margin-top: 20px;
+  margin-left: 40px;
+}
+
+label {
+  display: block;
+  margin-bottom: 10px;
+}
+select {
+  display: list-item;
+}
+
+input[type="text"],
+input[type="password"],
+input[type="tel"],
+input[type="date"],
+select[name="action"] {
+  width: 100%;
+  text-align: left;
+  padding: 10px;
+  border-radius: 10px;
+  box-shadow: 5px 5px 15px #cfcfcf, 
+              -5px -5px 15px #ffffff;
+  border: none;
+  margin-top: 10px;
+  margin-bottom: 20px;
+}
+input[for="search"]{
+padding:5px;
+}
+
+button {
+  background-color: #f2f2f2;
+  
+  border-radius: 20px;
+  padding: 10px 20px;
+  box-shadow: 5px 5px 15px #cfcfcf, 
+              -5px -5px 15px #ffffff;
+  
+  cursor: pointer;
+}
+
+button:hover {
+  background-color: #e6e6e6;
+}
+
 .date-card{
     border:5px solid #2ab6b6;
     width:200px;

@@ -9,6 +9,7 @@ const inventRoutes = require("././routes/inventory");
 const DayamtExpenses = require("././routes/Dayamtexpenses");
 const compRoutes  = require("./routes/complain")
 const DayamtrecievedRoutes= require("././routes/Dayamtrecieved");
+const daybookRoutes = require("././routes/daybook");
 
 const app = express();
 
@@ -28,6 +29,7 @@ app.use("/", empRoutes);
 app.use("/", custRoutes);
 app.use("/", inventRoutes);
 app.use("/", compRoutes);
+app.use("/", daybookRoutes);
 
 app.use("/", DayamtExpenses);
 app.use("/", DayamtrecievedRoutes);
