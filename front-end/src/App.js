@@ -18,6 +18,7 @@ import Daybook from "./pages/Daybook/Daybook";
 import Dayamtrecievedform from "./pages/Daybook/Dayamtrecievedform";
 import Dayamtexpensesform from "./pages/Daybook/Dayamtexpensesform";
 import Account from "./pages/Account/Account";
+import Daybookform from "./pages/Daybook/Daybookform";
 
 function App() {
   return (
@@ -42,6 +43,7 @@ function App() {
         <Route exact path="/Dayamtrecievedform" element={<Dayamtrecievedform />} />  
         <Route exact path="/Dayamtexpensesform" element={<Dayamtexpensesform />} />  
         <Route exact path="/Account" element={<Account />} />   
+        <Route exact path="/daybookform" element={<Daybookform />} />  
 
             
       </Routes>

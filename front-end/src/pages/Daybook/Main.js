@@ -6,6 +6,8 @@ function Main() {
   const [recievedData, setRecievedData] = useState([]);
   const [expensesData, setExpensesData] = useState([]);
 
+  const [daybookData, setDaybookData] = useState([]);
+
 //   async function fetchRecievedData() {
 //     try {
 //       const response = await axios.get(
@@ -40,19 +42,31 @@ function Main() {
 //     // fetchExpensesData();
 //   }, []);
 
-async function fetchData() {
-    try {
-      const receivedResponse = await axios.get(
-        "http://localhost:5000/get-Dayamtrecieved"
-      );
-      console.log(receivedResponse.data);
-      setRecievedData(receivedResponse.data);
+// async function fetchData() {
+//     try {
+//       const receivedResponse = await axios.get(
+//         "http://localhost:5000/get-Dayamtrecieved"
+//       );
+//       console.log(receivedResponse.data);
+//       setRecievedData(receivedResponse.data);
     
-      const expensesResponse = await axios.get(
-        "http://localhost:5000/get-Dayamtexpenses"
+//       const expensesResponse = await axios.get(
+//         "http://localhost:5000/get-Dayamtexpenses"
+//       );
+//       console.log(expensesResponse.data);
+//       setExpensesData(expensesResponse.data);
+//     } catch (error) {
+//       console.log(error);
+//     }
+//   }
+
+  async function fetchData() {
+    try {
+      const response = await axios.get(
+        "http://localhost:5000/get-daybook"
       );
-      console.log(expensesResponse.data);
-      setExpensesData(expensesResponse.data);
+      console.log(response.data);
+      setDaybookData(response.data);
     } catch (error) {
       console.log(error);
     }
@@ -74,22 +88,13 @@ async function fetchData() {
               <div className="col-sm-6 col-12 text-sm-end">
                 <div className="mx-n1">
                   <a
-                    href="/Dayamtrecievedform"
+                    href="/daybookform"
                     className="btn d-inline-flex btn-sm btn-primary mx-1"
                   >
                     <span className=" pe-2">
                       <i className="bi bi-plus"></i>
                     </span>
-                    <span>Add Amount Recieved Details</span>
-                  </a>
-                  <a
-                    href="/Dayamtexpensesform"
-                    className="btn d-inline-flex btn-sm btn-primary mx-1"
-                  >
-                    <span className=" pe-2">
-                      <i className="bi bi-plus"></i>
-                    </span>
-                    <span>Add Amount Expenses Details</span>
+                    <span>Add Transaction</span>
                   </a>
                 </div>
               </div>
@@ -209,25 +214,27 @@ async function fetchData() {
                   </tr>
                 </thead>
                 <tbody>
-                  {recievedData.map((item, index) => (
+                  {daybookData.map((record, index) => (
                     <tr key ={index}>
                       <td>
                         <span className="badge badge-lg badge-dot">
-                          <i className="bg-success"></i>Recieved
+                          {record.action === "Recieved" ?  (<i className="bg-success"></i>)
+                          : (<i className="bg-warning"></i>)}
+                          {record.action}
                         </span>
                       </td>
                       <td>
                         <a className="text-heading font-semibold" href="#">
-                          {item.moneyrecfrom}
+                          {record.source_destination}
                         </a>
                       </td>
                       <td>
                         <a className="text-heading font-semibold" href="#">
-                          {item.reason}
+                          {record.reason}
                         </a>
                       </td>
-                      <td>{item.amtrec}/-</td>
-                      <td>{item.foliono}</td>
+                      <td>{record.amount}/-</td>
+                      <td>{record.folionum}</td>
                       <td className="text-end">
                         <a href="#" className="btn btn-sm btn-neutral">
                           View
@@ -241,130 +248,6 @@ async function fetchData() {
                       </td>
                     </tr>
                   ))}
-
-                  {expensesData.map((item,index) => (
-                     <tr>
-                     <td>
-                       <span className="badge badge-lg badge-dot">
-                         <i className="bg-warning"></i>Paid
-                       </span>
-                     </td>
-                     <td>
-                       <a className="text-heading font-semibold" href="#">
-                         {item.paidto}
-                       </a>
-                     </td>
-                     <td>
-                       <a className="text-heading font-semibold" href="#">
-                         {item.reason}
-                       </a>
-                     </td>
-                     <td>{item.amtexp}/-</td>
-                     <td>{item.folionum}</td>
-                     <td className="text-end">
-                       <a href="#" className="btn btn-sm btn-neutral">
-                         View
-                       </a>
-                       <button
-                         type="button"
-                         className="btn btn-sm btn-square btn-neutral text-danger-hover"
-                       >
-                         <i className="bi bi-trash"></i>
-                       </button>
-                     </td>
-                   </tr>
-                  ))}
-
-                  {/* <tr>
-                    <td>
-                      <span className="badge badge-lg badge-dot">
-                        <i className="bg-success"></i>Recieved
-                      </span>
-                    </td>
-                    <td>
-                      <a className="text-heading font-semibold" href="#">
-                        Sakshi Kashyap
-                      </a>
-                    </td>
-                    <td>
-                      <a className="text-heading font-semibold" href="#">
-                        Reason*****
-                      </a>
-                    </td>
-                    <td>2000/-</td>
-                    <td>143</td>
-                    <td className="text-end">
-                      <a href="#" className="btn btn-sm btn-neutral">
-                        View
-                      </a>
-                      <button
-                        type="button"
-                        className="btn btn-sm btn-square btn-neutral text-danger-hover"
-                      >
-                        <i className="bi bi-trash"></i>
-                      </button>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>
-                      <span className="badge badge-lg badge-dot">
-                        <i className="bg-warning"></i>Paid
-                      </span>
-                    </td>
-                    <td>
-                      <a className="text-heading font-semibold" href="#">
-                        K.Bhanu Prakash Reddy
-                      </a>
-                    </td>
-                    <td>
-                      <a className="text-heading font-semibold" href="#">
-                        Reason*****
-                      </a>
-                    </td>
-                    <td>1500/-</td>
-                    <td>225</td>
-                    <td className="text-end">
-                      <a href="#" className="btn btn-sm btn-neutral">
-                        View
-                      </a>
-                      <button
-                        type="button"
-                        className="btn btn-sm btn-square btn-neutral text-danger-hover"
-                      >
-                        <i className="bi bi-trash"></i>
-                      </button>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>
-                      <span className="badge badge-lg badge-dot">
-                        <i className="bg-success"></i>Recieved
-                      </span>
-                    </td>
-                    <td>
-                      <a className="text-heading font-semibold" href="#">
-                        Ritisha Mathur
-                      </a>
-                    </td>
-                    <td>
-                      <a className="text-heading font-semibold" href="#">
-                        Reason*****
-                      </a>
-                    </td>
-                    <td>1000/-</td>
-                    <td>007</td>
-                    <td className="text-end">
-                      <a href="#" className="btn btn-sm btn-neutral">
-                        View
-                      </a>
-                      <button
-                        type="button"
-                        className="btn btn-sm btn-square btn-neutral text-danger-hover"
-                      >
-                        <i className="bi bi-trash"></i>
-                      </button>
-                    </td>
-                  </tr> */}
                 </tbody>
               </table>
             </div>
