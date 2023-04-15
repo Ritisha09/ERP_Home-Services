@@ -1,66 +1,133 @@
 import React, { useState, useEffect } from "react";
 import "./Dayform.css";
 import axios from "axios";
+import Modal from "../../components/Modal";
 
 function Main() {
-  const [recievedData, setRecievedData] = useState([]);
-  const [expensesData, setExpensesData] = useState([]);
+  const [error, setError] = useState(null);
 
-//   async function fetchRecievedData() {
-//     try {
-//       const response = await axios.get(
-//         "http://localhost:5000/get-Dayamtrecieved"
-//       );
-//       console.log(response.data);
-//       setRecievedData(response.data);
-//     } catch (error) {
-//       console.log(error);
-//     }
-//   }
+  const [daybookData, setDaybookData] = useState([]);
+  const [originalDaybookData, setOriginalDaybookData] = useState([]);
+  const [searchTerm, setSearchTerm] = useState("");
+  
+  const [record, setRecord] = useState({
+    action: "",
+    date: "",
+    amount: "",
+    source_destination: "",
+    reason: "",
+    folionum: "",
+  });
 
-//   async function fetchExpensesData() {
-//     try {
-//       const response = await axios.get(
-//         "http://localhost:5000/get-Dayamtexpenses"
-//       );
-//       console.log(response.data);
-//       setExpensesData(response.data);
-//     } catch (error) {
-//       console.log(error);
-//     }
-//   }
-
-//   useEffect(() => {
-//     // fetchRecievedData();
-//     fetchExpensesData();
-//   }, []);
-
-//   useEffect(() => {
-//     fetchRecievedData();
-//     // fetchExpensesData();
-//   }, []);
-
-async function fetchData() {
+  async function fetchData() {
     try {
-      const receivedResponse = await axios.get(
-        "http://localhost:5000/get-Dayamtrecieved"
+      const response = await axios.get(
+        "http://localhost:5000/get-daybook"
       );
-      console.log(receivedResponse.data);
-      setRecievedData(receivedResponse.data);
-    
-      const expensesResponse = await axios.get(
-        "http://localhost:5000/get-Dayamtexpenses"
-      );
-      console.log(expensesResponse.data);
-      setExpensesData(expensesResponse.data);
+      console.log(response.data);
+      setDaybookData(response.data);
     } catch (error) {
       console.log(error);
     }
   }
   
+  // Modal show
+  const [show, setShow] = useState(false);
+  const [selecedId, setSelectedId] = useState(null);
+
+  const handleInputChange = (event) => {
+      setRecord({ ...record, [event.target.name]: event.target.value });
+  };
+
+  // OnClick update button
+  function handleClick(record) {
+    console.log("clicked!!");
+    setShow(true);
+    setSelectedId(record._id);
+    setRecord({
+      ...record,
+      action: record.action,
+      date: record.date,
+      amount: record.amount,
+      source_destination: record.source_destination,
+      reason: record.reason,
+      folionum: record.folionum,
+    });
+  }
+
+  const submitHandler = async (e) => {
+    e.preventDefault();
+    console.log("record");
+
+    // const id = "1";
+    try {
+      const response = await axios.post(
+        `http://localhost:5000/update-daybookRecord?recordId=${selecedId}`,
+        record
+      );
+
+      const data = response.data;
+      console.log(data); // Do something with the response
+
+      if (
+        response.status === 400 && 
+        data.error === "record already exists."
+      ) {
+        // setIsRegistered(true);
+        setError(data.error);
+      } else {
+        setError("");
+
+        // reloading the same page
+        window.location.reload();
+      }
+      // edge case
+    } catch (error) {
+      console.log("error");
+    }
+  };
+
+  async function deleteRecord(recordId) {
+    try {
+      await axios.post(
+        `http://localhost:5000/delete-daybookRecord/?recordId=${recordId}`
+      );
+      console.log(`Record with ID ${recordId} deleted successfully`);
+      // Fetch updated inventory data after successful delete
+      setDaybookData(daybookData.filter((item) => item._id !== recordId));
+      setOriginalDaybookData(
+        originalDaybookData.filter((item) => item._id !== recordId)
+      );
+    } catch (error) {
+      console.error("Error deleting item:", error);
+    }
+  }
+
   useEffect(() => {
     fetchData();
   }, []);
+
+  const handleSearch = (event) => {
+    setSearchTerm(event.target.value);
+  };
+
+  const handleSearchSubmit = (event) => {
+    event.preventDefault();
+    const filteredItems = originalDaybookData.filter(
+      (item) =>
+        item.status.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        item.serviceType.toLowerCase().includes(searchTerm.toLowerCase())
+      //  item.dateOpening.toLowerCase().includes(searchTerm.toLowerCase())||
+      //  item.dateClosing.toLowerCase().includes(searchTerm.toLowerCase())
+    );
+    setDaybookData(filteredItems);
+  };
+
+  const handleRefresh = () => {
+    // Reset filtered data and clear search term
+    setDaybookData(originalDaybookData);
+    setSearchTerm("");
+  };
 
   return (
     <div>
@@ -70,26 +137,53 @@ async function fetchData() {
             <div className="row align-items-center">
               <div className="col-sm-6 col-12 mb-4 mb-sm-0">
                 <h1 className="h2 mb-0 ls-tight">Day Book Details</h1>
+                <form onSubmit={handleSearchSubmit} style={{ display: "flex" }}>
+                  <input
+                    type="text"
+                    placeholder="Search records"
+                    value={searchTerm}
+                    onChange={handleSearch}
+                    style={{ marginRight: "10px" }}
+                  />
+                  <button
+                    className="btn btn-sm btn-square btn-neutral text-hover "
+                    style={{
+                      borderRadius: "8px",
+                      marginLeft: "5px",
+                      marginTop: "12px",
+                      padding: "20px 30px",
+                      fontSize: "15px",
+                    }}
+                    type="submit"
+                  >
+                    Search
+                  </button>
+                  <button
+                    className="btn btn-sm btn-square btn-neutral text-hover "
+                    style={{
+                      borderRadius: "8px",
+                      marginLeft: "5px",
+                      marginTop: "12px",
+                      padding: "20px 10px",
+                      fontSize: "15px",
+                    }}
+                    onClick={handleRefresh}
+                    type="button"
+                  >
+                    <i class="bi bi-arrow-clockwise"></i>
+                  </button>
+                </form>
               </div>
               <div className="col-sm-6 col-12 text-sm-end">
                 <div className="mx-n1">
                   <a
-                    href="/Dayamtrecievedform"
+                    href="/daybookform"
                     className="btn d-inline-flex btn-sm btn-primary mx-1"
                   >
                     <span className=" pe-2">
                       <i className="bi bi-plus"></i>
                     </span>
-                    <span>Add Amount Recieved Details</span>
-                  </a>
-                  <a
-                    href="/Dayamtexpensesform"
-                    className="btn d-inline-flex btn-sm btn-primary mx-1"
-                  >
-                    <span className=" pe-2">
-                      <i className="bi bi-plus"></i>
-                    </span>
-                    <span>Add Amount Expenses Details</span>
+                    <span>Add Transaction</span>
                   </a>
                 </div>
               </div>
@@ -209,167 +303,88 @@ async function fetchData() {
                   </tr>
                 </thead>
                 <tbody>
-                  {recievedData.map((item, index) => (
+                  {daybookData.map((record, index) => (
                     <tr key ={index}>
                       <td>
                         <span className="badge badge-lg badge-dot">
-                          <i className="bg-success"></i>Recieved
+                          {record.action === "Recieved" ?  (<i className="bg-success"></i>)
+                          : (<i className="bg-warning"></i>)}
+                          {record.action}
                         </span>
                       </td>
                       <td>
                         <a className="text-heading font-semibold" href="#">
-                          {item.moneyrecfrom}
+                          {record.source_destination}
                         </a>
                       </td>
                       <td>
                         <a className="text-heading font-semibold" href="#">
-                          {item.reason}
+                          {record.reason}
                         </a>
                       </td>
-                      <td>{item.amtrec}/-</td>
-                      <td>{item.foliono}</td>
+                      <td>{record.amount}/-</td>
+                      <td>{record.folionum}</td>
                       <td className="text-end">
-                        <a href="#" className="btn btn-sm btn-neutral">
-                          View
-                        </a>
                         <button
                           type="button"
                           className="btn btn-sm btn-square btn-neutral text-danger-hover"
+                          onClick={() => handleClick(record)}
+                        >
+                          <i className="bi bi-pencil"></i>
+                        </button>
+                        <button
+                          type="button"
+                          className="btn btn-sm btn-square btn-neutral text-danger-hover"
+                          onClick={() => deleteRecord(record._id)}
                         >
                           <i className="bi bi-trash"></i>
                         </button>
                       </td>
                     </tr>
                   ))}
-
-                  {expensesData.map((item,index) => (
-                     <tr>
-                     <td>
-                       <span className="badge badge-lg badge-dot">
-                         <i className="bg-warning"></i>Paid
-                       </span>
-                     </td>
-                     <td>
-                       <a className="text-heading font-semibold" href="#">
-                         {item.paidto}
-                       </a>
-                     </td>
-                     <td>
-                       <a className="text-heading font-semibold" href="#">
-                         {item.reason}
-                       </a>
-                     </td>
-                     <td>{item.amtexp}/-</td>
-                     <td>{item.folionum}</td>
-                     <td className="text-end">
-                       <a href="#" className="btn btn-sm btn-neutral">
-                         View
-                       </a>
-                       <button
-                         type="button"
-                         className="btn btn-sm btn-square btn-neutral text-danger-hover"
-                       >
-                         <i className="bi bi-trash"></i>
-                       </button>
-                     </td>
-                   </tr>
-                  ))}
-
-                  {/* <tr>
-                    <td>
-                      <span className="badge badge-lg badge-dot">
-                        <i className="bg-success"></i>Recieved
-                      </span>
-                    </td>
-                    <td>
-                      <a className="text-heading font-semibold" href="#">
-                        Sakshi Kashyap
-                      </a>
-                    </td>
-                    <td>
-                      <a className="text-heading font-semibold" href="#">
-                        Reason*****
-                      </a>
-                    </td>
-                    <td>2000/-</td>
-                    <td>143</td>
-                    <td className="text-end">
-                      <a href="#" className="btn btn-sm btn-neutral">
-                        View
-                      </a>
-                      <button
-                        type="button"
-                        className="btn btn-sm btn-square btn-neutral text-danger-hover"
-                      >
-                        <i className="bi bi-trash"></i>
-                      </button>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>
-                      <span className="badge badge-lg badge-dot">
-                        <i className="bg-warning"></i>Paid
-                      </span>
-                    </td>
-                    <td>
-                      <a className="text-heading font-semibold" href="#">
-                        K.Bhanu Prakash Reddy
-                      </a>
-                    </td>
-                    <td>
-                      <a className="text-heading font-semibold" href="#">
-                        Reason*****
-                      </a>
-                    </td>
-                    <td>1500/-</td>
-                    <td>225</td>
-                    <td className="text-end">
-                      <a href="#" className="btn btn-sm btn-neutral">
-                        View
-                      </a>
-                      <button
-                        type="button"
-                        className="btn btn-sm btn-square btn-neutral text-danger-hover"
-                      >
-                        <i className="bi bi-trash"></i>
-                      </button>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>
-                      <span className="badge badge-lg badge-dot">
-                        <i className="bg-success"></i>Recieved
-                      </span>
-                    </td>
-                    <td>
-                      <a className="text-heading font-semibold" href="#">
-                        Ritisha Mathur
-                      </a>
-                    </td>
-                    <td>
-                      <a className="text-heading font-semibold" href="#">
-                        Reason*****
-                      </a>
-                    </td>
-                    <td>1000/-</td>
-                    <td>007</td>
-                    <td className="text-end">
-                      <a href="#" className="btn btn-sm btn-neutral">
-                        View
-                      </a>
-                      <button
-                        type="button"
-                        className="btn btn-sm btn-square btn-neutral text-danger-hover"
-                      >
-                        <i className="bi bi-trash"></i>
-                      </button>
-                    </td>
-                  </tr> */}
                 </tbody>
               </table>
             </div>
           </div>
         </div>
+        <Modal
+          show={show}
+          onClose={() => setShow(false)}
+          height={500}
+          width={550}
+        >
+          <form className="modal_form" onSubmit={submitHandler}>
+            <label className="modal_label" for="action">Recieved from/Paid to:</label>
+            <select className="modal_select" name="action" id="action" value={record.action} onChange={(event) => handleInputChange(event)}>
+              <option value="Recieved">Recieved</option>
+              <option value="Paod">Paid</option>
+            </select>
+            <label className="modal_label" for="source_destination">Recieved form/Paid to:</label>
+            <input className="modal_input" type="text" id="source_destination" name="source_destination" value={record.source_destination} 
+              onChange={(event) => handleInputChange(event)} required
+            />
+            <label className="modal_label" for="reason">Reason</label>
+            <input className="modal_input" type="text" id="reason" name="reason" value={record.reason}
+              onChange={(event) => handleInputChange(event)} required
+            />
+           
+            <label className="modal_label" for="amount">Amount:</label>
+            <input className="modal_input" type="text" id="amount" name="amount" value={record.amount}
+              onChange={(event) => handleInputChange(event)} 
+            />
+
+            <label className="modal_label" for="folionum">Folio No:</label>
+            <input className="modal_input" type="text" id="folionum" name="folionum" value={record.folionum}
+              onChange={(event) => handleInputChange(event)} required
+            />
+            
+            <div className="button">
+              <button className="modal_button" type="submit" value="submit">
+                Submit
+              </button>
+            </div>
+          </form>
+        </Modal>
       </main>
     </div>
   );
