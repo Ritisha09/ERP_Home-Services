@@ -51,6 +51,7 @@ function Compform() {
     const dateClosing = document.getElementById('ccdate').value;
     const empId = document.getElementById('eng_names').value;
     // const custId = document.getElementById('eng_names').value;
+    const bill = document.getElementById('bill').value;
 
 
     try {
@@ -72,7 +73,7 @@ function Compform() {
         headers: {
           'Content-Type': 'application/json'
         },
-        body: JSON.stringify({custId, compId, serviceType, empId, status, dateOpening, dateClosing})
+        body: JSON.stringify({custId, compId, phone, serviceType, empId, status, dateOpening, dateClosing,bill })
       });
 
       const dataComp = await responseComp.json();
@@ -160,6 +161,9 @@ function Compform() {
 
             <label for="ccdate">Complaint Closing date:</label>
             <input type="date" id="ccdate" name="ccdate" />
+
+            <label for="bill">Bill Amount:</label>
+            <input type="text" id="bill" name="bill" />
             <button type="submit" value='submit' >Submit</button>
         </form>
           
