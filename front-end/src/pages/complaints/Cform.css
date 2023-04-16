@@ -29,18 +29,19 @@
     text-align: left;
     padding: 10px;
     border-radius: 10px;
-    box-shadow: 5px 5px 15px #cfcfcf, 
-                -5px -5px 15px #ffffff;
+    /* box-shadow: 5px 5px 15px #cfcfcf, 
+                -5px -5px 15px #ffffff; */
     border: none;
     margin-top: 10px;
     margin-bottom: 20px;
   }
-input[for="search"]{
-  padding:5px;
-}
+
+  input[for="search"]{
+    padding:5px;
+  }
 
   button {
-    background-color: #f2f2f2;
+    background-color: #ffffff;
     
     border-radius: 20px;
     padding: 10px 20px;
@@ -113,5 +114,23 @@ input[for="search"]{
     border-radius: 10px;
     border: none;
     margin-top: 10px;
+    margin-bottom: 20px;
+  }
+
+  .filter_input{
+    text-align: left;
+    /* padding: 10px; */
+    border-radius: 10px;
+    border: none;
+    height: 30px;
+  }
+
+  .filter_select{
+    text-align: left;
+    /* padding: 10px; */
+    border-radius: 10px;
+    border: none;
+    height: 30px;
+    background-color: #e5e2e2;
     margin-bottom: 20px;
   }

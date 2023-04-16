@@ -27,8 +27,8 @@ select[name="action"] {
   text-align: left;
   padding: 10px;
   border-radius: 10px;
-  box-shadow: 5px 5px 15px #cfcfcf, 
-              -5px -5px 15px #ffffff;
+  /* box-shadow: 5px 5px 15px #cfcfcf, 
+              -5px -5px 15px #ffffff; */
   border: none;
   margin-top: 10px;
   margin-bottom: 20px;
@@ -42,8 +42,8 @@ button {
   
   border-radius: 20px;
   padding: 10px 20px;
-  box-shadow: 5px 5px 15px #cfcfcf, 
-              -5px -5px 15px #ffffff;
+  /* box-shadow: 5px 5px 15px #cfcfcf, 
+              -5px -5px 15px #ffffff; */
   
   cursor: pointer;
 }

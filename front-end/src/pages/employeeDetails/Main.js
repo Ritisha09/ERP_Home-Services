@@ -9,6 +9,9 @@ function Main() {
   const [originalEmployeeData, setOriginalEmployeeData] = useState([]);
   const [searchTerm, setSearchTerm] = useState("");
 
+
+
+  // Modal show
   const [employee, setEmployee] = useState({
     empName: "",
     phone: "",
@@ -25,7 +28,6 @@ function Main() {
     designation: "",
   });
 
-  // Modal show
   const [show, setShow] = useState(false);
   const [selecedId, setSelectedId] = useState(null);
 
