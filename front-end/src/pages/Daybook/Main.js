@@ -155,7 +155,7 @@ function Main() {
                       borderRadius: "8px",
                       marginLeft: "5px",
                       marginTop: "12px",
-                      padding: "20px 30px",
+                      padding: "15px 30px",
                       fontSize: "15px",
                     }}
                     type="submit"
@@ -168,7 +168,7 @@ function Main() {
                       borderRadius: "8px",
                       marginLeft: "5px",
                       marginTop: "12px",
-                      padding: "20px 10px",
+                      padding: "15px 10px",
                       fontSize: "15px",
                     }}
                     onClick={handleRefresh}
