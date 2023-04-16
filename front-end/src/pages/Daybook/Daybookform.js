@@ -66,24 +66,24 @@ function Daybookform() {
 
           <form className="neumorphic-form" onSubmit = {submitHandler}>
             <label for="date-input">Enter a date:</label>
-            <input type="date" id="date" name="date" required/>
+            <input className = "input_form" type="date" id="date" name="date" required/>
             <label for="amtrec">Money Recieved/Paid:</label>
-                <select name="action" id="action">
+                <select className = "input_form" name="action" id="action">
                 <option value="Recieved">Recieved</option>
                 <option value="Paid">Paid</option>
                 </select>
             <label for="date-input">Amount:</label>
-            <input type="text" id="amount" name="amount" required/>
+            <input className = "input_form" type="text" id="amount" name="amount" required/>
             <label for="moneyrf">Recipient/Payer:</label>
-            <input type="text" id="recipient_payer" name="recipient_payer"  required />
+            <input className = "input_form" type="text" id="recipient_payer" name="recipient_payer"  required />
             <label for="moneyrf">Account Number:</label>
-            <input type="text" id="accountNo" name="accountNo"   />
+            <input className = "input_form" type="text" id="accountNo" name="accountNo"   />
             <label for="moneyrf">Reference Number:</label>
-            <input type="text" id="referenceNo" name="referenceNo"  />
+            <input className = "input_form" type="text" id="referenceNo" name="referenceNo"  />
             <label for="reason">Reason:</label>
-            <input type="text" id="reason" name="reason"  required />
+            <input className = "input_form" type="text" id="reason" name="reason"  required />
             <label for="folionum">Folio Number:</label>
-            <input type="number" id="folionum" name="folionum"  required />
+            <input className = "input_form" type="number" id="folionum" name="folionum"  required />
             <button type="submit" value='submit' >Submit</button>
         </form>
           

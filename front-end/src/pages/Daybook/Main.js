@@ -144,6 +144,7 @@ function Main() {
                 <form onSubmit={handleSearchSubmit} style={{ display: "flex" }}>
                   <input
                     type="text"
+                    for = "search"
                     placeholder="Search records"
                     value={searchTerm}
                     onChange={handleSearch}

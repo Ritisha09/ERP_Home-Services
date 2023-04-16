@@ -18,13 +18,7 @@
     display: list-item;
   }
 
-  input[type="text"],
-  input[type="password"],
-  input[type="tel"],
-  input[type="date"],
-  select[name="nature_of_problem"],
-  select[name="eng_names"],
-  select[name="cstatus"]  {
+  .input_form  {
     width: 100%;
     text-align: left;
     padding: 10px;
@@ -34,10 +28,14 @@
     border: none;
     margin-top: 10px;
     margin-bottom: 20px;
+    background-color: #e5e2e2;
   }
+
 
   input[for="search"]{
     padding:5px;
+    background-color: #e5e2e2;
+    
   }
 
   button {
@@ -120,6 +118,7 @@
     text-align: left;
     /* padding: 10px; */
     border-radius: 10px;
+    background-color: #e5e2e2;
     border: none;
     height: 30px;
   }

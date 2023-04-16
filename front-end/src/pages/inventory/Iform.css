@@ -19,8 +19,7 @@
     display: list-item;
   }
 
-  input[type="text"],
-  input[type="number"] {
+  .input_form {
     width: 100%;
     text-align: left;
     padding: 10px;
@@ -30,6 +29,21 @@
     border: none;
     margin-top: 10px;
     margin-bottom: 20px;
+  }
+
+  input[for="search"]{
+    /* padding:5px; */
+    width: 100%;
+    text-align: left;
+    padding: 10px;
+    border-radius: 10px;
+    /* box-shadow: 5px 5px 15px #cfcfcf, 
+                -5px -5px 15px #ffffff; */
+    border: none;
+    margin-top: 10px;
+    margin-bottom: 20px;
+    background-color: #e5e2e2;
+    
   }
 
   button {
