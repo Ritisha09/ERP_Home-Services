@@ -94,10 +94,11 @@
     transition: 0.5s;
     border-radius: 0.25em;
     cursor: pointer;
+    margin-bottom: 10px;
 }
 
 .login_button:hover {
-    transform: scale(1.25);
+    transform: scale(1);
 }
 
 .text {
