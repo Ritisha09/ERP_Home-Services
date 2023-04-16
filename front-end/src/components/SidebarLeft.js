@@ -10,10 +10,10 @@ const SidebarLeft = () => {
                 <button className="navbar-toggler ms-n2" type="button" data-bs-toggle="collapse" data-bs-target="#sidebarCollapse" aria-controls="sidebarCollapse" aria-expanded="false" aria-label="Toggle navigation">
                     <span className="navbar-toggler-icon"></span>
                 </button>
-                <a className="navbar-brand " href="#">
-                    <img src={skylink} alt='Company Logo' width={150} height={100} />
-                </a>
-                                            
+                <a className="navbar-image" href="#">
+                    <img src={skylink} alt='Company Logo' />
+                </a>    
+                <hr />      
                 <div className="navbar-user">
                     <div className="dropdown">
                         <a href="#" id="sidebarAvatar" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
