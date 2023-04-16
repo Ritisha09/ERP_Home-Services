@@ -7,6 +7,19 @@ function Inventform() {
 
   const [error, setError] = useState("");
 
+  // async function fetchId() {
+  //   try {
+  //     const response = await axios.get("http://localhost:5000/get-inventId");
+  //     console.log(response.data);
+  //     setInventoryData(response.data);
+  //     setOriginalInventoryData(response.data);
+  //   } catch (error) {
+  //     console.error("Failed to fetch inventory data:", error);
+
+  //     console.log(error);
+  //   }
+  // }
+
   const submitHandler = async (e) => {
     e.preventDefault();
     console.log('2');
