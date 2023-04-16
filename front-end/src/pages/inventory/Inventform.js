@@ -62,12 +62,12 @@ function Inventform() {
 
           <form className="neumorphic-form" onSubmit = {submitHandler}>
             <label for="name">Component Name:</label>
-            <input type="text" id="name" name="name"  required />
+            <input className = "input_form" type="text" id="name" name="name"  required />
             <label for="quantity">Quantity:</label>
-            <input type="number" id="quantity" name="quantity" required/>
+            <input className = "input_form" type="number" id="quantity" name="quantity" required/>
 
             <label for="price">Price of Each:</label>
-            <input type="number" id="price" name="price" required/>
+            <input className = "input_form" type="number" id="price" name="price" required/>
             <button type="submit" value='submit' >Submit</button>
             <p style={{ color: 'brown' }}>{error}</p>
         </form>

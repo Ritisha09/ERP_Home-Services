@@ -42,11 +42,11 @@ function Main() {
                            <table className="table table-hover table-nowrap">
                                <thead className="thead-light">
                                    <tr>
-                                       <th scope="col">Complaint</th>
-                                       <th scope="col">Status</th>
-                                       <th scope="col">Date of Opening</th>
-                                       <th scope="col">Date of Closing</th>
-                                       <th scope="col">Bill Amount</th>
+                                       <th scope="col"><b>Complaint</b></th>
+                                       <th scope="col"><b>Status</b></th>
+                                       <th scope="col"><b>Date of Opening</b></th>
+                                       <th scope="col"><b>Date of Closing</b></th>
+                                       <th scope="col"><b>Bill Amount</b></th>
                                        <th></th>
                                    </tr>
                                </thead>

@@ -131,6 +131,7 @@ function Main() {
                 <form onSubmit={handleSearchSubmit} style={{ display: "flex" }}>
                   <input
                     type="text"
+                    for = "search"
                     placeholder="Search Inventory"
                     value={searchTerm}
                     onChange={handleSearch}
@@ -198,9 +199,9 @@ function Main() {
               <table className="table table-hover table-nowrap">
                 <thead className="thead-light">
                   <tr>
-                    <th scope="col">Component Name</th>
-                    <th scope="col">Count</th>
-                    <th scope="col">Price</th>
+                    <th scope="col"><b>Component Name</b></th>
+                    <th scope="col"><b>Count</b></th>
+                    <th scope="col"><b>Price</b></th>
                     <th></th>
                   </tr>
                 </thead>

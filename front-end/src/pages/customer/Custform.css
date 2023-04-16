@@ -19,10 +19,7 @@
     display: list-item;
   }
 
-  input[type="text"],
-  input[type="file"],
-  input[type="tel"],
-  input[type="email"] {
+  .input_form {
     width: 100%;
     text-align: left;
     padding: 10px;
@@ -34,13 +31,19 @@
     margin-bottom: 20px;
   }
 
+  input[for="search"]{
+    padding:5px;
+    background-color: #e5e2e2;
+    
+  }
+
   button {
     background-color: #f2f2f2;
     
     border-radius: 20px;
     padding: 10px 20px;
-    /* box-shadow: 5px 5px 15px #cfcfcf, 
-                -5px -5px 15px #ffffff; */
+    box-shadow: 5px 5px 15px #cfcfcf, 
+                -5px -5px 15px #ffffff;
     
     cursor: pointer;
   }
@@ -49,6 +52,7 @@
     background-color: #e6e6e6;
   }
 
+  /* Modal style */
   .modal_form{
     background-color: #eaedf3;
     padding: 20px 30px;
@@ -73,8 +77,8 @@
     
     border-radius: 20px;
     padding: 10px 20px;
-    /* box-shadow: 5px 5px 15px #cfcfcf, 
-                -5px -5px 15px #ffffff; */
+    box-shadow: 5px 5px 15px #cfcfcf, 
+                -5px -5px 15px #ffffff;
     width: 100px;
     cursor: pointer;
   }
@@ -97,4 +101,33 @@
     border-radius: 10px;
     border: none;
     height: 30px;
+  }
+
+  .modal_select{
+    width: 100%;
+    text-align: left;
+    padding: 10px;
+    border-radius: 10px;
+    border: none;
+    margin-top: 10px;
+    margin-bottom: 20px;
+  }
+
+  .filter_input{
+    text-align: left;
+    /* padding: 10px; */
+    border-radius: 10px;
+    background-color: #e5e2e2;
+    border: none;
+    height: 30px;
+  }
+
+  .filter_select{
+    text-align: left;
+    /* padding: 10px; */
+    border-radius: 10px;
+    border: none;
+    height: 30px;
+    background-color: #e5e2e2;
+    margin-bottom: 20px;
   }
