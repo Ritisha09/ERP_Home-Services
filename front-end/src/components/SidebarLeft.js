@@ -39,8 +39,13 @@ const SidebarLeft = () => {
                             </a>
                         </li>
                         <li className="nav-item">
-                            <a className="nav-link" href="/Employee_details">
+                            <a className="nav-link" href="/employee_details">
                                 <i className="bi bi-people"></i> Employee Details
+                            </a>
+                        </li>
+                        <li className="nav-item">
+                            <a className="nav-link" href="/customer_details">
+                                <i className="bi bi-people"></i> Customer Details
                             </a>
                         </li>
                         <li className="nav-item">

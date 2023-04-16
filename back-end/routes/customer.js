@@ -47,5 +47,54 @@ app.get('/get-customer' , async (req,res) => {
     }
 });
 
+app.post('/update-customer', async (req, res) => {
+    const custId = req.query.custId;
+    const {custName,phone,streetaddress,area,zipCode} = req.body;
+  
+  try {
+    // Check if item exists in inventory
+    const customer = await Customer.findOne({_id: custId});
+    console.log(customer);
+  
+    if (!customer) {
+      return res.status(404).json({error: 'Customer not found'});
+    }
+    customer.name = custName;
+    customer.phone = phone;
+    customer.streetaddress = streetaddress;
+    customer.area = area;
+    customer.zipCode = zipCode;
+    
+  
+    await customer.save();
+    res.status(200).json({message: 'Customer updated successfully'});
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({error: 'Internal server error'});
+  }
+  });
+
+app.post('/delete-customer', async (req, res) => {
+    console.log(req.query)
+    const custId = req.query.custId;
+    console.log(custId)
+  try {
+    // Check if customer exists in inventory
+    const customer = await Customer.findOne({_id: custId});
+    console.log(customer);
+    if (!customer) {
+      return res.status(404).json({error: 'customer not found'});
+    }
+
+    // Delete customer from inventory
+    await Customer.deleteOne({_id: custId});
+    // await inventory.save();
+    res.status(200).json({message: 'Customer deleted successfully'});
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({error: 'Internal server error'});
+  }
+});
+
 
 module.exports = app;

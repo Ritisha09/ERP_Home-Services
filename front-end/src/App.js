@@ -10,13 +10,14 @@ import SidebarLeft from "./components/SidebarLeft";
 import Dashboard from "./pages/dashboard/Dashboard";
 // import Dashboard from "./components/Dashboard";
 import Complaints from "./pages/complaints/Complaints";
+import Customer from "./pages/customer/Customer";
 import Signup from "./pages/auth/SignupForm";
 import Inventform from "./pages/inventory/Inventform";
 import Eform from "./pages/employeeDetails/Eform";
 import DT from "./pages/Daily_Technician_Record/DT";
-import Daybook from "./pages/Daybook/Daybook";
-import Account from "./pages/Account/Account";
-import Daybookform from "./pages/Daybook/Daybookform";
+import Daybook from "./pages/daybook/Daybook";
+import Account from "./pages/account/Account";
+import Daybookform from "./pages/daybook/Daybookform";
 
 function App() {
   return (
@@ -30,7 +31,7 @@ function App() {
         <Route exact path="/" element={<LoginForm />} /> 
         <Route exact path="/signUp" element={<Signup />} /> 
         <Route exact path="/dashboard" element={<Dashboard />} /> 
-        <Route exact path="/Employee_details" element={<Employee />} />        
+        <Route exact path="/employee_details" element={<Employee />} />        
         <Route exact path="/inventory" element={<Inventory />} />  
         <Route exact path="/Complaints" element={<Complaints />} />
         <Route exact path="/Compform" element={<Compform />} />         
@@ -39,7 +40,8 @@ function App() {
         <Route exact path="/DT" element={<DT />} />         
         <Route exact path="/Daybook" element={<Daybook />} />  
         <Route exact path="/Account" element={<Account />} />   
-        <Route exact path="/daybookform" element={<Daybookform />} />  
+        <Route exact path="/daybookform" element={<Daybookform />} />
+        <Route exact path="/customer_details" element={<Customer />} />
 
             
       </Routes>

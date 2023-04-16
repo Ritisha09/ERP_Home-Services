@@ -12,9 +12,9 @@ app.use(cors());
 // route to add in front end to call this API
 app.post('/add-daybook' , async(req,res) => {
     // getting variables from frontend
-    const {id,action,date,amount,source_destination,reason,folionum} = req.body;
+    const {id,action,date,accountNo,amount,recipient_payer,referenceNo,reason,folionum} = req.body;
 
-    let dayBookRecord = Daybook({id,action,date,amount,source_destination,reason,folionum});
+    let dayBookRecord = Daybook({id,action,date,accountNo,amount,recipient_payer,referenceNo,reason,folionum});
 
     try{
         await dayBookRecord.save();
@@ -41,7 +41,7 @@ app.get('/get-daybook' , async(req,res) => {
 
 app.post('/update-daybookRecord', async (req, res) => {
     const recordId = req.query.recordId;
-    const {action,date,amount,source_destination,reason,folionum} = req.body;
+    const {action,date,accountNo,amount,recipient_payer,referenceNo,reason,folionum} = req.body;
   
   try {
     // Check if item exists in inventory
@@ -53,8 +53,10 @@ app.post('/update-daybookRecord', async (req, res) => {
     }
     dayBookRecord.action = action;
     dayBookRecord.date = date;
+    dayBookRecord.accountNo = accountNo;
     dayBookRecord.amount = amount;
-    dayBookRecord.source_destination = source_destination;
+    dayBookRecord.recipient_payer = recipient_payer;
+    dayBookRecord.referenceNo = referenceNo;
     dayBookRecord.reason = reason;
     dayBookRecord.folionum = folionum;
   

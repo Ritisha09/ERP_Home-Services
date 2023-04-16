@@ -164,7 +164,7 @@ const filteredComplaints = complainData.filter((complain) => {
     // Reset filtered data and clear search term
     setComplainData(originalComplainData);
     setSearchTerm("");
-
+                                   
     // Filters
     setFilters({
       phone: "",
@@ -255,14 +255,14 @@ const filteredComplaints = complainData.filter((complain) => {
               <table className="table table-hover table-nowrap">
                 <thead className="thead-light">
                   <tr>
-                    <th scope="col">Mobile No</th>
-                    <th scope="col">Complaint ID</th>
-                    <th scope="col">About Complain</th>
-                    <th scope="col">Status</th>
-                    <th scope="col">Engineer Assigned</th>
-                    <th scope="col">Date of Opening</th>
-                    <th scope="col">Date of Closing</th>
-                    <th scope="col">Bill Amount</th>
+                    <th scope="col"><b>Mobile No</b></th>
+                    <th scope="col"><b>Complaint ID</b></th>
+                    <th scope="col"><b>About Complain</b></th>
+                    <th scope="col"><b>Status</b></th>
+                    <th scope="col"><b>Engineer Assigned</b></th>
+                    <th scope="col"><b>Date of Opening</b></th>
+                    <th scope="col"><b>Date of Closing</b></th>
+                    <th scope="col"><b>Bill Amount</b></th>
                     <th></th>
                   </tr>
                   <tr>
