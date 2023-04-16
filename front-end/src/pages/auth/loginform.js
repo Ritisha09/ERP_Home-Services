@@ -108,16 +108,18 @@ const LoginForm = () => {
       <div className="alt-login">
         <div className="skylink"></div>
       </div>
+      <div className = "h_login">
+        <h2>Login</h2>
+      </div>
       
-      <h2>Login</h2>
-      <input type="text1" placeholder="Username" value = {username} onChange = {handleUsernameChange}/>
-      <p className = "error">{usernameError}</p>
-      <input type="password1" placeholder="Password" value = {password} onChange = {handlePasswordChange}/>
+      <input className = "login_input" type="text" placeholder="Username" value = {username} onChange = {handleUsernameChange}/>
+        <p className = "error">{usernameError}</p>
+      <input className = "login_input" type="password" placeholder="Password" value = {password} onChange = {handlePasswordChange}/>
       <p className = "error">{passwordError}</p>
       <p style={{ color: 'brown' }}>{errorMessage}</p>
 
       
-      <button className="login-btn" onClick={popup}>
+      <button className="login_button" onClick={popup}>
       {/* <Link to = "dashboard">  */}
         Login
       {/* </Link> */}
