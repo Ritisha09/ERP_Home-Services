@@ -188,6 +188,7 @@ const filteredComplaints = complainData.filter((complain) => {
                 <form onSubmit={handleSearchSubmit} style={{ display: "flex" }}>
                   <input
                     type="text"
+                    for = "search"
                     placeholder="Search Complains"
                     value={searchTerm}
                     onChange={handleSearch}

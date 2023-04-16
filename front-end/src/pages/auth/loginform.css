@@ -49,10 +49,11 @@
 }
 
 .alt-login div {
+    margin-top: 5px;
     width: 60.5%;
     height: 118%;
     border-radius: 50%;
-    background-color: black;
+    background-color: white;
     background-position: center;
     background-size: contain;
     background-repeat: no-repeat;
@@ -64,22 +65,26 @@
     background-image: url("../../icons/skylink.jpeg");
 }
 
-input {
+.h_login{
+    margin-top: 10px;
+}
+
+.login_input {
     border: none;
     background-color: rgb(229, 226, 226);
     width: 80%;
-    height: 1%;
+    height: 0.75%;
     border-radius: 0.25em;
     text-align: center;
-    padding: 2em;
-    font-size: 0.75em;
+    padding: 1em;
+    font-size: 1em;
 }
 
-input:focus {
+.login_input:focus {
     outline-color: rgb(32, 177, 255);
 }
 
-.login-btn {
+.login_button {
     width: 40%;
     height: 3em;
     background-color: rgb(32, 177, 255);
@@ -91,7 +96,7 @@ input:focus {
     cursor: pointer;
 }
 
-.login-btn:hover {
+.login_button:hover {
     transform: scale(1.25);
 }
 

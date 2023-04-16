@@ -73,43 +73,43 @@ function Eform() {
 
           <form className="neumorphic-form" onSubmit = {submitHandler}>
             <label for="name">Name of Employee:</label>
-            <input type="text" id="name" name="name"  required />
+            <input className = "input_form" type="text" id="name" name="name"  required />
             <label for="designation">Designation:</label>
-            <input type="text" id="designation" name="designation"  required />
+            <input className = "input_form" type="text" id="designation" name="designation"  required />
             <label for="mobile">Mobile Number:</label>
-            <input type="tel" id="mobile" name="mobile" required/>
+            <input className = "input_form" type="tel" id="mobile" name="mobile" required/>
             <label for="email">Email:</label>
-            <input type="email" id="email" name="email" required/>
+            <input className = "input_form" type="email" id="email" name="email" required/>
             <label for="date-input">Joining Date:</label>
-            <input type="date" id="date-joining" name="date-joining" required/>
+            <input className = "input_form" type="date" id="date-joining" name="date-joining" required/>
 
             <label for="street-address">Street Address:</label>
-            <input type="text" id="street-address" name="street-address" required/>
+            <input className = "input_form" type="text" id="street-address" name="street-address" required/>
 
             <label for="area">Area:</label>
-            <input type="text" id="area" name="area" required/>
+            <input className = "input_form" type="text" id="area" name="area" required/>
 
             <label for="zip">Zip Code:</label>
-            <input type="text" id="zip" name="zip" required/>
+            <input className = "input_form" type="text" id="zip" name="zip" required/>
 
             {/* <label for="file">Aadhar or Any Government Proof:</label>
             <input type="file" id="file" name="file" accept=".pdf,.doc,.docx,.txt" required/> */}
 
             <label for="file">Aadhar Number</label>
-            <input type="number" id="file" name="file"  required/>
+            <input className = "input_form" type="number" id="file" name="file"  required/>
 
             <label for="bankdetails">Bank Details:</label>
             <label for="bankname">Bank Name:</label>
-            <input type="text" id="bankname" name="bankname" required/>
+            <input className = "input_form" type="text" id="bankname" name="bankname" required/>
 
             <label for="accountno">Account Number:</label>
-            <input type="text" id="accountno" name="accountno" required/>
+            <input className = "input_form" type="text" id="accountno" name="accountno" required/>
 
             <label for="accname">Account Holder Name:</label>
-            <input type="text" id="accname" name="accname" required/>
+            <input className = "input_form" type="text" id="accname" name="accname" required/>
 
             <label for="ifsc">IFSC Code:</label>
-            <input type="text" id="ifsc" name="ifsc" required/>
+            <input className = "input_form" type="text" id="ifsc" name="ifsc" required/>
 
 
             <button type="submit" value='submit' >Submit</button>

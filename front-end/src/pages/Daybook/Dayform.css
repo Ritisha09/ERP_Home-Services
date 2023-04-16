@@ -18,11 +18,7 @@ select {
   display: list-item;
 }
 
-input[type="text"],
-input[type="password"],
-input[type="tel"],
-input[type="date"],
-select[name="action"] {
+.input_form {
   width: 100%;
   text-align: left;
   padding: 10px;
@@ -33,8 +29,10 @@ select[name="action"] {
   margin-top: 10px;
   margin-bottom: 20px;
 }
+
 input[for="search"]{
-padding:5px;
+  padding:5px;
+  background-color: #e5e2e2;
 }
 
 button {

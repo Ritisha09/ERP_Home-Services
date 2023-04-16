@@ -115,23 +115,23 @@ function Compform() {
        
           <form className="neumorphic-form" onSubmit = {submitHandler}>
             <label for="date-input">Enter a date:</label>
-            <input type="date" id="date-input" name="date-input" required/>
+            <input className = "input_form" type="date" id="date-input" name="date-input" required/>
             <label for="name">Name of Customer:</label>
-            <input type="text" id="name" name="name"  required />
+            <input className = "input_form" type="text" id="name" name="name"  required />
             <label for="mobile">Mobile Number:</label>
-            <input type="tel" id="mobile" name="mobile" required/>
+            <input className = "input_form" type="tel" id="mobile" name="mobile" required/>
 
             <label for="street-address">Street Address:</label>
-            <input type="text" id="street-address" name="street-address" required/>
+            <input className = "input_form" type="text" id="street-address" name="street-address" required/>
 
             <label for="area">Area:</label>
-            <input type="text" id="area" name="area" required/>
+            <input className = "input_form" type="text" id="area" name="area" required/>
 
             <label for="zip">Zip Code:</label>
-            <input type="text" id="zip" name="zip" required/>
+            <input className = "input_form" type="text" id="zip" name="zip" required/>
 
             <label for="eng_names">Engineer Assigned to Complaint:</label>
-            <select name="eng_names" id="eng_names">
+            <select className = "input_form" name="eng_names" id="eng_names">
               {technicianData.map((item,index) =>(
                 <option value={item.name}>{item.name}</option>
               ))}
@@ -142,7 +142,7 @@ function Compform() {
             </select>
 
             <label for="problem">Nature of Problem:</label>
-            <select name="nature_of_problem" id="nature_of_problem">
+            <select className = "input_form" name="nature_of_problem" id="nature_of_problem">
               <option value="Chimney Service">Chimney Service</option>
               <option value="A.C. Service">A.C. Service</option>
               <option value="Plumber">Plumber</option>
@@ -153,17 +153,17 @@ function Compform() {
             </select>
 
             <label for="cstatus">Status of Complaint:</label>
-            <select name="cstatus" id="cstatus">
+            <select className = "input_form" name="cstatus" id="cstatus">
               <option value="Completed">Completed</option>
               <option value="Under Progress">Under Progress</option>
               <option value="Invalid">Invalid</option>
             </select>
 
             <label for="ccdate">Complaint Closing date:</label>
-            <input type="date" id="ccdate" name="ccdate" />
+            <input className = "input_form" type="date" id="ccdate" name="ccdate" />
 
             <label for="bill">Bill Amount:</label>
-            <input type="text" id="bill" name="bill" />
+            <input className = "input_form" type="text" id="bill" name="bill" />
             <button type="submit" value='submit' >Submit</button>
         </form>
           

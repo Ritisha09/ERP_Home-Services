@@ -171,6 +171,7 @@ function Main() {
                 <form onSubmit={handleSearchSubmit} style={{ display: "flex" }}>
                   <input
                     type="text"
+                    for = "search"
                     placeholder="Search Employee"
                     value={searchTerm}
                     onChange={handleSearch}
@@ -229,11 +230,11 @@ function Main() {
               <table className="table table-hover table-nowrap">
                 <thead className="thead-light">
                   <tr>
-                    <th scope="col">Name</th>
-                    <th scope="col">Date of Joining</th>
-                    <th scope="col">Address</th>
-                    <th scope="col">Contact</th>
-                    <th scope="col">Department</th>
+                    <th scope="col"><b>Name</b></th>
+                    <th scope="col"><b>Date of Joining</b></th>
+                    <th scope="col"><b>Address</b></th>
+                    <th scope="col"><b>Contact</b></th>
+                    <th scope="col"><b>Department</b></th>
                     <th></th>
                   </tr>
                 </thead>
