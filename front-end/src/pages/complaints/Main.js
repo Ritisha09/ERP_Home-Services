@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import SearchBar from "../../components/SearchBar";
 import axios from "axios";
+import "./Cform.css";
 
 import Modal from "../../components/Modal";
 
@@ -11,6 +12,39 @@ function Main() {
   const [originalComplainData, setOriginalComplainData] = useState([]);
   const [searchTerm, setSearchTerm] = useState("");
   
+  // Filters
+  const [filterComplain, setFilterComplain] = useState([]);
+
+  const [filters, setFilters] = useState({
+    phone: "",
+    serviceType: "",
+    status: "",
+    empId: "",
+    dateOpening: "",
+    dateClosing: "",
+    bill: "",
+  });
+
+  const handleFilterChange = (event) => {
+    const { name, value } = event.target;
+    setFilters((prevFilters) => ({ ...prevFilters, [name]: value }));
+
+  };
+
+const filteredComplaints = complainData.filter((complain) => {
+    // Filter the students based on the current filter values
+    return (
+        complain.phone &&
+        complain.serviceType.toLowerCase().includes(filters.serviceType.toLowerCase()) &&
+        complain.status.toLowerCase().includes(filters.status.toLowerCase()) &&
+        complain.empId.toLowerCase().includes(filters.empId.toLowerCase()) &&
+        complain.dateOpening.toLowerCase().includes(filters.dateOpening.toLowerCase()) &&
+        complain.dateClosing.toLowerCase().includes(filters.dateClosing.toLowerCase()) &&
+        complain.bill.toLowerCase().includes(filters.bill.toLowerCase())
+    );
+});
+
+  // Modal show
   const [complain, setComplain] = useState({
     phone: "",
     serviceType: "",
@@ -21,13 +55,13 @@ function Main() {
     bill: "",
   });
 
-    // Modal show
-    const [show, setShow] = useState(false);
-    const [selecedId, setSelectedId] = useState(null);
+  const [show, setShow] = useState(false);
+  const [selecedId, setSelectedId] = useState(null);
 
-    const handleInputChange = (event) => {
-        setComplain({ ...complain, [event.target.name]: event.target.value });
-    };
+
+  const handleInputChange = (event) => {
+      setComplain({ ...complain, [event.target.name]: event.target.value });
+  };
 
       // OnClick update button
   function handleClick(complain) {
@@ -130,6 +164,17 @@ function Main() {
     // Reset filtered data and clear search term
     setComplainData(originalComplainData);
     setSearchTerm("");
+
+    // Filters
+    setFilters({
+      phone: "",
+      serviceType: "",
+      status: "",
+      empId: "",
+      dateOpening: "",
+      dateClosing: "",
+      bill: "",
+      });
   };
 
   return (
@@ -153,8 +198,8 @@ function Main() {
                     style={{
                       borderRadius: "8px",
                       marginLeft: "5px",
-                      marginTop: "12px",
-                      padding: "20px 30px",
+                      marginTop: "10px",
+                      padding: "15px 30px",
                       fontSize: "15px",
                     }}
                     type="submit"
@@ -166,8 +211,8 @@ function Main() {
                     style={{
                       borderRadius: "8px",
                       marginLeft: "5px",
-                      marginTop: "12px",
-                      padding: "20px 10px",
+                      marginTop: "10px",
+                      padding: "15px 10px",
                       fontSize: "15px",
                     }}
                     onClick={handleRefresh}
@@ -212,7 +257,7 @@ function Main() {
                   <tr>
                     <th scope="col">Mobile No</th>
                     <th scope="col">Complaint ID</th>
-                    <th scope="col">About </th>
+                    <th scope="col">About Complain</th>
                     <th scope="col">Status</th>
                     <th scope="col">Engineer Assigned</th>
                     <th scope="col">Date of Opening</th>
@@ -220,9 +265,75 @@ function Main() {
                     <th scope="col">Bill Amount</th>
                     <th></th>
                   </tr>
+                  <tr>
+                    <td>
+                      <input className="filter_input" 
+                        type="text"
+                        name="phone"
+                        value={filters.phone}
+                        onChange={handleFilterChange}
+                      />
+                      </td>
+                      <td>
+                      </td>
+                      <td>
+                        <input className = "filter_input"
+                          type="text"
+                          name="serviceType"
+                          value={filters.serviceType}
+                          onChange={handleFilterChange}
+                        />
+                      </td>
+                      <td className = "filter_td">
+                        <select className = "filter_select" name ="status" id ="status" value = {filters.status} onChange={handleFilterChange}>
+                          {/* <option >All</option> */}
+                          <option value="Completed">Completed</option>
+                          <option value="Under Progress">Under Progress</option>
+                          <option value="Invalid">Invalid</option>
+                        </select>
+                        {/* <input className = "input"
+                          type="text"
+                          name="status"
+                          value={filters.status}
+                          onChange={handleFilterChange}
+                        /> */}
+                      </td>
+                      <td>
+                        <input className = "filter_input"
+                          type="text"
+                          name="empId"
+                          value={filters.empId}
+                          onChange={handleFilterChange}
+                        />
+                      </td>
+                      <td>
+                        <input className = "filter_input"
+                          type="text"
+                          name="dateOpening"
+                          value={filters.dateOpening}
+                          onChange={handleFilterChange}
+                        />
+                      </td>
+                      <td>
+                        <input className = "filter_input"
+                          type="text"
+                          name="dateClosing"
+                          value={filters.dateClosing}
+                          onChange={handleFilterChange}
+                        />
+                      </td>
+                      <td>
+                        <input className = "filter_input"
+                          type="text"
+                          name="bill"
+                          value={filters.bill}
+                          onChange={handleFilterChange}
+                        />
+                      </td>
+                  </tr>
                 </thead>
                 <tbody>
-                  {complainData.map((complain, index) => (
+                  {filteredComplaints.map((complain, index) => (
                     <tr>
                       <td>
                         {/* <img alt="..." src="https://images.unsplash.com/photo-1502823403499-6ccfcf4fb453?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=3&w=256&h=256&q=80" className="avatar avatar-sm rounded-circle me-2" /> */}
