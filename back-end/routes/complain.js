@@ -75,6 +75,25 @@ app.post('/update-complain', async (req, res) => {
   }
   });
 
+  app.put('/update-phoneComplain',async (req, res) => {
+    const {oldPhone, newPhone} = req.body;
+
+    try{
+      // check for the complain with that phone number in Complain table
+      const updateComplains = await Complaint.updateMany(
+        {phone: oldPhone},
+        {$set: {phone: newPhone}}
+      );
+      
+      res.status(200).json({
+        message: `Updated ${updateComplains.nModified} complaint(s) with new mobile number ${newPhone}`
+      });
+    }catch(error){
+      console.error(error);
+      res.status(500).json({error: 'Internal server error'});
+    }
+  })
+
   app.post('/delete-complain', async (req, res) => {
     console.log(req.query)
     const itemId = req.query.itemId;

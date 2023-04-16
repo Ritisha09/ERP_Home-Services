@@ -1,82 +1,98 @@
 import React, { useState, useEffect } from "react";
+import SearchBar from "../../components/SearchBar";
 import axios from "axios";
 import Modal from "../../components/Modal";
-import { Link } from "react-router-dom";
-
-// const main = () => {
 
 function Main() {
-  const [inventoryData, setInventoryData] = useState([]);
-
-  const [item, setitem] = useState({
-    itemName: "",
-    quantity: "",
-    price: "",
-  })
-
-  const [originalInventoryData, setOriginalInventoryData] = useState([]);
+  const [error, setError] = useState(null);
+  const [customerData, setCustomerData] = useState([]);
+  const [originalCustomerData, setOriginalCustomerData] = useState([]);
   const [searchTerm, setSearchTerm] = useState("");
 
+  // Phone update
+  const [previousPhone, setPreviousPhone] = useState("");
+  
   // Modal show
+  const [customer, setCustomer] = useState({
+    custName: "",
+    phone: "",
+    streetaddress: "",
+    area: "",
+    zipCode: "",
+  });
+
   const [show, setShow] = useState(false);
   const [selecedId, setSelectedId] = useState(null);
-  const [error, setError] = useState(null);
 
-  const handleInputChange = (event) =>{
-    setitem({ ...item, [event.target.name]: event.target.value});
+  const handleInputChange = (event) => {
+    setCustomer({ ...customer, [event.target.name]: event.target.value });
+  };
 
-  }
   // OnClick update button
-  function handleClick(item) {
-    console.log('clicked!!');
+  function handleClick(customer) {
+    console.log("clicked!!");
     setShow(true);
-    setSelectedId(item._id);
-    setitem({ ...item, itemName: item.name, quantity: item.quantity, price: item.price });
+    setSelectedId(customer._id);
+    setPreviousPhone(customer.phone);
+    setCustomer({
+      ...customer,
+      custName: customer.name,
+      phone: customer.phone,
+      streetaddress: customer.streetaddress,
+      area: customer.area,
+      zipCode: customer.zipCode,
+    });
   }
 
-  async function fetchInventory() {
+  async function fetchCustomer() {
     try {
-      const response = await axios.get("http://localhost:5000/get-inventory");
+      const response = await axios.get("http://localhost:5000/get-customer");
       console.log(response.data);
-      setInventoryData(response.data);
-      setOriginalInventoryData(response.data);
+      setCustomerData(response.data);
+      setOriginalCustomerData(response.data);
     } catch (error) {
-      console.error("Failed to fetch inventory data:", error);
-
       console.log(error);
     }
   }
 
-  async function deleteInventory(itemId) {
+  async function deleteCustomer(custId) {
     try {
       await axios.post(
-        `http://localhost:5000/delete-inventory?itemId=${itemId}`
+        `http://localhost:5000/delete-customer/?custId=${custId}`
       );
-      console.log(`Item with ID ${itemId} deleted successfully`);
+      console.log(`Item with ID ${custId} deleted successfully`);
       // Fetch updated inventory data after successful delete
-      setInventoryData(inventoryData.filter((item) => item._id !== itemId));
-      setOriginalInventoryData(
-        originalInventoryData.filter((item) => item._id !== itemId)
+      setCustomerData(customerData.filter((item) => item._id !== custId));
+      setOriginalCustomerData(
+        originalCustomerData.filter((item) => item._id !== custId)
       );
     } catch (error) {
       console.error("Error deleting item:", error);
     }
   }
 
-  // Update
   const submitHandler = async (e) => {
     e.preventDefault();
-    console.log("u");
+    console.log("emp");
 
     // const id = "1";
     try {
       const response = await axios.post(
-        `http://localhost:5000/update-inventory?itemId=${selecedId}`,
-        item
+        `http://localhost:5000/update-customer?custId=${selecedId}`,
+        customer
       );
 
       const data = response.data;
       console.log(data); // Do something with the response
+
+      if(previousPhone != customer.phone){
+        // setPreviousPhone(customer.phone)
+        const CompResponse = await axios.put(
+          `http://localhost:5000/update-phoneComplain`,
+          {oldPhone: previousPhone, newPhone: customer.phone}
+        );
+        console.log(`Updated ${CompResponse.data.message} complaint(s)`);
+      }
 
       if (response.status === 400 && data.error === "Item already exists.") {
         // setIsRegistered(true);
@@ -94,32 +110,37 @@ function Main() {
   };
 
   useEffect(() => {
-    fetchInventory();
+    fetchCustomer();
   }, []);
 
   const handleSearch = (event) => {
     setSearchTerm(event.target.value);
   };
+
   const handleSearchSubmit = (event) => {
     event.preventDefault();
-    const filteredItems = originalInventoryData.filter(
+    const filteredItems = originalCustomerData.filter(
       (item) =>
         item.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        item.quantity
+        item.streetaddress.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        item.area.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        item.phone
           .toString()
           .toLowerCase()
           .includes(searchTerm.toLowerCase()) ||
-        item.price.toString().toLowerCase().includes(searchTerm.toLowerCase())
+        item.zipCode
+          .toString()
+          .toLowerCase()
+          .includes(searchTerm.toLowerCase())
     );
-    setInventoryData(filteredItems);
+    setCustomerData(filteredItems);
   };
 
   const handleRefresh = () => {
     // Reset filtered data and clear search term
-    setInventoryData(originalInventoryData);
+    setCustomerData(originalCustomerData);
     setSearchTerm("");
   };
-
   return (
     <div>
       <header className="bg-surface-primary border-bottom pt-6">
@@ -127,11 +148,11 @@ function Main() {
           <div className="mb-npx">
             <div className="row align-items-center">
               <div className="col-sm-6 col-12 mb-4 mb-sm-0">
-                <h1 className="h2 mb-0 ls-tight">Inventory</h1>
+                <h1 className="h2 mb-0 ls-tight">Customers Details</h1>
                 <form onSubmit={handleSearchSubmit} style={{ display: "flex" }}>
                   <input
                     type="text"
-                    placeholder="Search Inventory"
+                    placeholder="Search Customer"
                     value={searchTerm}
                     onChange={handleSearch}
                     style={{ marginRight: "10px" }}
@@ -168,22 +189,13 @@ function Main() {
               <div className="col-sm-6 col-12 text-sm-end">
                 <div className="mx-n1">
                   <a
-                    href="#"
-                    className="btn d-inline-flex btn-sm btn-neutral border-base mx-1"
+                    href="/Eform"
+                    className="btn d-inline-flex btn-sm btn-primary mx-1"
                   >
                     <span className=" pe-2">
                       <i className="bi bi-pencil"></i>
                     </span>
-                    <span>Edit</span>
-                  </a>
-                  <a
-                    href="/Inventform"
-                    className="btn d-inline-flex btn-sm btn-primary mx-1"
-                  >
-                    <span className=" pe-2">
-                      <i className="bi bi-plus"></i>
-                    </span>
-                    <span>Add Item</span>
+                    <span>Add Customer</span>
                   </a>
                 </div>
               </div>
@@ -198,41 +210,45 @@ function Main() {
               <table className="table table-hover table-nowrap">
                 <thead className="thead-light">
                   <tr>
-                    <th scope="col">Component Name</th>
-                    <th scope="col">Count</th>
-                    <th scope="col">Price</th>
+                    <th scope="col">Name</th>
+                    <th scope="col">Address</th>
+                    <th scope="col">Contact</th>
                     <th></th>
                   </tr>
                 </thead>
                 <tbody>
-                  {inventoryData.map((item, index) => (
-                    <tr key={index}>
+                  {customerData.map((customer, index) => (
+                    <tr>
                       <td>
+                        <img
+                          alt="..."
+                          src="https://images.unsplash.com/photo-1502823403499-6ccfcf4fb453?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=3&w=256&h=256&q=80"
+                          className="avatar avatar-sm rounded-circle me-2"
+                        />
                         <a className="text-heading font-semibold" href="#">
-                          {item.name}
+                          {customer.name}
                         </a>
                       </td>
-                      <td>{item.quantity}</td>
                       <td>
                         <a className="text-heading font-semibold" href="#">
-                          {item.price}/-
+                          {customer.streetaddress} {customer.area}{" "}
+                          {customer.zipCode}
                         </a>
                       </td>
+                      <td>{customer.phone}</td>
+                      
                       <td className="text-end">
-                        {/* <a href="#" className="btn btn-sm btn-neutral">
-                                            
-                        </a>  */}
                         <button
                           type="button"
                           className="btn btn-sm btn-square btn-neutral text-danger-hover"
-                          onClick={() => handleClick(item)}
+                          onClick={() => handleClick(customer)}
                         >
                           <i className="bi bi-pencil"></i>
                         </button>
                         <button
                           type="button"
                           className="btn btn-sm btn-square btn-neutral text-danger-hover"
-                          onClick={() => deleteInventory(item._id)}
+                          onClick={() => deleteCustomer(customer._id)}
                         >
                           <i className="bi bi-trash"></i>
                         </button>
@@ -247,49 +263,31 @@ function Main() {
         <Modal
           show={show}
           onClose={() => setShow(false)}
-          height={380}
-          width={450}
-          // itemName={item.name}
-          // quantity={item.quantity}
-          // price={item.price}
+          height={500}
+          width={550}
         >
           <form className="modal_form" onSubmit={submitHandler}>
-            <label className="modal_label" for="name">
-              Component Name:
-            </label>
-            <input
-              className="modal_input"
-              type="text"
-              id="name"
-              name="itemName"
-              value = {item.itemName}
-              onChange = {(event) =>handleInputChange(event)}
-              required
+            <label className="modal_label" for="name">Name of Customer:</label>
+            <input className="modal_input" type="text" id="name" name="custName" value={customer.custName}
+                onChange={(event) => handleInputChange(event)} required
             />
-            <label className="modal_label" for="quantity">
-              Quantity:
-            </label>
-            <input
-              className="modal_input"
-              type="number"
-              id="quantity"
-              name="quantity"
-              value={item.quantity}
-              onChange = {(event) =>handleInputChange(event)}
-              required
+            <label className="modal_label" for="phone">Mobile Number:</label>
+            <input className="modal_input" type="tel" id="phone" name="phone" value={customer.phone}
+                onChange={(event) => handleInputChange(event)} required
             />
-            <label className="modal_label" for="price">
-              Price of Each:
-            </label>
-            <input
-              className="modal_input"
-              type="number"
-              id="price"
-              name="price"
-              value = {item.price}
-              onChange = {(event) =>handleInputChange(event)}
-              required
+            <label className="modal_label" for="street-address">Street Address:</label>
+            <input className="modal_input" type="text" id="street-address" name="streetaddress" value={customer.streetaddress}
+                onChange={(event) => handleInputChange(event)} required
             />
+            <label className="modal_label" for="area">Area:</label>
+            <input className="modal_input" type="text" id="area" name="area" value={customer.area}
+                onChange={(event) => handleInputChange(event)} required
+            />
+            <label className="modal_label" for="zip">Zip Code:</label>
+            <input className="modal_input" type="text" id="zip" name="zipCode" value={customer.zipCode}
+                onChange={(event) => handleInputChange(event)} required
+            />
+
             <div className="button">
               <button className="modal_button" type="submit" value="submit">
                 Submit
