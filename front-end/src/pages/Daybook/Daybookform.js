@@ -13,8 +13,10 @@ function Daybookform() {
     const id = "1";
     const action = document.getElementById('action').value;
     const date = document.getElementById('date').value;
+    const accountNo = document.getElementById('accountNo').value;
     const amount = document.getElementById('amount').value;
-    const source_destination = document.getElementById('source_destination').value;
+    const recipient_payer = document.getElementById('recipient_payer').value;
+    const referenceNo = document.getElementById('referenceNo').value;
     const reason = document.getElementById('reason').value;
     const folionum = document.getElementById('folionum').value;
     try {
@@ -23,13 +25,13 @@ function Daybookform() {
         headers: {
           'Content-Type': 'application/json'
         },
-        body: JSON.stringify({id, action, date, amount, source_destination, reason, folionum})
+        body: JSON.stringify({id, action,date,accountNo,amount,recipient_payer,referenceNo,reason,folionum})
       });
 
       const data = await response.json();
       console.log(data); // Do something with the response
 
-      if(response.status === 400 && data.error === "Item already exists."){
+      if(response.status === 400 && data.error === "Record already exists."){
         // setIsRegistered(true);
         setError(data.error);
       }else{
@@ -64,7 +66,7 @@ function Daybookform() {
 
           <form className="neumorphic-form" onSubmit = {submitHandler}>
             <label for="date-input">Enter a date:</label>
-            <input type="date" id="date" name="date-input" required/>
+            <input type="date" id="date" name="date" required/>
             <label for="amtrec">Money Recieved/Paid:</label>
                 <select name="action" id="action">
                 <option value="Recieved">Recieved</option>
@@ -72,8 +74,12 @@ function Daybookform() {
                 </select>
             <label for="date-input">Amount:</label>
             <input type="text" id="amount" name="amount" required/>
-            <label for="moneyrf">Money Recieved/Paid from/to:</label>
-            <input type="text" id="source_destination" name="source_destination"  required />
+            <label for="moneyrf">Recipient/Payer:</label>
+            <input type="text" id="recipient_payer" name="recipient_payer"  required />
+            <label for="moneyrf">Account Number:</label>
+            <input type="text" id="accountNo" name="accountNo"   />
+            <label for="moneyrf">Reference Number:</label>
+            <input type="text" id="referenceNo" name="referenceNo"  />
             <label for="reason">Reason:</label>
             <input type="text" id="reason" name="reason"  required />
             <label for="folionum">Folio Number:</label>

@@ -5,7 +5,6 @@ const daybookSchema = new mongoose.Schema(
         id:{
             type:String,
             required: true,
-
         },
         action: {
             type:String,
@@ -16,20 +15,27 @@ const daybookSchema = new mongoose.Schema(
             required: true,
 
         },
+        accountNo:{
+            type: Number,
+            required: false,
+        },
         amount:{
             type:String,
             required: true,
 
         },
-        source_destination:{
+        recipient_payer:{
             type:String,
             required: true,
 
         },
+        referenceNo:{
+            type: String,
+            required: false,
+        },
         reason:{
             type:String,
             required: true,
-
         },
         folionum:{
             type:Number,

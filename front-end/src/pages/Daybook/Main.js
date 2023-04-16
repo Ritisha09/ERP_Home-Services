@@ -13,8 +13,10 @@ function Main() {
   const [record, setRecord] = useState({
     action: "",
     date: "",
+    accountNo:"",
     amount: "",
-    source_destination: "",
+    recipient_payer: "",
+    referenceNo: "",
     reason: "",
     folionum: "",
   });
@@ -48,8 +50,10 @@ function Main() {
       ...record,
       action: record.action,
       date: record.date,
+      accountNo: record.accountNo,
       amount: record.amount,
-      source_destination: record.source_destination,
+      recipient_payer: record.recipient_payer,
+      referenceNo: record.referenceNo,
       reason: record.reason,
       folionum: record.folionum,
     });
@@ -284,11 +288,23 @@ function Main() {
               <table className="table table-hover table-nowrap">
                 <thead className="thead-light">
                   <tr>
+                  <th scope="col">
+                      <b>S.No</b>
+                    </th>
+                    <th scope="col">
+                      <b>Date</b>
+                    </th>
                     <th scope="col">
                       <b>Amount Recieved/Paid</b>
                     </th>
                     <th scope="col">
-                      <b>Recieved from/Paid to</b>
+                      <b>Account Number</b>
+                    </th>
+                    <th scope="col">
+                      <b>Recipient/Payer</b>
+                    </th>
+                    <th scope="col">
+                      <b>Reference No</b>
                     </th>
                     <th scope="col">
                       <b>Reason</b>
@@ -306,6 +322,16 @@ function Main() {
                   {daybookData.map((record, index) => (
                     <tr key ={index}>
                       <td>
+                        <a className="text-heading font-semibold">
+                          {index+1}
+                        </a>
+                      </td>
+                       <td>
+                        <a className="text-heading font-semibold" >
+                          {record.date}
+                        </a>
+                      </td>
+                      <td>
                         <span className="badge badge-lg badge-dot">
                           {record.action === "Recieved" ?  (<i className="bg-success"></i>)
                           : (<i className="bg-warning"></i>)}
@@ -313,12 +339,22 @@ function Main() {
                         </span>
                       </td>
                       <td>
-                        <a className="text-heading font-semibold" href="#">
-                          {record.source_destination}
+                        <a className="text-heading font-semibold" >
+                          {record.accountNo}
                         </a>
                       </td>
                       <td>
-                        <a className="text-heading font-semibold" href="#">
+                        <a className="text-heading font-semibold" >
+                          {record.recipient_payer}
+                        </a>
+                      </td>
+                      <td>
+                        <a className="text-heading font-semibold">
+                          {record.referenceNo}
+                        </a>
+                      </td>
+                      <td>
+                        <a className="text-heading font-semibold" >
                           {record.reason}
                         </a>
                       </td>
@@ -354,24 +390,42 @@ function Main() {
           width={550}
         >
           <form className="modal_form" onSubmit={submitHandler}>
+          <label className="modal_label" for="date">Account Number:</label>
+            <input className="modal_input" type="date" id="date" name="date" value={record.date}
+              onChange={(event) => handleInputChange(event)} 
+            />
             <label className="modal_label" for="action">Recieved from/Paid to:</label>
             <select className="modal_select" name="action" id="action" value={record.action} onChange={(event) => handleInputChange(event)}>
               <option value="Recieved">Recieved</option>
               <option value="Paid">Paid</option>
             </select>
-            <label className="modal_label" for="source_destination">Recieved form/Paid to:</label>
-            <input className="modal_input" type="text" id="source_destination" name="source_destination" value={record.source_destination} 
+
+            <label className="modal_label" for="amount">Amount:</label>
+            <input className="modal_input" type="text" id="amount" name="amount" value={record.amount}
+              onChange={(event) => handleInputChange(event)} 
+            />
+
+            <label className="modal_label" for="recipient_payer">Recipient/Payer:</label>
+            <input className="modal_input" type="text" id="recipient_payer" name="recipient_payer" value={record.recipient_payer} 
               onChange={(event) => handleInputChange(event)} required
             />
+
+            <label className="modal_label" for="accountNo">Account Number:</label>
+            <input className="modal_input" type="text" id="accountNo" name="accountNo" value={record.accountNo}
+              onChange={(event) => handleInputChange(event)} 
+            />
+
+            <label className="modal_label" for="referenceNo">Reference Number:</label>
+            <input className="modal_input" type="text" id="referenceNo" name="referenceNo" value={record.referenceNo}
+              onChange={(event) => handleInputChange(event)} 
+            />
+
             <label className="modal_label" for="reason">Reason</label>
             <input className="modal_input" type="text" id="reason" name="reason" value={record.reason}
               onChange={(event) => handleInputChange(event)} required
             />
            
-            <label className="modal_label" for="amount">Amount:</label>
-            <input className="modal_input" type="text" id="amount" name="amount" value={record.amount}
-              onChange={(event) => handleInputChange(event)} 
-            />
+           
 
             <label className="modal_label" for="folionum">Folio No:</label>
             <input className="modal_input" type="text" id="folionum" name="folionum" value={record.folionum}
