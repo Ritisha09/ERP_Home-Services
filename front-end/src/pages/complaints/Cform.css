@@ -74,7 +74,7 @@
   }
 
   .modal_button {
-    background-color: #efebeb;
+    background-color: #d5d0d0;
     
     border-radius: 20px;
     padding: 10px 20px;
@@ -85,7 +85,7 @@
   }
 
   .modal_button:hover{
-    background-color: #d5d0d0;
+    background-color: #c5b8b8;
   }
 
   .modal_label {
@@ -102,6 +102,8 @@
     border-radius: 10px;
     border: none;
     height: 30px;
+    margin-bottom: 20px;
+    background-color: #e5e2e2; ;
   }
 
   .modal_select{
@@ -110,8 +112,8 @@
     padding: 10px;
     border-radius: 10px;
     border: none;
-    margin-top: 10px;
     margin-bottom: 20px;
+    background-color: #e5e2e2;
   }
 
   .filter_input{
@@ -130,5 +132,5 @@
     border: none;
     height: 30px;
     background-color: #e5e2e2;
-    margin-bottom: 20px;
+    /* margin-bottom: 10px; */
   }
