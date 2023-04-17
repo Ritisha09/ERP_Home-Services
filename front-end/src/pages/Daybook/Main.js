@@ -133,6 +133,11 @@ function Main() {
     setSearchTerm("");
   };
 
+  const currentDate = new Date();
+  const [day, setDay] = useState(currentDate.getDate());
+  const [month, setMonth] = useState(currentDate.toLocaleString("en-us", { month: "long" }));
+  const [year, setYear] = useState(currentDate.getFullYear());
+
   return (
     <div>
       <header className="bg-surface-primary border-bottom pt-6">
@@ -198,11 +203,11 @@ function Main() {
       </header>
       <main className="py-6 bg-surface-secondary">
         <div className="container-fluid">
-          <div class="date-card">
-            <div class="day">21</div>
+          <div className="date-card">
+            <div className="day">{day}</div>
             <div>
-              <div class="month">September</div>
-              <div class="year">2017</div>
+              <div className="month">{month}</div>
+              <div className="year">{year}</div>
             </div>
           </div>
           <div className="row g-6 mb-6">
