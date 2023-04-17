@@ -15,9 +15,9 @@ import Signup from "./pages/auth/SignupForm";
 import Inventform from "./pages/inventory/Inventform";
 import Eform from "./pages/employeeDetails/Eform";
 import DT from "./pages/Daily_Technician_Record/DT";
-import Daybook from "./pages/Daybook/Daybook";
-import Account from "./pages/Account/Account";
-import Daybookform from "./pages/Daybook/Daybookform";
+import Daybook from "./pages/daybook/Daybook";
+import Account from "./pages/account/Account";
+import Daybookform from "./pages/daybook/Daybookform";
 
 function App() {
   return (
