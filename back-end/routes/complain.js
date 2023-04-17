@@ -48,7 +48,7 @@ app.get('/get-complain' , async (req,res) => {
 });
 
 app.post('/update-complain', async (req, res) => {
-<<<<<<< HEAD
+
   const compId = req.query.compId;
   const {phone, serviceType, status, empId,dateOpening, dateClosing, bill} = req.body;
 
@@ -77,7 +77,7 @@ try {
 });
 
 app.post('/delete-complain', async (req, res) => {
-=======
+
     const compId = req.query.compId;
     const {phone, serviceType, status, empId,dateOpening, dateClosing, bill} = req.body;
   
@@ -125,7 +125,7 @@ app.post('/delete-complain', async (req, res) => {
   })
 
   app.post('/delete-complain', async (req, res) => {
->>>>>>> main
+
     console.log(req.query)
     const itemId = req.query.itemId;
     console.log(itemId)
