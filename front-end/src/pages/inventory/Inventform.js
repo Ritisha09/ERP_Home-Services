@@ -1,30 +1,37 @@
-import React, {useState} from 'react'
-import SidebarLeft from "../../components/SidebarLeft"
-import "./Iform.css"
+import React, {useState, useEffect} from 'react';
+import SidebarLeft from "../../components/SidebarLeft";
+import "./Iform.css";
+import axios from "axios";
 
 
 function Inventform() {
 
   const [error, setError] = useState("");
+  const [id, setId] = useState("item1");
 
-  // async function fetchId() {
-  //   try {
-  //     const response = await axios.get("http://localhost:5000/get-inventId");
-  //     console.log(response.data);
-  //     setInventoryData(response.data);
-  //     setOriginalInventoryData(response.data);
-  //   } catch (error) {
-  //     console.error("Failed to fetch inventory data:", error);
+  async function fetchId() {
+    try {
+      const response = await axios.get("http://localhost:5000/get-inventId");
 
-  //     console.log(error);
-  //   }
-  // }
+      // if inventory is empty assign 1 to id of first element
+      
+      console.log(response.data.length);
+      if(response.data.length != 0){
+        setId("item" + (parseInt(response.data[0]['id'].substring(4)) +1));
+        console.log(id);
+      }
+    } catch (error) {
+      console.error("Failed to fetch inventory data:", error);
+
+      console.log(error);
+    }
+  };
 
   const submitHandler = async (e) => {
     e.preventDefault();
     console.log('2');
 
-    const id = "1";
+    // const id = {id};
     const name = document.getElementById('name').value;
     const quantity = document.getElementById('quantity').value;
     const price = document.getElementById('price').value;
@@ -53,6 +60,9 @@ function Inventform() {
     }
   };
 
+  useEffect(() => {
+    fetchId();
+  })
 
   return (
     <div>
