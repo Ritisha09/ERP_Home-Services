@@ -116,5 +116,17 @@ app.post('/update-complain', async (req, res) => {
   }
 });
 
+app.get('/get-compId', async (req,res) => {
+  
+  let complains = await Complaint.find().sort([["_id", -1]]).limit(1);
+
+  try{
+      res.json(complains);
+  }catch(error){
+      console.error(error);
+      res.status(500).json({error: "Internal server error"});
+  }
+});
+
 
 module.exports = app;

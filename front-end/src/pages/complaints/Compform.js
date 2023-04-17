@@ -13,6 +13,26 @@ function Compform() {
   // To get names of technicians
   const [technicianData, setTechnicianData] = useState([]);
 
+  const [id, setId] = useState("comp1");
+
+  async function fetchId() {
+    try {
+      const response = await axios.get("http://localhost:5000/get-compId");
+
+      // if compalin is empty assign 1 to id of first complain
+      
+      console.log(response.data.length);
+      if(response.data.length != 0){
+        setId("comp" + (parseInt(response.data[0]['id'].substring(4)) +1));
+        console.log(id);
+      }
+    } catch (error) {
+      console.error("Failed to fetch inventory data:", error);
+
+      console.log(error);
+    }
+  };
+
   async function fetchEmployee(){
     try{
       const response = await axios.get('http://localhost:5000/get-employee_technician');
@@ -25,6 +45,7 @@ function Compform() {
 
   useEffect(() => {
     fetchEmployee();
+    fetchId();
   }, [])
 
 

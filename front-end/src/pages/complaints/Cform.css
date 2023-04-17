@@ -118,11 +118,12 @@
 
   .filter_input{
     text-align: left;
-    /* padding: 10px; */
+    padding: 10px;
     border-radius: 10px;
     background-color: #e5e2e2;
     border: none;
     height: 30px;
+    width: 100px;
   }
 
   .filter_select{
