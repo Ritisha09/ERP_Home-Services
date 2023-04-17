@@ -11,6 +11,7 @@
     z-index: 2000;
     position: fixed;
   }
+  
   .modals {
     /* width: 400px;
     width: 300px; */
@@ -26,7 +27,7 @@
     color: #fff;
     /* background: linear-gradient(180deg, rgba(100,92,187,1) 15%, rgba(131,124,213,1) 60%); */
   }
-
+  
   .routes {
     height: 500px;
   }
@@ -36,6 +37,7 @@
       top: 8px;
       right: 8px;
     } */
+  
   .close-container {
     position: relative;
     margin: auto;
@@ -46,7 +48,7 @@
     top: 10px;
     right: 0px;
   }
-
+  
   .leftright {
     height: 2px;
     width: 25px;
@@ -57,6 +59,7 @@
     transform: rotate(45deg);
     transition: all 0.3s ease-in;
   }
+  
   .rightleft {
     height: 2px;
     width: 25px;
@@ -67,6 +70,7 @@
     transform: rotate(-45deg);
     transition: all 0.3s ease-in;
   }
+  
 
   .close {
     margin: 60px 0 0 5px;
@@ -79,15 +83,17 @@
     transition: all 0.3s ease-in;
     opacity: 0;
   }
+  
   .close-container:hover .leftright {
     transform: rotate(-45deg);
     background-color: #f25c66;
   }
+  
   .close-container:hover .rightleft {
     transform: rotate(45deg);
     background-color: #f25c66;
   }
-
+  
   @keyframes fadeInDown {
     0% {
       opacity: 0;

@@ -288,6 +288,7 @@ const filteredComplaints = complainData.filter((complain) => {
                       <td className = "filter_td">
                         <select className = "filter_select" name ="status" id ="status" value = {filters.status} onChange={handleFilterChange}>
                           {/* <option >All</option> */}
+                          <option >Status</option>
                           <option value="Completed">Completed</option>
                           <option value="Under Progress">Under Progress</option>
                           <option value="Invalid">Invalid</option>
@@ -445,7 +446,7 @@ const filteredComplaints = complainData.filter((complain) => {
 
             <label className="modal_label" for="bill">Bill Amount:</label>
             <input className="modal_input" type="text" id="bill" name="bill" value={complain.bill}
-                onChange={(event) => handleInputChange(event)} required
+                onChange={(event) => handleInputChange(event)} 
             />
             
             <div className="button">

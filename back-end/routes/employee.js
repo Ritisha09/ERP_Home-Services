@@ -144,6 +144,18 @@ try {
   res.status(500).json({error: 'Internal server error'});
 }
 });
+
+app.get('/get-empId', async (req,res) => {
+  
+  let employee = await Employee.find().sort([["_id", -1]]).limit(1);
+
+  try{
+      res.json(employee);
+  }catch(error){
+      console.error(error);
+      res.status(500).json({error: "Internal server error"});
+  }
+});
   
 
 module.exports = app;

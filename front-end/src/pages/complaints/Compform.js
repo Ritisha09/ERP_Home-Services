@@ -13,6 +13,26 @@ function Compform() {
   // To get names of technicians
   const [technicianData, setTechnicianData] = useState([]);
 
+  const [id, setId] = useState("comp1");
+
+  async function fetchId() {
+    try {
+      const response = await axios.get("http://localhost:5000/get-compId");
+
+      // if compalin is empty assign 1 to id of first complain
+      
+      console.log(response.data.length);
+      if(response.data.length != 0){
+        setId("comp" + (parseInt(response.data[0]['id'].substring(4)) +1));
+        console.log(id);
+      }
+    } catch (error) {
+      console.error("Failed to fetch inventory data:", error);
+
+      console.log(error);
+    }
+  };
+
   async function fetchEmployee(){
     try{
       const response = await axios.get('http://localhost:5000/get-employee_technician');
@@ -25,6 +45,7 @@ function Compform() {
 
   useEffect(() => {
     fetchEmployee();
+    fetchId();
   }, [])
 
 
@@ -157,15 +178,6 @@ function Compform() {
               <option value="Completed">Completed</option>
               <option value="Under Progress">Under Progress</option>
               <option value="Invalid">Invalid</option>
-            </select>
-
-            <label for="call">Source of Call/Info:</label>
-            <select name="call" id="call">
-              <option value="Google">Google</option>
-              <option value="Whatsapp Group">Whatsapp Group</option>
-              <option value="Data Calling">Data Calling</option>
-              <option value="Just Dial">Just Dial</option>
-              <option value="Self">Self</option>
             </select>
 
             <label for="ccdate">Complaint Closing date:</label>

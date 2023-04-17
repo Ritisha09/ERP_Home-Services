@@ -1,5 +1,5 @@
 import React from 'react'
-import skylink from "../icons/Logo_SkyLink.jpg"
+import skylink from "../icons/skylink1.jpeg"
 import "./dashboard.css";
 
 const SidebarLeft = () => {

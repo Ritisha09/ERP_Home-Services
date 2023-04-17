@@ -1,17 +1,35 @@
-import React, {useState} from 'react'
+import React, {useEffect, useState} from 'react'
 import SidebarLeft from "../../components/SidebarLeft"
 import "./Eform.css"
+import axios from "axios";
 
 
 function Eform() {
 
   const [error, setError] = useState("");
+  const [id, setId] = useState("emp1");
+
+  async function fetchId() {
+    try {
+      const response = await axios.get("http://localhost:5000/get-empId");
+
+      // if employeedetails is empty assign 1 to id of first employee
+      
+      console.log(response.data.length);
+      if(response.data.length != 0){
+        setId("emp" + (parseInt(response.data[0]['id'].substring(3)) +1));
+        console.log(id);
+      }
+    } catch (error) {
+      console.error("Failed to fetch Employee data:", error);
+
+      console.log(error);
+    }
+  };
 
   const submitHandler = async (e) => {
     e.preventDefault();
-    console.log('2');
 
-    const id = "1";
     const name = document.getElementById('name').value;
     const phone = document.getElementById('mobile').value;
     const dateJoining = document.getElementById('date-joining').value;
@@ -51,6 +69,10 @@ function Eform() {
       console.log('error');
     }
   };
+
+  useEffect(() => {
+    fetchId();
+  })
 
   return (
     <div>
