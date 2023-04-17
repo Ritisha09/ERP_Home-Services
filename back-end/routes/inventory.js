@@ -95,13 +95,13 @@ app.post('/update-inventory', async (req, res) => {
 
 app.get('/get-inventId', async (req,res) => {
   // getting variables from frontend
-  let inventory = await Inventory.find().sort([("_id", -1)]).limit(1)[0];
+  let inventory = await Inventory.find().sort([["_id", -1]]).limit(1);
 
-  if(inventory===null){
-      return res.status(400).json({message: "null"});
-  }
+  // if(inventory===[]){
+  //     return res.status(400).json({message: null});
+  // }
   try{
-      res.json(inventory.id);
+      res.json(inventory);
       // res.status(201).json({message: "Inventory displayed!!"});
   }catch(error){
       console.error(error);
