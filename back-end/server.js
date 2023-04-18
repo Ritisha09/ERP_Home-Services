@@ -8,6 +8,7 @@ const custRoutes = require("././routes/customer");
 const inventRoutes = require("././routes/inventory");
 const compRoutes  = require("./routes/complain")
 const daybookRoutes = require("././routes/daybook");
+const attendanceRoutes = require("././routes/attendance");
 
 const app = express();
 
@@ -28,5 +29,6 @@ app.use("/", custRoutes);
 app.use("/", inventRoutes);
 app.use("/", compRoutes);
 app.use("/", daybookRoutes);
+app.use("/", attendanceRoutes);
 
 app.listen(PORT, console.log(`Server started at ${PORT}`));

@@ -3,7 +3,6 @@ import SidebarLeft from "../../components/SidebarLeft";
 import "./Iform.css";
 import axios from "axios";
 
-
 function Inventform() {
 
   const [error, setError] = useState("");
@@ -46,6 +45,28 @@ function Inventform() {
 
       const data = await response.json();
       console.log(data); // Do something with the response
+
+      const ans = await fetch('http://localhost:5000/add-attendance', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({date: "22-04-2023", attendanceData: [
+          {
+            "employeeId": "123",
+            "present": true,
+            "absent": false
+          },
+          {
+            "employeeId": "456",
+            "present": false,
+            "absent": true
+          }
+        ]})
+      });
+
+      const pt = await ans.json();
+      console.log(pt);
 
       if(response.status === 400 && data.error === "Item already exists."){
         // setIsRegistered(true);

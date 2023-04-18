@@ -47,6 +47,8 @@ function Main() {
     }
   }
 
+  
+
   async function deleteInventory(itemId) {
     try {
       await axios.post(
