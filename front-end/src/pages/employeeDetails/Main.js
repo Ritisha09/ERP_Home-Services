@@ -31,6 +31,9 @@ function Main() {
   const [show, setShow] = useState(false);
   const [selecedId, setSelectedId] = useState(null);
 
+  const [expand, setExpand] = useState(false);
+  const [employeeExpand, setEmployeeExpand] = useState([]);
+
   const handleInputChange = (event) => {
     setEmployee({ ...employee, [event.target.name]: event.target.value });
   };
@@ -56,7 +59,12 @@ function Main() {
       IFSCcode: employee.IFSCcode,
       designation: employee.designation,
     });
-  }
+  };
+
+  function handleExpandClick(employee){
+    setExpand(true);
+    setEmployeeExpand(employee);
+  };
 
   async function fetchEmployee() {
     try {
@@ -67,7 +75,7 @@ function Main() {
     } catch (error) {
       console.log(error);
     }
-  }
+  };
 
   async function deleteEmployee(itemId) {
     try {
@@ -83,7 +91,7 @@ function Main() {
     } catch (error) {
       console.error("Error deleting item:", error);
     }
-  }
+  };
 
   const submitHandler = async (e) => {
     e.preventDefault();
@@ -160,6 +168,7 @@ function Main() {
     setEmployeeData(originalEmployeeData);
     setSearchTerm("");
   };
+  
   return (
     <div>
       <header className="bg-surface-primary border-bottom pt-6">
@@ -253,7 +262,7 @@ function Main() {
                           src="https://images.unsplash.com/photo-1502823403499-6ccfcf4fb453?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=3&w=256&h=256&q=80"
                           className="avatar avatar-sm rounded-circle me-2"
                         />
-                        <a className="text-heading font-semibold" href="#">
+                        <a className="text-heading font-semibold" onClick={() => handleExpandClick(employee)} href="#">
                           {employee.name}
                         </a>
                       </td>
@@ -369,6 +378,30 @@ function Main() {
                 Submit
               </button>
             </div>
+          </form>
+        </Modal>
+
+        <Modal
+          show={expand}
+          onClose={() => setExpand(false)}
+          height={350}
+          width={550}
+        >
+          <form className="modal_form" >
+            <tr>
+            <label className="modal_label" ><b>Employee ID:</b> {employeeExpand.id}</label>
+            <label className="modal_label" ><b>Employee Name:</b> {employeeExpand.name}</label>
+            <label className="modal_label" ><b>Contact:</b> {employeeExpand.phone}</label>
+            <label className="modal_label" ><b>Designation:</b> {employeeExpand.designation}</label>
+            <label className="modal_label" ><b>Employee Address:</b> {employeeExpand.streetaddress} {employeeExpand.area} {employeeExpand.zipCode}</label>
+            <label className="modal_label" ><b>Email:</b> {employeeExpand.email}</label>
+            <label className="modal_label" ><b>Aadhar No:</b> {employeeExpand.aadahrNo}</label>
+            <label className="modal_label" ><b>Bank Name:</b> {employeeExpand.bankName}</label>
+            <label className="modal_label" ><b>Account No:</b> {employeeExpand.accountNo}</label>
+            <label className="modal_label" ><b>IFSC Code:</b> {employeeExpand.IFSCcode}</label>
+            
+            </tr>
+
           </form>
         </Modal>
       </main>

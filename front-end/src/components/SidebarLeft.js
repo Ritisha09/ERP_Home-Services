@@ -1,5 +1,5 @@
 import React from 'react'
-import skylink from "../icons/skylink1.jpeg"
+import skylink from "../icons/logo_skylink.jpeg"
 import "./dashboard.css";
 
 const SidebarLeft = () => {
@@ -80,7 +80,7 @@ const SidebarLeft = () => {
                             </a>
                         </li>
                         <li className="nav-item">
-                            <a className="nav-link" href="#">
+                            <a className="nav-link" href="/">
                                 <i className="bi bi-box-arrow-left"></i> Logout
                             </a>
                         </li>

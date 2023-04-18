@@ -7,7 +7,7 @@ function Attendance() {
   const [error, setError] = useState(null);
   const [employeeData, setEmployeeData] = useState([]);
   const [attendanceData, setAttendanceData] = useState([{}]);
-  const [selectedDate, setSelectedDate] = useState("");
+  const [selectedDate, setSelectedDate] = useState();
 
   const [originalEmployeeData, setOriginalEmployeeData] = useState([]);
   const [searchTerm, setSearchTerm] = useState("");
@@ -67,10 +67,10 @@ function Attendance() {
     
 
     try{
-      const date = event.target.value;
-      console.log(date);
+      setSelectedDate(event.target.value);
+      // console.log(date);
       // let dd = event.target.value;
-      setSelectedDate(date);
+      // setSelectedDate(date);
       console.log(selectedDate);
       const response = await fetchAttendanceData(event.target.value);
       
@@ -244,7 +244,8 @@ function Attendance() {
                     <span className=" pe-2">
                       {/* <i className="bi bi-pencil"></i> */}
                         Date:
-                        <input type="date" value={selectedDate} onChange={(e) => handleDateChange(e)} />
+                        <input type="date" value={selectedDate} onChange={(e) => {setSelectedDate(e.target.value);console.log(selectedDate)}} />
+                        
                     </span>
                   </a>
                 </div>

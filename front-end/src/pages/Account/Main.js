@@ -31,11 +31,10 @@ function Main() {
           <img src="https://via.placeholder.com/150" alt="Profile Picture"/>
         </div>
         <div className="profile-info">
-          <h1>Sakshi Kashyap</h1>
-          <h2>Web Developer</h2>
+          <h1>Admin</h1>
           
           <ul>
-            <li><strong>Email:</strong> sk19sakshikashyap@gmail.com</li>
+            <li><strong>Email:</strong> skylink@gmail.com</li>
             <li><strong>Phone:</strong> (123) 456-7890</li>
             <li><strong>Location:</strong> India</li>
           </ul>

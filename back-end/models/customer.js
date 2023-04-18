@@ -11,7 +11,7 @@ const custSchema = new mongoose.Schema(
             required: true,
         },
         phone: {
-            type: String,
+            type: Number,
             required: true,
         },
         streetaddress: {
